@@ -12,7 +12,7 @@ import "./style.css";
 function App() {
   return (
     <Router>
-      <Route path="/" exact component={Dashboard} />
+      <Route path="/" exact component={Splash} />
       <Route path="/Dashboard/" exact component={Dashboard} />
       <Route path="/FuelQuoteForm/" exact component={FuelQuoteForm} />
       <Route path="/FuelQuoteHistory/" exact component={FuelQuoteHistory} />
