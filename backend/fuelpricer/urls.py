@@ -1,9 +1,7 @@
 from django.urls import path
-from . import views
-
-
-app_name = 'fuelpricer'  # here for namespacing of urls.
+from .views import current_user, UserList
 
 urlpatterns = [
-    path("", views.dashboard, name="dashboard"),
+    path('current_user/', current_user),
+    path('users/', UserList.as_view())
 ]
