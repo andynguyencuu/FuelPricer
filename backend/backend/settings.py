@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'fuelpricer', # may cause error
+     # fuelpricer caused an error fixed now
 ]
 
 MIDDLEWARE = [
@@ -140,5 +140,5 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'fuelpricer.utils.jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'backend.utils.jwt_response_handler'
 }
