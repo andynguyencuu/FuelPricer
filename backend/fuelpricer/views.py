@@ -10,7 +10,10 @@ from .serializers import UserSerializer, UserSerializerWithToken
 
 
 @api_view(['GET']) #    respond only to GET requests
-def current_user(request):  # check stored token
+def current_user(request):  
+    """
+    Check for stored token
+    """
        
     serializer = UserSerializer(request.user)
     return Response(serializer.data)

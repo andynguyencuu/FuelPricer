@@ -21,7 +21,7 @@ function Registration(props) {
         <BoxHeader>
           <RegisterAccount>REGISTER ACCOUNT</RegisterAccount>
         </BoxHeader>
-        <TextUser
+        {/* <TextUser
           inputStyle="Label"
           style={{
             width: 300,
@@ -65,8 +65,10 @@ function Registration(props) {
                 button="Register"
               ></ButtonSmallBlue>
             </ButtonOverlay>
-          </Button>
-        </Link>
+          </Button> 
+        </Link>*/}
+         <Register>
+        </Register> 
       </RegisterDialog>
       <br></br>
       <Container></Container>
