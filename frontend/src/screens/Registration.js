@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import Register from "../components/Register";
 import TextUser from "../components/TextUser";
 import TextPassword from "../components/TextPassword";
 import { Link } from "react-router-dom";
@@ -13,6 +14,9 @@ function Registration(props) {
       }}
     >
       <Logo src={require("../assets/images/fuel23.png")}></Logo>
+
+      {/* move all this ↓ into Register.js component*/}
+
       <RegisterDialog>
         <BoxHeader>
           <RegisterAccount>REGISTER ACCOUNT</RegisterAccount>

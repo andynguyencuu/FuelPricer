@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import Login from "../components/Login";
 import TextUser from "../components/TextUser";
 import TextPassword from "../components/TextPassword";
 import { Link } from "react-router-dom";
@@ -14,6 +15,9 @@ function Splash(props) {
       }}
     >
       <Logo src={require("../assets/images/fuel23.png")}></Logo>
+
+      {/* move all this ↓ into Login.js component */}
+
       <SignInDialog>
         <BoxHeader>
           <Header1>ACCOUNT SIGN IN</Header1>
