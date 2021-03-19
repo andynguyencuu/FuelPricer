@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
+// import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function CalendarDeliveryDate(props) {
   return (
     <Container {...props}>
       <IconStyleRow>
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           name="calendar"
           style={{
             color: "#616161",
@@ -15,7 +15,7 @@ function CalendarDeliveryDate(props) {
             width: 32,
             marginTop: 6
           }}
-        ></FontAwesomeIcon>
+        ></FontAwesomeIcon> */}
         <InputStyle placeholder="Delivery Date"></InputStyle>
       </IconStyleRow>
     </Container>

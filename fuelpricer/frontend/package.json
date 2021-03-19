@@ -81,7 +81,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "webpack --config webpack.config.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "dev": "webpack serve"
   },
   "eslintConfig": {
     "extends": [
@@ -112,6 +113,6 @@
   },
   "homepage": "https://github.com/andynguyencuu/FuelPricer#readme",
   "devDependencies": {
-    "webpack-dev-server": "3.11.1"
+    "webpack-dev-server": "^3.11.2"
   }
 }

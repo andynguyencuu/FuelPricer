@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 
-function TextUser(props) {
+function TextPasswordConf(props) {
   return (
     <Container {...props}>
-      <InputStyle 
-      name="username"
-      placeholder={props.inputStyle || "Label"}></InputStyle>
+      <InputStyle
+        name="passwordconf"
+        type = "password"
+        secureTextEntry={true}
+        placeholder={props.inputStyle || "Password"}
+        selectTextOnFocus={true}
+      ></InputStyle>
     </Container>
   );
 }
@@ -15,8 +19,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 10px;
   background-color: rgba(230, 230, 230,1);
+  border-radius: 10px;
 `;
 
 const InputStyle = styled.input`
@@ -24,15 +28,16 @@ const InputStyle = styled.input`
   color: #000;
   margin-left: 16px;
   font-size: 18px;
+  align-self: stretch;
   flex: 1 1 0%;
   line-height: 16px;
-  font-weight: 400;
-  height: 43px;
   padding: 0px;
+  border-radius: 10px;
+  font-weight: 400;
   border: none;
   background: transparent;
   display: flex;
   flex-direction: column;
 `;
 
-export default TextUser;
+export default TextPasswordConf;

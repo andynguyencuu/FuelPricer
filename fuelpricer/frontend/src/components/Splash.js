@@ -9,22 +9,36 @@ import ButtonSmallGrey from "./ButtonSmallGrey";
 class Splash extends Component {
     constructor(props) {
         super(props);
+        this.state = { username: "", password: "" };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    handleSubmit(event) {
+        alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
+        event.preventDefault();
+    }
+
     render() {
         return (
         <Container
             style={{
                 backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
             }}
-        >
+        >//
             <Logo src={require("../assets/images/fuel23.png")}></Logo>
             <SignInDialog>
                 <BoxHeader>
                     <Header1>ACCOUNT SIGN IN</Header1>
                 </BoxHeader>
+                <form onSubmit={this.handleSubmit}>
                 <TextUser
-                    inputStyle="Label"
+                    name="username" type="text" value={this.state.username} onChange={this.handleChange}
                     style={{
                         width: 300,
                         height: 35,
@@ -33,8 +47,9 @@ class Splash extends Component {
                         marginBottom: 10
                     }}
                     inputStyle="User ID"
-                ></TextUser>
+                    ></TextUser> 
                 <TextPassword
+                   name="password" type="password" value={this.state.password} onChange={this.handleChange}
                     style={{
                         width: 300,
                         height: 35,
@@ -42,22 +57,23 @@ class Splash extends Component {
                         marginLeft: 20,
                         marginBottom: 20
                     }}
-                ></TextPassword>
-                <Link to="/Dashboard">
-                    <SignIn>
+                    ></TextPassword>
+                    <SignIn
+                    type="submit" value="Sign In">
                         <ButtonOverlay>
                             <ButtonSmallBlue
                                 style={{
-                                    width: 100,
+                                    width: 85,
                                     height: 44,
                                     margin: 0,
+                                    marginLeft: 107,
                                     marginBottom: 0
                                 }}
                                 button="Sign In"
-                            ></ButtonSmallBlue>
+                                ></ButtonSmallBlue>
                         </ButtonOverlay>
                     </SignIn>
-                </Link>
+                
                 <Link to="/Registration">
                     <Register>
                         <ButtonOverlay>
@@ -65,13 +81,15 @@ class Splash extends Component {
                                 style={{
                                     width: 100,
                                     height: 44,
-                                    margin: 0
+                                    margin: 0,
+                                    marginLeft: 100,
                                 }}
                                 caption="Register"
-                            ></ButtonSmallGrey>
+                                ></ButtonSmallGrey>
                         </ButtonOverlay>
                     </Register>
                 </Link>
+                </form>
             </SignInDialog>
             <br></br>
             <Container></Container>
@@ -137,6 +155,8 @@ const Header1 = styled.span`
 `;
 
 const SignIn = styled.div`
+  display: flex;
+  justify-content: 'center';
   flex-direction: column;
   height: 44px;
   padding: 0px;

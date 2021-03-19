@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
+
 
 function QuoteCard(props) {
   return (
@@ -14,8 +14,8 @@ function QuoteCard(props) {
         </QuotePriceStack>
       </QuoteHeader>
       <QuoteDetails>
-        <Icons>
-          <FontAwesomeIcon
+        {/* <Icons> */}
+          {/* <FontAwesomeIcon
             name="tint"
             style={{
               color: "rgba(128,128,128,1)",
@@ -42,8 +42,8 @@ function QuoteCard(props) {
               color: "rgba(128,128,128,1)",
               fontSize: 22
             }}
-          ></FontAwesomeIcon>
-        </Icons>
+          ></FontAwesomeIcon> */}
+        {/* </Icons> */}
         <Datae>
           <GallonsRequested>
             {props.gallonsRequested || "Gallons Requested"}

@@ -25,6 +25,17 @@ const Button = styled.span`
   color: #fff;
   font-size: 18px;
   font-weight: 700;
+  margin: ;
+  padding: 0px;
+  padding-right: 6px;
+  padding-left: 6px;
+  flex: 1 1 0%;
+  align-self: center;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default ButtonSmallBlue;

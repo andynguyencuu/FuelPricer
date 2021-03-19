@@ -5,6 +5,9 @@ function TextPassword(props) {
   return (
     <Container {...props}>
       <InputStyle
+        name = "password"
+        type="password"
+        secureTextEntry={true}
         placeholder={props.inputStyle || "Password"}
         selectTextOnFocus={true}
       ></InputStyle>
