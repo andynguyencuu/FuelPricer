@@ -1,7 +1,8 @@
 import React, { Component} from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import Login from "./login";
+import Splash from "./Splash";
 import Signup from "./signup";
+import "../icons.js";
 
 class App extends Component {
     render() {
@@ -10,9 +11,9 @@ class App extends Component {
                 <main>
                     <h1>Ahhh after 10,000 years I'm free. Time to conquer the Earth!</h1>
                     <Switch>
-                        <Route exact path={"/login/"} component={Login}/>
+                        <Route exact path={"/Splash/"} component={Splash}/>
                         <Route exact path={"/signup/"} component={Signup}/>
-                        <Route path={"/"} render={() => <div>Home again</div>}/>
+                        <Route path={"/"} component={Splash}/>
                    </Switch>
                </main>
             </div>

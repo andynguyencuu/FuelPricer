@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% load static %}
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'frontend/style.css' %}">
-    <title>DRF + React = Winning the game</title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Calistoga&family=Lato:wght@400;700;900&display=swap"
+    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="Fuel Pricer"
+    content="An application to generate price quotes on for our partner companies. By Andy, Alan and Tim." />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>Fuel Pricer</title>
 </head>
+
 <body>
-    <div id="root" class="content">
-        This will be the base template.
-    </div>
-    <script type="text/javascript" src="{% static 'frontend/public/main.js' %}"></script>
+  <noscript>Please enable JavaScript to run this app.</noscript>
+  <div id="root" class="content">
+      If you're reading this, something is wrong.
+  </div>
+  <script type="text/javascript" src="{% static 'frontend/public/main.js' %}"></script>
 </body>
+
 </html>
