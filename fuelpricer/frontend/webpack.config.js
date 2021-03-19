@@ -2,16 +2,19 @@ const path = require('path');
 
 module.exports = {
     mode: "development",
-    entry: path.resolve(__dirname, 'fuelpricer/frontend/src/index.js'),
+    // entry: path.resolve(__dirname, 'fuelpricer/frontend/src/index.js'),
     output: {
         // options related to how webpack emits results
 
         // where compiled files go
-        path: path.resolve(__dirname, "fuelpricer/frontend/static/frontend/public/"),
+        path: path.resolve(__dirname, "static/frontend/public/"),
 
         // 127.0.0.1/static/frontend/public/ where files are served from
         publicPath: "/static/frontend/public/",
         filename: 'main.js',  // the same one we import in index.html
+    },
+    externals: {
+        "react-native": true,
     },
     module: {
         // configuration regarding modules
@@ -26,7 +29,12 @@ module.exports = {
                     loader: "babel-loader",
                     options: {presets: ["@babel/env"]}
                 },
-            }
+            },
+            {
+            test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+            loader: 'file-loader?name=assets/[name].[hash].[ext]'
+            },
+
         ],
     },
 };
