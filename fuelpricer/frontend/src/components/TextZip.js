@@ -1,19 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function TextZip(props) {
   return (
     <Container {...props}>
-      <FontAwesomeIcon
-        name="location-arrow"
-        style={{
-          color: "#616161",
-          fontSize: 24,
-          paddingLeft: 8,
-          marginRight: 4
-        }}
-      ></FontAwesomeIcon>
       <InputStyle placeholder="Zip Code" maxLength={9}></InputStyle>
     </Container>
   );

@@ -1,20 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function TextCity(props) {
   return (
     <Container {...props}>
-      <FontAwesomeIcon
-        name="building"
-        style={{
-          color: "#616161",
-          fontSize: 20,
-          padding: 0,
-          paddingLeft: 8,
-          marginRight: 5
-        }}
-      ></FontAwesomeIcon>
       <InputStyle placeholder="City" maxLength={100}></InputStyle>
     </Container>
   );

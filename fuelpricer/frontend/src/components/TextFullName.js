@@ -1,19 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function TextFullName(props) {
   return (
     <Container {...props}>
-      <FontAwesomeIcon
-        name="user"
-        style={{
-          color: "#616161",
-          fontSize: 24,
-          paddingLeft: 8,
-          marginRight: 6
-        }}
-      ></FontAwesomeIcon>
       <InputStyle
         placeholder="Full Name"
         maxLength={50}

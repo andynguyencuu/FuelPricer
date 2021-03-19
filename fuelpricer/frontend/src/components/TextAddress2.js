@@ -1,19 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function TextAddress2(props) {
   return (
     <Container {...props}>
-      <FontAwesomeIcon
-        name="map-marker"
-        style={{
-          color: "#616161",
-          fontSize: 24,
-          paddingLeft: 8,
-          marginRight: 9
-        }}
-      ></FontAwesomeIcon>
       <InputStyle placeholder="Address Line 2" maxLength={100}></InputStyle>
     </Container>
   );

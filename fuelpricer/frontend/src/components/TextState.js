@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function TextState(props) {
   return (
     <Container {...props}>
-      <FontAwesomeIcon
-        name="map-signs"
-        style={{
-          color: "#616161",
-          fontSize: 22,
-          paddingLeft: 8
-        }}
-      ></FontAwesomeIcon>
       <InputStyle placeholder="State" maxLength={2}></InputStyle>
     </Container>
   );

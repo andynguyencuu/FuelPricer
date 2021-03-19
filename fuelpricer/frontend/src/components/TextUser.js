@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import FontAwesomeIcon from "react-native-vector-icons/dist/FontAwesome";
 
 function TextUser(props) {
   return (
     <Container {...props}>
-      <FontAwesomeIcon
-        name="user"
-        style={{
-          color: "#616161",
-          fontSize: 24,
-          paddingLeft: 8
-        }}
-      ></FontAwesomeIcon>
       <InputStyle placeholder={props.inputStyle || "Label"}></InputStyle>
     </Container>
   );
