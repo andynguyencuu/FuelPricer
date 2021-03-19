@@ -5,6 +5,7 @@ import TextPassword from "./TextPassword";
 import TextPasswordConf from "./TextPasswordConf";
 import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
+import axios from "axios";
 
 class Registration extends Component {
   constructor(props) {
@@ -24,9 +25,25 @@ class Registration extends Component {
   }
 
   handleSubmit(event) {
-      alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password + ":" + this.state.passwordconf) ;
-      event.preventDefault();
-
+    alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
+    event.preventDefault();
+    axios({
+        method: "post",
+        url: "http://localhost:8000/api/user/create/",
+        data: {username: this.state.username, password: this.state.password},
+        headers: {        
+        'Authorization': "JWT " + localStorage.getItem('access_token'),
+        'Content-Type': 'application/json',
+        'accept': 'application/json' },
+      })
+        .then(function (response) {
+          //handle success
+          console.log(response);
+        })
+        .catch(function (response) {
+          //handle error
+          console.log(response);
+        });
   }
 
   render() {

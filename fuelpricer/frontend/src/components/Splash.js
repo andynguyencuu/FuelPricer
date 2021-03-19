@@ -5,6 +5,7 @@ import TextPassword from "./TextPassword";
 import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
+import axios from 'axios';
 
 class Splash extends Component {
     constructor(props) {
@@ -19,9 +20,30 @@ class Splash extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+
+    //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
     handleSubmit(event) {
         alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
         event.preventDefault();
+        axios({
+            method: "post",
+            url: "http://localhost:8000/api/token/obtain/",
+            data: {username: this.state.username, password: this.state.password},
+            headers: {        
+            'Authorization': "JWT " + localStorage.getItem('access_token'),
+            'Content-Type': 'application/json',
+            'accept': 'application/json' },
+          })
+            .then(function (response) {
+              //handle success
+              console.log(response);
+            })
+            .catch(function (response) {
+              //handle error
+              console.log(response);
+            });
+        localStorage.setItem('access_token', data.access);
+        localStorage.setItem('refresh_token', data.refresh);
     }
 
     render() {
@@ -30,7 +52,7 @@ class Splash extends Component {
             style={{
                 backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
             }}
-        >//
+        >
             <Logo src={require("../assets/images/fuel23.png")}></Logo>
             <SignInDialog>
                 <BoxHeader>
