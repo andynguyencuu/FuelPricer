@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import ButtonBig from "../components/ButtonBig";
-import ButtonFancy from "../components/ButtonFancy";
+import ButtonBig from "./ButtonBig";
+import ButtonFancy from "./ButtonFancy";
 import { rgbToHex } from "@material-ui/core";
 
 function Dashboard(props) {

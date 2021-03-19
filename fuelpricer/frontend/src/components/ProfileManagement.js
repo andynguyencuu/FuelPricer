@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import TextFullName from "../components/TextFullName";
-import TextAddress1 from "../components/TextAddress1";
-import TextAddress2 from "../components/TextAddress2";
-import TextCity from "../components/TextCity";
-import TextState from "../components/TextState";
-import TextZip from "../components/TextZip";
+import TextFullName from "./TextFullName";
+import TextAddress1 from "./TextAddress1";
+import TextAddress2 from "./TextAddress2";
+import TextCity from "./TextCity";
+import TextState from "./TextState";
+import TextZip from "./TextZip";
 import { Link } from "react-router-dom";
-import ButtonSmallBlue from "../components/ButtonSmallBlue";
-import ButtonSmallGrey from "../components/ButtonSmallGrey";
+import ButtonSmallBlue from "./ButtonSmallBlue";
+import ButtonSmallGrey from "./ButtonSmallGrey";
 
 function ProfileManagement(props) {
   return (

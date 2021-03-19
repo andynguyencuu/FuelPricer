@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import TextUser from "../components/TextUser";
-import TextPassword from "../components/TextPassword";
+import TextUser from "./TextUser";
+import TextPassword from "./TextPassword";
 import { Link } from "react-router-dom";
-import ButtonSmallBlue from "../components/ButtonSmallBlue";
+import ButtonSmallBlue from "./ButtonSmallBlue";
 
 function Registration(props) {
   return (

@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, {Component} from "react";
+import { Switch, Route, Link } from "react-router-dom";
 import "./icons.js";
 import Dashboard from "./Dashboard";
 import FuelQuoteForm from "./FuelQuoteForm";
@@ -8,18 +8,32 @@ import ProfileManagement from "./ProfileManagement";
 import Registration from "./Registration";
 import Splash from "./Splash";
 
-function App() {
-  return (
-    <Router>
-      <Route path="/" exact component={Splash} />
-      <Route path="/Dashboard/" exact component={Dashboard} />
-      <Route path="/FuelQuoteForm/" exact component={FuelQuoteForm} />
-      <Route path="/FuelQuoteHistory/" exact component={FuelQuoteHistory} />
-      <Route path="/ProfileManagement/" exact component={ProfileManagement} />
-      <Route path="/Registration/" exact component={Registration} />
-      <Route path="/Splash/" exact component={Splash} />
-    </Router>
-  );
+class App extends Component {
+  render() {
+    return (
+  
+      <div className="site">  
+        <nav>
+          <Link className={"nav-link"} to={"/"}>Home</Link>
+          <Link className={"nav-link"} to={"/Splash/"}>Login</Link>
+          <Link className={"nav-link"} to={"/Registration/"}>Signup</Link>
+        </nav>
+        <main>
+          <Switch>
+            {/* <Route path={"/"} render={() => <div>Home again</div>} /> */}
+            <Route exact path={"/Dashboard/"} component={Dashboard} />
+            <Route exact path={"/FuelQuoteForm/"} component={FuelQuoteForm} />
+            <Route exact path={"/FuelQuoteHistory/"} component={FuelQuoteHistory} />
+            <Route exact path={"/ProfileManagement/"} component={ProfileManagement} />
+            <Route exact path={"/Registration/"} component={Registration} />
+            <Route exact path={"/Splash/"} component={Splash} />
+            <Route path={"/"} component={Splash} />
+          </Switch>
+        </main>
+      </div>
+
+    );
+  }
 }
 
 export default App;

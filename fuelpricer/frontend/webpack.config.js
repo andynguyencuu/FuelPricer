@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: "development",
-    // entry: path.resolve(__dirname, 'fuelpricer/frontend/src/index.js'),
+    entry: path.resolve('src/index.js'),
     output: {
         // options related to how webpack emits results
 

@@ -1,78 +1,90 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import TextUser from "../components/TextUser";
-import TextPassword from "../components/TextPassword";
+import TextUser from "./TextUser";
+import TextPassword from "./TextPassword";
 import { Link } from "react-router-dom";
-import ButtonSmallBlue from "../components/ButtonSmallBlue";
-import ButtonSmallGrey from "../components/ButtonSmallGrey";
+import ButtonSmallBlue from "./ButtonSmallBlue";
+import ButtonSmallGrey from "./ButtonSmallGrey";
 
-function Splash(props) {
-  return (
-    <Container
-      style={{
-        backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
-      }}
-    >
-      <Logo src={require("../assets/images/fuel23.png")}></Logo>
-      <SignInDialog>
-        <BoxHeader>
-          <Header1>ACCOUNT SIGN IN</Header1>
-        </BoxHeader>
-        <TextUser
-          inputStyle="Label"
-          style={{
-            width: 300,
-            height: 35,
-            marginRight: 20,
-            marginLeft: 20,
-            marginBottom: 10
-          }}
-          inputStyle="User ID"
-        ></TextUser>
-        <TextPassword
-          style={{
-            width: 300,
-            height: 35,
-            marginRight: 20,
-            marginLeft: 20,
-            marginBottom: 20
-          }}
-        ></TextPassword>
-        <Link to="/Dashboard">
-          <SignIn>
-            <ButtonOverlay>
-              <ButtonSmallBlue
-                style={{
-                  width: 100,
-                  height: 44,
-                  margin: 0,
-                  marginBottom: 0
-                }}
-                button="Sign In"
-              ></ButtonSmallBlue>
-            </ButtonOverlay>
-          </SignIn>
-        </Link>
-        <Link to="/Registration">
-          <Register>
-            <ButtonOverlay>
-              <ButtonSmallGrey
-                style={{
-                  width: 100,
-                  height: 44,
-                  margin: 0
-                }}
-                caption="Register"
-              ></ButtonSmallGrey>
-            </ButtonOverlay>
-          </Register>
-        </Link>
-      </SignInDialog>
-      <br></br>
-      <Container></Container>
-    </Container>
-  );
+// function Splash(props) {
+class Splash extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Container
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
+        }}
+      >
+        <Logo src={require("../assets/images/fuel23.png")}></Logo>
+        <SignInDialog>
+          <BoxHeader>
+            <Header1>ACCOUNT SIGN IN</Header1>
+          </BoxHeader>
+          <TextUser
+            inputStyle="Label"
+            style={{
+              width: 300,
+              height: 35,
+              marginRight: 20,
+              marginLeft: 20,
+              marginBottom: 10
+            }}
+            inputStyle="User ID"
+          ></TextUser>
+          <TextPassword
+            style={{
+              width: 300,
+              height: 35,
+              marginRight: 20,
+              marginLeft: 20,
+              marginBottom: 20
+            }}
+          ></TextPassword>
+          <Link to="/Dashboard">
+            <SignIn>
+              <ButtonOverlay>
+                <ButtonSmallBlue
+                  style={{
+                    width: 100,
+                    height: 44,
+                    margin: 0,
+                    marginBottom: 0
+                  }}
+                  button="Sign In"
+                ></ButtonSmallBlue>
+              </ButtonOverlay>
+            </SignIn>
+          </Link>
+          <Link to="/Registration">
+            <Register>
+              <ButtonOverlay>
+                <ButtonSmallGrey
+                  style={{
+                    width: 100,
+                    height: 44,
+                    margin: 0
+                  }}
+                  caption="Register"
+                ></ButtonSmallGrey>
+              </ButtonOverlay>
+            </Register>
+          </Link>
+        </SignInDialog>
+        <br></br>
+        <Container></Container>
+      </Container>
+    );
+  }
+
+  // )
 }
+
+// }
+// return (
 
 const Container = styled.div`
   display: flex;
