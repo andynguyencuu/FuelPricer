@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 function TextCity(props) {
   return (
     <Container {...props}>
-      <InputStyle name="city" placeholder="City" maxLength={100}></InputStyle>
+      <InputStyle value={props.value} name="city" placeholder="City" maxLength={100}></InputStyle>
     </Container>
   );
 }

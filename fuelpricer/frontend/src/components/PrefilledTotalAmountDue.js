@@ -5,7 +5,7 @@ function PrefilledTotalAmountDue(props) {
   return (
     <Container {...props}>
       <TotalAmountDue>Total Amount Due</TotalAmountDue>
-      <InputStyle name="totalamountdue" placeholder="Not Yet Generated" editable={false}></InputStyle>
+      <InputStyle value={props.value} name="totalamountdue" placeholder="Not Yet Generated" editable={false}></InputStyle>
     </Container>
   );
 }

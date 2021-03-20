@@ -5,6 +5,7 @@ function TextFullName(props) {
   return (
     <Container {...props}>
       <InputStyle
+        value={props.value}
         name="fullname"
         placeholder="Full Name"
         maxLength={50}
