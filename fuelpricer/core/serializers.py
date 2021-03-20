@@ -13,7 +13,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     address = serializers.CharField(max_length=100)
     address_2 = serializers.CharField(max_length=100)
     state = serializers.CharField(max_length=2)
-    zipcode = serializers.IntegarField(max_length=9)
+    zipcode = serializers.IntegerField()
 
     class Meta:
         model = CustomUser

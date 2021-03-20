@@ -3,6 +3,7 @@ from rest_framework import permissions, viewsets
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status, permissions
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import MyTokenObtainPairSerializer, CustomUserSerializer, FuelQuoteSerializer
@@ -28,7 +29,7 @@ class CustomUserCreate(APIView):
 
 
 class CustomUserUpdate(RetrieveUpdateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CustomUserSerializer
 
     def retrieve(self, request, *args, **kwargs):

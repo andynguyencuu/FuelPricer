@@ -111,7 +111,7 @@ class ProfileManagement extends Component {
               marginBottom: 20
             }}
           ></TextZip>
-            <UpdateProfile>
+            <UpdateProfile
              type="submit" value="Sign In">
               <ButtonOverlay>
                 <ButtonSmallBlue
