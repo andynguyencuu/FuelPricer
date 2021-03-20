@@ -30,7 +30,7 @@ class ProfileManagement extends Component {
     alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
     axios({
-      method: "post",
+      method: "put",
       url: "http://localhost:8000/api/user/update/",
       data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zip:this.state.zipcode},
       headers: {
