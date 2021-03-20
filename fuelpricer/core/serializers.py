@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, FuelQuote
 
 class CustomUserSerializer(serializers.ModelSerializer):
     """
@@ -37,3 +37,13 @@ def validate_password(self, value: str) -> str:
     Hashes passwords
     """
     return make_password(value)
+
+class FuelQuoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FuelQuote
+        fields = (
+        'amountGallons', 
+        'pricePerGallons', 
+        'dateOfQuote' ,
+        'address' 
+    )

@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from rest_framework import permissions
+from rest_framework import permissions, viewsets
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import MyTokenObtainPairSerializer, CustomUserSerializer
+from .serializers import MyTokenObtainPairSerializer, CustomUserSerializer, FuelQuoteSerializer
+from .models import FuelQuote
+
 # Create your views here.
 class ObtainTokenPairWithFullnameView(TokenObtainPairView):
     permission_classes = (permissions.AllowAny,)
@@ -28,3 +30,8 @@ class HelloWorldView(APIView):
 
     def get(self, request):
         return Response(data={"hello":"world"}, status=status.HTTP_200_OK)
+
+
+class FuelQuoteView(viewsets.ModelViewSet):
+    serializer_class = FuelQuoteSerializer
+    queryset = FuelQuote.objects.all()

@@ -36,14 +36,13 @@ class Splash extends Component {
           })
             .then(function (response) {
               //handle success
-              console.log(response);
+              //Change later
+              console.log(response);URL = "/Dashboard" 
             })
             .catch(function (response) {
               //handle error
               console.log(response);
             });
-        localStorage.setItem('access_token', data.access);
-        localStorage.setItem('refresh_token', data.refresh);
     }
 
     render() {
@@ -94,8 +93,7 @@ class Splash extends Component {
                                 button="Sign In"
                                 ></ButtonSmallBlue>
                         </ButtonOverlay>
-                    </SignIn>
-                
+                    </SignIn>     
                 <Link to="/Registration">
                     <Register>
                         <ButtonOverlay>

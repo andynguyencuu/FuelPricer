@@ -10,3 +10,9 @@ class CustomUser(AbstractUser):
     city = models.CharField(blank=True, max_length=100)
     state = models.CharField(blank=True, choices=states, max_length=2)
     zipcode = models.IntegerField(null=True, blank=True) # validate max_length in frontend - model rejects
+
+class FuelQuote(models.Model):
+    amountGallons = models.IntegerField(blank = True, null = False)
+    pricePerGallons = models.IntegerField(blank = True, null = False)
+    dateOfQuote = models.DateField(blank=True, null=False)
+    address = models.CharField(blank=True, max_length=100, null=False)
