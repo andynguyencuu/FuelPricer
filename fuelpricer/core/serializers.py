@@ -9,11 +9,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
     """
     username = serializers.CharField()
     password = serializers.CharField(min_length=8, write_only=True)
-    fullname = serializers.CharField(max_length=50)
-    address = serializers.CharField(max_length=100)
-    address_2 = serializers.CharField(max_length=100)
-    state = serializers.CharField(max_length=2)
-    zipcode = serializers.IntegerField()
+    # fullname = serializers.CharField()
+    # address = serializers.CharField()
+    # address_2 = serializers.CharField()
+    # state = serializers.CharField()
+    # zipcode = serializers.CharField()
 
     class Meta:
         model = CustomUser
@@ -28,8 +28,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
     
-    def update(self, validated_data):
-        instance = self.Meta.model(**validated_data) # not a param?
+    def update(self, instance, validated_data):
+        # instance = self.Meta.model(**validated_data) # not a param?
         for (key, value) in validated_data.items():
             setattr(instance, key, value)
         instance.save()
