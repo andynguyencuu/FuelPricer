@@ -12,28 +12,12 @@ class Dashboard extends Component {
     this.state = {
       message: "",
     };
+  }
 
-    // this.getMessage = this.getMessage.bind(this)
-
-  // }
-  //   getMessage(){
-  //     try {
-  //       let response = axiosInstance.get('/hello/');
-  //       const message = response.data.hello;
-  //       this.setState({
-  //         message: message,
-  //       });
-  //       return message;
-  //     } catch (error) {
-  //       console.log("Error: ", JSON.stringify(error, null, 4));
-  //       throw error;
-
-  // }
-}
-    // componentDidMount(){
-    //   const messageData1 = this.getMessage();
-    //   console.log("messageData1: ", JSON.stringify(messageData1, null, 4));
-    // }
+  handleSignout(event) {
+    localStorage.removeItem('refresh_token')
+    localStorage.removeItem('access_token')
+  }
 
   render() {
     return (
@@ -94,7 +78,7 @@ class Dashboard extends Component {
           </Link>
         </Navigator>
         <Link to="/Splash">
-          <Button6>
+          <Button6 onClick={this.handleSignout}>
             <ButtonOverlay>
               <ButtonFancy
                 button="Button"

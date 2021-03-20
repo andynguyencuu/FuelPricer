@@ -40,13 +40,12 @@ class ProfileManagement extends Component {
       },
     })
       .then(function (response) {
-        //handle success
-        //Change later
+        window.location.replace('http://localhost:8000/Dashboard/')
         console.log(response);
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        alert(response);
       });
   }
 
