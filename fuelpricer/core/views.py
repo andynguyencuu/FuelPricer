@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.generic.edit import UpdateView
 from rest_framework import permissions, viewsets
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -28,14 +27,19 @@ class CustomUserCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CustomUserUpdate(UpdateView):
-    model = CustomUser
-    fields = [
-        ""
-    ]
+class CustomUserUpdate(RetrieveUpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = CustomUserSerializer
 
-    def put(self, request, format='json'):
-        serializer = CustomUserSerializer
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class HelloWorldView(APIView):
 
