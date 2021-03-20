@@ -26,7 +26,6 @@ class Registration extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
     axios({           // CREATE USER
       method: "post",
       url: "http://localhost:8000/api/user/create/",

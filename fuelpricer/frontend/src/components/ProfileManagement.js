@@ -24,7 +24,6 @@ class ProfileManagement extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   componentDidMount(event) {
-
     axios({
       method: "get",
       url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
@@ -45,10 +44,9 @@ class ProfileManagement extends Component {
       });
     }
 
-
   //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
   handleSubmit(event) {
-    alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
+    // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
     axios({
       method: "put",

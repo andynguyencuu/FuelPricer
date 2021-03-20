@@ -23,7 +23,6 @@ class Splash extends Component {
 
     //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
     handleSubmit(event) {
-        alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
         event.preventDefault();
         axios({
             method: "post",
