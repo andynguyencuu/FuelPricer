@@ -38,7 +38,6 @@ class Splash extends Component {
               //handle success
               //Change later
               window.location.replace('http://localhost:8000/Dashboard/')
-              alert('We should\'ve redirected before now.')
             })
             .catch(function (response) {
               //handle error
