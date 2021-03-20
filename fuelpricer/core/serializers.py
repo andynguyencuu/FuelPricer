@@ -56,8 +56,11 @@ class FuelQuoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = FuelQuote
         fields = (
-        'amountGallons', 
-        'pricePerGallons', 
+        'gallonsRequested', 
+        'pricePerGallon', 
         'dateOfQuote' ,
-        'address' 
+        'dateRequested',
+        'address',
+        'address_2',
+        'quotePrice'
     )

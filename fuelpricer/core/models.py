@@ -12,7 +12,10 @@ class CustomUser(AbstractUser):
     zipcode = models.CharField(null=True, max_length=9, blank=True) # validate max_length in frontend - model rejects
 
 class FuelQuote(models.Model):
-    amountGallons = models.IntegerField(blank = True, null = False)
-    pricePerGallons = models.IntegerField(blank = True, null = False)
+    gallonsRequested = models.IntegerField(blank=True, null=False)
     dateOfQuote = models.DateField(blank=True, null=False)
-    address = models.CharField(blank=True, max_length=100, null=False)
+    dateRequested = models.DateField(blank=True, null=True)
+    address = models.CharField(blank=True, max_length=100, null=True)
+    address_2 = models.CharField(blank=True, max_length=100, null=True)
+    pricePerGallon = models.DecimalField(blank = True, decimal_places = 2, max_digits = 100, null = True)
+    quotePrice = models.DecimalField(blank=True, decimal_places = 2, max_digits = 100, null=True)
