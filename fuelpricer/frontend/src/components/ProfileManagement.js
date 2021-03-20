@@ -14,7 +14,7 @@ import axios from 'axios';
 class ProfileManagement extends Component {
   constructor(props) {
     super(props);
-    this.state = { fullname: "", address: "", address_2: "", city:"", st:"", zip:""};
+    this.state = { fullname: "", address: "", address_2: "", city:"", st:"", zipcode:0};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,12 +27,12 @@ class ProfileManagement extends Component {
 
   //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
   handleSubmit(event) {
-    alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zip);
+    alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
     axios({
       method: "post",
       url: "http://localhost:8000/api/user/update/",
-      data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zip:this.state.zip},
+      data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zip:this.state.zipcode},
       headers: {
         'Authorization': "JWT " + localStorage.getItem('access_token'),
         'Content-Type': 'application/json',
