@@ -23,6 +23,7 @@ class ProfileManagement extends Component {
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  
   componentDidMount(event) {
     axios({
       method: "get",
@@ -48,6 +49,8 @@ class ProfileManagement extends Component {
   handleSubmit(event) {
     // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
+    
+
     axios({
       method: "put",
       url: "http://localhost:8000/api/user/update/",
