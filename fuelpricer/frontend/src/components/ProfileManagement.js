@@ -32,7 +32,7 @@ class ProfileManagement extends Component {
     axios({
       method: "put",
       url: "http://localhost:8000/api/user/update/",
-      data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zip:this.state.zipcode},
+      data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zipcode:this.state.zipcode},
       headers: {
         'Authorization': "JWT " + localStorage.getItem('access_token'),
         'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ class ProfileManagement extends Component {
             }}
           ></TextState>
           <TextZip
-            name="zipcode" type="number" value={this.state.zipcode} onChange={this.handleChange}
+            name="zipcode" type="text" pattern="[0-9]*" value={this.state.zipcode} onChange={this.handleChange}
             style={{
               height: 35,
               width: 300,
