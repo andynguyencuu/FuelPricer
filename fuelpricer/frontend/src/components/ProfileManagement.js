@@ -9,11 +9,47 @@ import TextZip from "./TextZip";
 import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
+import axios from 'axios';
 
 class ProfileManagement extends Component {
   constructor(props) {
     super(props);
+    this.state = { fullname: "", address_1: "", address_2: "", city:"", st:"", zip:""};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+
+  //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
+  handleSubmit(event) {
+    alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address_1 + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zip);
+    event.preventDefault();
+    axios({
+      method: "put",
+      url: "http://localhost:8000/api/user/update/",
+      data: { fullname:this.state.fullname, address_1:this.state.address_1, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zip:this.state.zip},
+      headers: {
+        'Authorization': "JWT " + localStorage.getItem('access_token'),
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      },
+    })
+      .then(function (response) {
+        //handle success
+        //Change later
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+  }
+
 
   render() {
     return (

@@ -22,6 +22,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     @classmethod

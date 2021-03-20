@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import UpdateView
 from rest_framework import permissions, viewsets
 from .serializers import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -6,7 +7,7 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import MyTokenObtainPairSerializer, CustomUserSerializer, FuelQuoteSerializer
-from .models import FuelQuote
+from .models import FuelQuote, CustomUser
 
 # Create your views here.
 class ObtainTokenPairWithFullnameView(TokenObtainPairView):
@@ -25,6 +26,16 @@ class CustomUserCreate(APIView):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomUserUpdate(UpdateView):
+    model = CustomUser
+    fields = [
+        ""
+    ]
+
+    def put(self, request, format='json'):
+        serializer = CustomUserSerializer
 
 class HelloWorldView(APIView):
 
