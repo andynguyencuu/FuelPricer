@@ -42,7 +42,7 @@ class Registration extends Component {
       })
       .catch(function (response) {
         //handle error
-        console.log(response);
+        alert(response);
       });
     setTimeout(()=> axios({           // USE TO SIGN IN
       method: "post",
