@@ -29,7 +29,7 @@ class CustomUserCreate(APIView):
 
 
 class CustomUserUpdate(RetrieveUpdateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     serializer_class = CustomUserSerializer
 
     def retrieve(self, request, *args, **kwargs):

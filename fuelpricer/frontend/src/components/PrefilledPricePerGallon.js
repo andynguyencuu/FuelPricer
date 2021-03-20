@@ -5,7 +5,7 @@ function PrefilledPricePerGallon(props) {
   return (
     <Container {...props}>
       <PricePerGallon>Price Per Gallon</PricePerGallon>
-      <TextInput placeholder="Price/Gallon"></TextInput>
+      <TextInput name="pricepergallon" placeholder="Price/Gallon"></TextInput>
     </Container>
   );
 }

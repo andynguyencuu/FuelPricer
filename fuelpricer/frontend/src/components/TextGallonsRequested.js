@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 function TextGallonsRequested(props) {
   return (
     <Container {...props}>
-      <InputStyle type = "number" placeholder="Gallons Requested" maxLength={50}></InputStyle>
+      <InputStyle name="gallonsrequested" type = "number" placeholder="Gallons Requested" maxLength={50}></InputStyle>
     </Container>
   );
 }

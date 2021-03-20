@@ -5,6 +5,7 @@ function TextFullName(props) {
   return (
     <Container {...props}>
       <InputStyle
+        name="fullname"
         placeholder="Full Name"
         maxLength={50}
         autoFocus={true}

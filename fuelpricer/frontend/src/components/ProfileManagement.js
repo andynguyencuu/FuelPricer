@@ -104,7 +104,7 @@ class ProfileManagement extends Component {
             }}
           ></TextState>
           <TextZip
-            name="zipcode" type="text" value={this.state.zipcode} onChange={this.handleChange}
+            name="zipcode" type="number" value={this.state.zipcode} onChange={this.handleChange}
             style={{
               height: 35,
               width: 300,
