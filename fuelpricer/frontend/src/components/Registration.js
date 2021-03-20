@@ -25,25 +25,47 @@ class Registration extends Component {
   }
 
   handleSubmit(event) {
-    alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
     event.preventDefault();
-    axios({
-        method: "post",
-        url: "http://localhost:8000/api/user/create/",
-        data: {username: this.state.username, password: this.state.password},
-        headers: {        
+    alert('A username and password was submitted: ' + this.state.username + ":" + this.state.password);
+    axios({           // CREATE USER
+      method: "post",
+      url: "http://localhost:8000/api/user/create/",
+      data: {username: this.state.username, password: this.state.password},
+      headers: {        
         'Authorization': "JWT " + localStorage.getItem('access_token'),
         'Content-Type': 'application/json',
         'accept': 'application/json' },
       })
-        .then(function (response) {
-          //handle success
-          console.log(response);
-        })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
-        });
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+    setTimeout(()=> axios({           // USE TO SIGN IN
+      method: "post",
+      url: "http://localhost:8000/api/token/obtain/",
+      data: { username: this.state.username, password: this.state.password },
+      headers: {
+        'Authorization': "JWT " + localStorage.getItem('access_token'),
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      },
+    })
+      .then(function (response) {
+        localStorage.setItem('access_token', response.data.access);
+        localStorage.setItem('refresh_token', response.data.refresh);
+        //handle success
+        //Change later
+        window.location.replace('http://localhost:8000/Profile/')
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      }), 1000)
+
   }
 
   render() {
