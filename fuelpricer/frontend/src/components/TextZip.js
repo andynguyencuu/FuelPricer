@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 function TextZip(props) {
   return (
     <Container {...props}>
-      <InputStyle value={props.value} name="zipcode" placeholder="Zip Code" inputMode="numeric" maxLength={9}></InputStyle>
+      <InputStyle value={props.value} name="zipcode" placeholder="Zip Code*" inputMode="numeric" maxLength={9}></InputStyle>
     </Container>
   );
 }

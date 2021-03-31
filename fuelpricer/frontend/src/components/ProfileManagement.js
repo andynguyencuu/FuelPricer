@@ -49,8 +49,11 @@ class ProfileManagement extends Component {
   handleSubmit(event) {
     // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
+    if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3,6)).includes("")) {
+      alert("Please answer required (*) fields.");
+      return;
+    }
     
-
     axios({
       method: "put",
       url: "http://localhost:8000/api/user/update/",
@@ -137,9 +140,10 @@ class ProfileManagement extends Component {
               <ButtonOverlay>
                 <ButtonSmallBlue
                   style={{
-                    width: 122,
+                    width: 132,
                     height: 44,
                     marginBottom: 5,
+                    marginLeft: 63,
                     alignSelf: "center",
                     backgroundColor: "rgba(70,202,81,1)"
                   }}
@@ -154,6 +158,7 @@ class ProfileManagement extends Component {
                   width: 155,
                   height: 44,
                   marginBottom: 10,
+                  marginLeft: 50,
                   alignSelf: "center"
                 }}
                 caption="Discard Changes"

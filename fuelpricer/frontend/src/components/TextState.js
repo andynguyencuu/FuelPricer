@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 function TextState(props) {
   return (
     <Container {...props}>
-      <InputStyle value={props.value} name="st" placeholder="State" maxLength={2}></InputStyle>
+      <InputStyle value={props.value} name="st" placeholder="State*" maxLength={2}></InputStyle>
     </Container>
   );
 }

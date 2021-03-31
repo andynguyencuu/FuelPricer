@@ -7,7 +7,7 @@ function TextFullName(props) {
       <InputStyle
         value={props.value}
         name="fullname"
-        placeholder="Full Name"
+        placeholder="Full Name*"
         maxLength={50}
         autoFocus={true}
       ></InputStyle>

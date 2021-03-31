@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 function TextAddress1(props) {
   return (
     <Container {...props}>
-      <InputStyle value={props.value} name="address" placeholder="Address Line 1" maxLength={100}></InputStyle>
+      <InputStyle value={props.value} name="address" placeholder="Address Line 1*" maxLength={100}></InputStyle>
     </Container>
   );
 }
