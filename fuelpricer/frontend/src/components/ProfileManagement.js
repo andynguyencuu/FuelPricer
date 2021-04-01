@@ -9,7 +9,7 @@ import TextZip from "./TextZip";
 import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
-import axios from 'axios';
+import { axiosInstance } from "../axiosApi";
 
 class ProfileManagement extends Component {
   constructor(props) {
@@ -26,13 +26,13 @@ class ProfileManagement extends Component {
   
   async componentDidMount(event) {
     try {
-      const response = await axiosInstance.get('/user/update/', {});
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
+      const response = await axiosInstance.get('/user/update/', {method: 'get'});
       console.log(response);
       this.setState({ fullname: response.data.fullname, address: response.data.address, address_2: response.data.address_2, city: response.data.city, st: response.data.state, zipcode: response.data.zipcode });
       return data;
     } catch (err) {
-      alert(response);
+      alert(err);
     }
   }
 

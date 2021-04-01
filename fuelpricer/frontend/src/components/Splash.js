@@ -5,7 +5,6 @@ import TextPassword from "./TextPassword";
 import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
-import axios from 'axios';
 import { axiosInstance } from "../axiosApi";
 
 class Splash extends Component {
@@ -30,11 +29,10 @@ class Splash extends Component {
             username: this.state.username,
             password: this.state.password
           }, {method: 'post'});
-          axiosInstance.defaults.headers['Authorization'] = "JWT " + data.access;
-          localStorage.setItem('access_token', data.access);
-          localStorage.setItem('refresh_token', data.refresh);
+          localStorage.setItem('access_token', data.data.access);
+          localStorage.setItem('refresh_token', data.data.refresh);
+          axiosInstance.defaults.headers['Authorization'] = "JWT " + data.data.access;
           window.location.replace('http://localhost:8000/Dashboard/');
-          return data;
         } catch (err) {
           alert(err);
         }
@@ -75,7 +73,7 @@ class Splash extends Component {
                 </BoxHeader>
                 <form onSubmit={this.handleSubmit}>
                 <TextUser
-                    name="username" type="text" value={this.state.username} onChange={this.handleChange}
+                    name="username" type="text" value={this.state.username} autocomplete="username" onChange={this.handleChange}
                     style={{
                         width: 300,
                         height: 35,
@@ -86,7 +84,7 @@ class Splash extends Component {
                     inputStyle="User ID"
                     ></TextUser> 
                 <TextPassword
-                   name="password" type="password" value={this.state.password} onChange={this.handleChange}
+                   name="password" type="password" value={this.state.password} autocomplete="password" onChange={this.handleChange}
                     style={{
                         width: 300,
                         height: 35,
