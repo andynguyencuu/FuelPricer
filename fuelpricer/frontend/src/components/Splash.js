@@ -26,13 +26,14 @@ class Splash extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         try {
-          const data = await axiosInstance.post('/token/obtain', {
+          const data = await axiosInstance.post('/token/obtain/', {
             username: this.state.username,
             password: this.state.password
-          });
+          }, {method: 'post'});
           axiosInstance.defaults.headers['Authorization'] = "JWT " + data.access;
           localStorage.setItem('access_token', data.access);
           localStorage.setItem('refresh_token', data.refresh);
+          window.location.replace('http://localhost:8000/Dashboard/');
           return data;
         } catch (err) {
           alert(err);

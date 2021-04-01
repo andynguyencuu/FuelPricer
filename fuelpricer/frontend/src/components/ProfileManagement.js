@@ -24,26 +24,37 @@ class ProfileManagement extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   
-  componentDidMount(event) {
-    axios({
-      method: "get",
-      url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
-      data: {},
-      headers: {
-        'Authorization': "JWT " + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
-      },
-    })
-      .then(function (response) {
-        console.log(response);
-        this.setState({fullname: response.data.fullname, address: response.data.address, address_2: response.data.address_2, city: response.data.city, st:response.data.state, zipcode:response.data.zipcode});
-      }.bind(this))      
-      .catch(function (response) {
-        //handle error
-        alert(response);
-      });
+  async componentDidMount(event) {
+    try {
+      const response = await axiosInstance.get('/user/update/', {});
+      axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
+      console.log(response);
+      this.setState({ fullname: response.data.fullname, address: response.data.address, address_2: response.data.address_2, city: response.data.city, st: response.data.state, zipcode: response.data.zipcode });
+      return data;
+    } catch (err) {
+      alert(response);
     }
+  }
+
+    // axios({
+    //   method: "get",
+    //   url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
+    //   data: {},
+    //   headers: {
+    //     'Authorization': "JWT " + localStorage.getItem('access_token'),
+    //     'Content-Type': 'application/json',
+    //     'accept': 'application/json'
+    //   },
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //     this.setState({fullname: response.data.fullname, address: response.data.address, address_2: response.data.address_2, city: response.data.city, st:response.data.state, zipcode:response.data.zipcode});
+    //   }.bind(this))      
+    //   .catch(function (response) {
+    //     //handle error
+    //     alert(response);
+    //   });
+    // }
 
   //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
   handleSubmit(event) {
