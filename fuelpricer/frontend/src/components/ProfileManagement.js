@@ -14,7 +14,7 @@ import { axiosInstance } from "../axiosApi";
 class ProfileManagement extends Component {
   constructor(props) {
     super(props);
-    this.state = { fullname: "", address: "", address_2: "", city:"", st:"", zipcode:""};
+    this.state = { fullname: "", address: "", address_2: "", city:"", state:"", zipcode:""};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +29,7 @@ class ProfileManagement extends Component {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/user/update/', {method: 'get'});
       let prefill = response.data;
-      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, st: prefill.state, zipcode: prefill.zipcode });
+      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, state: prefill.state, zipcode: prefill.zipcode });
     } catch (err) {
       alert(err);
     }
@@ -45,7 +45,7 @@ class ProfileManagement extends Component {
     }
     try {
       const data = await axiosInstance.put('/user/update/', {
-        fullname: this.state.fullname, address: this.state.address, address_2: this.state.address_2, city: this.state.city, state: this.state.st, zipcode: this.state.zipcode
+        fullname: this.state.fullname, address: this.state.address, address_2: this.state.address_2, city: this.state.city, state: this.state.state, zipcode: this.state.zipcode
       }, { method: 'put' });
       window.location.replace('http://localhost:8000/Dashboard/');
     } catch (err) {
@@ -99,7 +99,7 @@ class ProfileManagement extends Component {
             }}
           ></TextCity>
           <TextState
-            name="st" type="text" value={this.state.st} onChange={this.handleChange}
+            name="state" type="text" value={this.state.state} onChange={this.handleChange}
             style={{
               height: 35,
               width: 300,
