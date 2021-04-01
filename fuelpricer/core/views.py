@@ -48,6 +48,16 @@ class HelloWorldView(APIView):
         return Response(data={"hello":"world"}, status=status.HTTP_200_OK)
 
 
-class FuelQuoteView(viewsets.ModelViewSet):
+class FuelQuoteView(APIView):
+    permission_classes = (permissions.AllowAny,)
     serializer_class = FuelQuoteSerializer
     queryset = FuelQuote.objects.all()
+
+    def post(self, request, format='json'):
+        serializer = FuelQuoteSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

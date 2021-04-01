@@ -8,4 +8,5 @@ urlpatterns = [
     path('token/obtain/', ObtainTokenPairWithFullnameView.as_view(), name='token_create'),  # override sjwt stock token
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('hello/', HelloWorldView.as_view(), name='hello_world'),
+    path('fuel/', FuelQuoteView.as_view(), name='fuel'),
 ]
