@@ -8,10 +8,10 @@ module.exports = {
         // options related to how webpack emits results
 
         // where compiled files go
-        path: path.resolve(__dirname, "static/frontend/public/"),
+        path: path.resolve(__dirname, "fuelpricer/frontend/static/frontend/public/"),
 
         // 127.0.0.1/static/frontend/public/ where files are served from
-        publicPath: "/static/frontend/public/",
+        publicPath: "/fuelpricer/frontend/static/frontend/public/",
         filename: 'main.js',  // the same one we import in index.html
     },
     externals: [

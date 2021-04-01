@@ -49,6 +49,7 @@ class ProfileManagement extends Component {
   handleSubmit(event) {
     // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
+    // check everything but Address 2 for empty strings
     if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3,6)).includes("")) {
       alert("Please answer required (*) fields.");
       return;
