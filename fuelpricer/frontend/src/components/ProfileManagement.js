@@ -28,9 +28,8 @@ class ProfileManagement extends Component {
     try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/user/update/', {method: 'get'});
-      console.log(response);
-      this.setState({ fullname: response.data.fullname, address: response.data.address, address_2: response.data.address_2, city: response.data.city, st: response.data.state, zipcode: response.data.zipcode });
-      return data;
+      let prefill = response.data;
+      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, st: prefill.state, zipcode: prefill.zipcode });
     } catch (err) {
       alert(err);
     }
