@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
 import axios from 'axios';
+import { axiosInstance } from "../axiosApi";
 
 class Splash extends Component {
     constructor(props) {
@@ -22,28 +23,41 @@ class Splash extends Component {
 
 
     //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-        axios({
-            method: "post",
-            url: "http://localhost:8000/api/token/obtain/",
-            data: {username: this.state.username, password: this.state.password},
-            headers: {        
-            'Authorization': "JWT " + localStorage.getItem('access_token'),
-            'Content-Type': 'application/json',
-            'accept': 'application/json' },
-          })
-            .then(function (response) {
-              localStorage.setItem('access_token', response.data.access);
-              localStorage.setItem('refresh_token', response.data.refresh);
-              //handle success
-              //Change later
-              window.location.replace('http://localhost:8000/Dashboard/')
-            })
-            .catch(function (response) {
-              //handle error
-              alert(response);
-            });
+        try {
+          const data = await axiosInstance.post('/token/obtain', {
+            username: this.state.username,
+            password: this.state.password
+          });
+          axiosInstance.defaults.headers['Authorization'] = "JWT " + data.access;
+          localStorage.setItem('access_token', data.access);
+          localStorage.setItem('refresh_token', data.refresh);
+          return data;
+        } catch (err) {
+          alert(err);
+        }
+
+        // axios({
+        //     method: "post",
+        //     url: "http://localhost:8000/api/token/obtain/",
+        //     data: {username: this.state.username, password: this.state.password},
+        //     headers: {        
+        //     'Authorization': "JWT " + localStorage.getItem('access_token'),
+        //     'Content-Type': 'application/json',
+        //     'accept': 'application/json' },
+        //   })
+        //     .then(function (response) {
+        //       localStorage.setItem('access_token', response.data.access);
+        //       localStorage.setItem('refresh_token', response.data.refresh);
+        //       //handle success
+        //       //Change later
+        //       window.location.replace('http://localhost:8000/Dashboard/')
+        //     })
+        //     .catch(function (response) {
+        //       //handle error
+        //       alert(response);
+        //     });
     }
 
     render() {

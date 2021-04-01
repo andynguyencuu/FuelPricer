@@ -151,8 +151,8 @@ class ProfileManagement extends Component {
                 ></ButtonSmallBlue>
               </ButtonOverlay>
             </UpdateProfile>
-          <DiscardChanges>
-            <ButtonOverlay onClick={() => props.history.goBack()}>
+          {/* <DiscardChanges>
+            <ButtonOverlay onClick={() => this.handleDiscard()}>
               <ButtonSmallGrey
                 style={{
                   width: 155,
@@ -164,7 +164,7 @@ class ProfileManagement extends Component {
                 caption="Discard Changes"
               ></ButtonSmallGrey>
             </ButtonOverlay>
-          </DiscardChanges>
+          </DiscardChanges> */}
         </form>
         </ProfileDialog>
         <br></br>
@@ -232,18 +232,18 @@ const Text = styled.span`
 const UpdateProfile = styled.div`
   height: 44px;
   margin: 0px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   flex-direction: column;
   display: flex;
   border: none;
 `;
 
-const DiscardChanges = styled.div`
-  height: 44px;
-  margin-bottom: 20px;
-  flex-direction: column;
-  display: flex;
-  border: none;
-`;
+// const DiscardChanges = styled.div`
+//   height: 44px;
+//   margin-bottom: 20px;
+//   flex-direction: column;
+//   display: flex;
+//   border: none;
+// `;
 
 export default ProfileManagement;
