@@ -8,7 +8,7 @@ function TextPassword(props) {
         name = "password"
         type="password"
         secureTextEntry={true}
-        placeholder={props.inputStyle || "Password"}
+        placeholder="Password"
         selectTextOnFocus={true}
       ></InputStyle>
     </Container>
@@ -38,6 +38,9 @@ const InputStyle = styled.input`
   background: transparent;
   display: flex;
   flex-direction: column;
+  &:focus {
+    outline: none; !important
+  }
 `;
 
 export default TextPassword;

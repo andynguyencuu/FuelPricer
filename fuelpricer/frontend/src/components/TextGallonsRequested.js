@@ -29,6 +29,9 @@ const InputStyle = styled.input`
   padding: 0px;
   border: none;
   background: transparent;
+  &:focus {
+    outline: none; !important
+  }
 `;
 
 export default TextGallonsRequested;

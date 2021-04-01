@@ -73,7 +73,7 @@ class Splash extends Component {
                 </BoxHeader>
                 <form onSubmit={this.handleSubmit}>
                 <TextUser
-                    name="username" type="text" value={this.state.username} autocomplete="username" onChange={this.handleChange}
+                    name="username" type="text" value={this.state.username} onChange={this.handleChange}
                     style={{
                         width: 300,
                         height: 35,
@@ -81,10 +81,9 @@ class Splash extends Component {
                         marginLeft: 20,
                         marginBottom: 10
                     }}
-                    inputStyle="User ID"
                     ></TextUser> 
                 <TextPassword
-                   name="password" type="password" value={this.state.password} autocomplete="password" onChange={this.handleChange}
+                   name="password" type="password" value={this.state.password} onChange={this.handleChange}
                     style={{
                         width: 300,
                         height: 35,

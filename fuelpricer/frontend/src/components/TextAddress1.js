@@ -32,6 +32,9 @@ const InputStyle = styled.input`
   background: transparent;
   display: flex;
   flex-direction: column;
+  &:focus {
+    outline: none; !important
+  }
 `;
 
 export default TextAddress1;

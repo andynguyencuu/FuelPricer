@@ -6,7 +6,7 @@ function TextUser(props) {
     <Container {...props}>
       <InputStyle 
       name="username"
-      placeholder={props.inputStyle || "Label"}></InputStyle>
+      placeholder="User ID"></InputStyle>
     </Container>
   );
 }
@@ -33,6 +33,11 @@ const InputStyle = styled.input`
   background: transparent;
   display: flex;
   flex-direction: column;
+  &:focus {
+    outline: none; !important
+  }
 `;
+
+
 
 export default TextUser;
