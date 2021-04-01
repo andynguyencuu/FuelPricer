@@ -20,8 +20,6 @@ class Splash extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-
-    //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
     async handleSubmit(event) {
         event.preventDefault();
         try {
@@ -36,27 +34,6 @@ class Splash extends Component {
         } catch (err) {
           alert(err);
         }
-
-        // axios({
-        //     method: "post",
-        //     url: "http://localhost:8000/api/token/obtain/",
-        //     data: {username: this.state.username, password: this.state.password},
-        //     headers: {        
-        //     'Authorization': "JWT " + localStorage.getItem('access_token'),
-        //     'Content-Type': 'application/json',
-        //     'accept': 'application/json' },
-        //   })
-        //     .then(function (response) {
-        //       localStorage.setItem('access_token', response.data.access);
-        //       localStorage.setItem('refresh_token', response.data.refresh);
-        //       //handle success
-        //       //Change later
-        //       window.location.replace('http://localhost:8000/Dashboard/')
-        //     })
-        //     .catch(function (response) {
-        //       //handle error
-        //       alert(response);
-        //     });
     }
 
     render() {

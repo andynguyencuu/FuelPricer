@@ -34,29 +34,8 @@ class ProfileManagement extends Component {
       alert(err);
     }
   }
-
-    // axios({
-    //   method: "get",
-    //   url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
-    //   data: {},
-    //   headers: {
-    //     'Authorization': "JWT " + localStorage.getItem('access_token'),
-    //     'Content-Type': 'application/json',
-    //     'accept': 'application/json'
-    //   },
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //     this.setState({fullname: response.data.fullname, address: response.data.address, address_2: response.data.address_2, city: response.data.city, st:response.data.state, zipcode:response.data.zipcode});
-    //   }.bind(this))      
-    //   .catch(function (response) {
-    //     //handle error
-    //     alert(response);
-    //   });
-    // }
-
-  //https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
-  handleSubmit(event) {
+  
+  async handleSubmit(event) {
     // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
     event.preventDefault();
     // check everything but Address 2 for empty strings
@@ -64,25 +43,14 @@ class ProfileManagement extends Component {
       alert("Please answer required (*) fields.");
       return;
     }
-    
-    axios({
-      method: "put",
-      url: "http://localhost:8000/api/user/update/",
-      data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zipcode:this.state.zipcode},
-      headers: {
-        'Authorization': "JWT " + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
-      },
-    })
-      .then(function (response) {
-        window.location.replace('http://localhost:8000/Dashboard/')
-        console.log(response);
-      })
-      .catch(function (response) {
-        //handle error
-        alert(response);
-      });
+    try {
+      const data = await axiosInstance.put('/user/update/', {
+        fullname: this.state.fullname, address: this.state.address, address_2: this.state.address_2, city: this.state.city, state: this.state.st, zipcode: this.state.zipcode
+      }, { method: 'put' });
+      window.location.replace('http://localhost:8000/Dashboard/');
+    } catch (err) {
+      alert(err);
+    }
   }
 
   render() {
