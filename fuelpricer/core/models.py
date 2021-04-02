@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     zipcode = models.CharField(null=True, max_length=9, blank=True) # validate max_length in frontend - model rejects
 
 class FuelQuote(models.Model):
+    REQUESTOR = models.OneToOneField(CustomUser, on_delete=models.CASCADE, blank=True)
     gallonsRequested = models.IntegerField(blank=True, null=False)
     dateOfQuote = models.CharField(blank=True, null=False, max_length=100)
     dateRequested = models.CharField(blank=True, null=True, max_length=100)

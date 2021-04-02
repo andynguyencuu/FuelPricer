@@ -52,19 +52,22 @@ class HelloWorldView(APIView):
 class FuelQuoteView(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = FuelQuoteSerializer
+    user_serializer_class = CustomUserSerializer
     queryset = FuelQuote.objects.all()
 
     def patch(self, request):
-        serializer = self.serializer_class(request.user)
-        print(request.data)
+        serializer = self.serializer_class(request.user) # will be used to acuire state, history presence, etc
         new_quote = Pricer(request.data['gallonsRequested'], 1.5)
         return Response(data={"generated":new_quote.generate()}, status=status.HTTP_200_OK)
     
     def post(self, request, format='json'):
         serializer = FuelQuoteSerializer(data=request.data)
         if serializer.is_valid():
-            fuel = serializer.save()
+            fuel = serializer.save(REQUESTOR=request.user)
             if fuel:
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self):
+        pass
