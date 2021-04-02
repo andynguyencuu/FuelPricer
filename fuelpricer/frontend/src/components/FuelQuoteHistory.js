@@ -3,21 +3,52 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import QuoteCard from "./QuoteCard";
+import { axiosInstance } from "../axiosApi";
 
 class FuelQuoteHistory extends Component {
   constructor(props) {
     super(props);
+    this.state = [
+      { quotePrice: 1.5, 
+        quoteCreated: "", 
+        gallonsRequested: 1, 
+        pricePerGallon: 1.50, 
+        deliveryDate: "", 
+        deliveryAddress: "" },
+    ]
   }
-
+  
   async componentDidMount(event) {
     try {
       const response = await axiosInstance.get('/quote/', { method: 'get' });
-      let prefill = response.data;
-      this.setState({ address: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
+      
+      // this.setState({ quotePrice: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
     } catch (err) {
       alert(err);
     }
   }
+  
+  makeCards() {
+    let cards = []
+    for (var i = 0; i < this.state.length; i++) {
+      let target = this.state[i];
+      console.log(target.quotePrice + '\n' + target.quoteCreated + '\n' + target.gallonsRequested + '\n' + target.pricePerGallon + '\n' + target.deliveryDate + '\n' + target.deliveryAddress)
+      cards.push(<QuoteCard
+        style={{
+          width: 400,
+          height: 214,
+          marginBottom: 15
+        }}
+        quotePrice={"$" + this.state[0].quotePrice}
+        quoteCreated={"Created" + this.state[0].quoteCreated}
+        gallonsRequested={this.state[0].gallonsRequested + " gallons"}
+        pricePerGallon={this.state[0].pricePerGallon + " per gallon"}
+        deliveryDate={this.state[0].deliveryDate}
+        deliveryAddress={this.state[0].deliveryAddress}
+      ></QuoteCard>)
+    }
+    return cards
+    }
 
   render() {
     return (
@@ -47,71 +78,7 @@ class FuelQuoteHistory extends Component {
           </Link>
         </HeaderGroup>
         <QuoteList>
-          <QuoteCard
-            style={{
-              width: 400,
-              height: 214,
-              marginBottom: 15
-            }}
-            quotePrice="$17,896.90"
-            quoteCreated="Created 2/25/2021"
-            gallonsRequested="7,654 gallons"
-            priceGallon="$2.35 per gallon"
-            deliveryDate="4/13/2021"
-            deliveryAddress="4800 Calhoun Rd, Houston, TX 77004"
-          ></QuoteCard>
-          <QuoteCard
-            style={{
-              width: 400,
-              height: 214,
-              marginBottom: 15
-            }}
-            quotePrice="$203,955.07"
-            quoteCreated="Created 2/19/2021"
-            gallonsRequested="81,257 gallons"
-            priceGallon="$2.51 per gallon"
-            deliveryDate="2/24/2021"
-            deliveryAddress="4800 Calhoun Rd, Houston, TX 77004"
-          ></QuoteCard>
-          <QuoteCard
-            style={{
-              width: 400,
-              height: 214,
-              marginBottom: 15
-            }}
-            quotePrice="$206.57"
-            quoteCreated="Created 1/18/2021"
-            gallonsRequested="91 gallons"
-            priceGallon="$2.27 per gallon"
-            deliveryDate="1/31/2021"
-            deliveryAddress="4800 Calhoun Rd, Houston, TX 77004"
-          ></QuoteCard>
-          <QuoteCard
-            style={{
-              width: 400,
-              height: 214,
-              marginBottom: 15
-            }}
-            quotePrice="$21,170.10"
-            quoteCreated="Created 12/31/2020"
-            gallonsRequested="8,302 gallons"
-            priceGallon="$2.55 per gallon"
-            deliveryDate="1/21/2021"
-            deliveryAddress="4800 Calhoun Rd, Houston, TX 77004"
-          ></QuoteCard>
-          <QuoteCard
-            style={{
-              width: 400,
-              height: 214,
-              marginBottom: 15
-            }}
-            quotePrice="$4,964,873.08"
-            quoteCreated="Created 11/2/2020"
-            gallonsRequested="1,700,299 gallons"
-            priceGallon="$2.92 per gallon"
-            deliveryDate="12/5/2021"
-            deliveryAddress="4800 Calhoun Rd, Houston, TX 77004"
-          ></QuoteCard>
+          {this.makeCards()}
         </QuoteList>
       </Container>
     );

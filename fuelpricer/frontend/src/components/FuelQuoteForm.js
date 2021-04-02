@@ -16,7 +16,7 @@ class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
     var today = new Date(),
-      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
     // todo: copy this.state into ↓ when "Generate", use for "Accept"
     this.quote_buffer = {}
@@ -187,14 +187,14 @@ class FuelQuoteForm extends Component {
         <QuoteOutput>
           <form onSubmit={this.handleSubmit}>
             <BoxHeader1>
-              <YourFuelQuote>YOUR MAMA FUEL QUOTE</YourFuelQuote>
+              <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
             </BoxHeader1>
             <PrefilledTotalAmountDue
               name="totalamountdue" type="text" value={this.state.quotePrice}
               style={{
                 width: 300,
                 height: 65,
-                marginLeft: 0,
+                marginLeft: 20,
                 marginBottom: 20
               }}
             ></PrefilledTotalAmountDue>

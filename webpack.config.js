@@ -16,8 +16,9 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: 'public',
-        publicPath: "/public/",
+        contentBase: '/fuelpricer/frontend/templates/',
+        // publicPath: "fuelpricer/frontend/static/frontend/public/",
+        inline: true,
         hot: true,
         watchContentBase: true
     },
