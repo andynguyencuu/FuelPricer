@@ -4,7 +4,7 @@
   font-family: 'Lato' !important;
   speak: none;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 400;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
@@ -69,7 +69,7 @@
   padding-right: 60px;
   font-size: 18px;
   color: #000;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .react-datepicker-component .react-datepicker-input input:focus {
@@ -128,12 +128,12 @@
 }
 
 .react-datepicker-component .react-datepicker-input:hover {
-  background: linear-gradient(#fff, #dfe3e8);
-  border: 1px solid #ced0da;
+  background: rgba(230, 230, 230,1);
+  border: none;
 }
 
 .react-datepicker-component .react-datepicker-input:hover input {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker-component .react-datepicker-input:hover input::-webkit-input-placeholder {
@@ -157,28 +157,28 @@
 }
 
 .react-datepicker-component .react-datepicker-input.is-open {
-  background: linear-gradient(#fff, #dfe3e8);
-  border: 1px solid #2da1f8;
+  background: rgba(230, 230, 230,1);
+  border: none;
 }
 
 .react-datepicker-component .react-datepicker-input.is-open input {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker-component .react-datepicker-input.is-open input::-webkit-input-placeholder {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker-component .react-datepicker-input.is-open input:-moz-placeholder {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker-component .react-datepicker-input.is-open input::-moz-placeholder {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker-component .react-datepicker-input.is-open input:-ms-input-placeholder {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker-component .react-datepicker-input.is-open .button-wrapper .input-button {
@@ -186,7 +186,7 @@
 }
 
 .react-datepicker-component .react-datepicker-input.has-value input {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker {
@@ -373,28 +373,28 @@
 }
 
 .react-datepicker .react-datepicker-container .react-datepicker-body .react-datepicker-row .react-datepicker-picker:hover {
-  color: #354052;
+  color: #757575;
 }
 
 .react-datepicker .react-datepicker-container .react-datepicker-body .react-datepicker-row .react-datepicker-picker.selected {
-  color: #354052;
+  color: #757575;
   background: #bad7f2;
   font-weight: bold;
 }
 
 .react-datepicker .react-datepicker-container .react-datepicker-body .react-datepicker-row .react-datepicker-picker.current {
   font-weight: 400;
-  color: #354052;
+  color: #757575;
   background: #f0f3f8;
 }
 
 .react-datepicker .react-datepicker-container .react-datepicker-body .react-datepicker-row .react-datepicker-picker.current:hover {
-  color: #354052;
+  color: #757575;
   background: #dfe5f0;
 }
 
 .react-datepicker .react-datepicker-container .react-datepicker-body .react-datepicker-row .react-datepicker-picker.selected.current {
-  color: #354052;
+  color: #757575;
   background: #bad7f2;
 }
 
