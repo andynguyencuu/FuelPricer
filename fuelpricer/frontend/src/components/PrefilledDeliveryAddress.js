@@ -40,6 +40,10 @@ const InputStyle = styled.input`
   padding-left: 10px;
   border: none;
   background: transparent;
+  caret-color: transparent;
+  &:focus {
+    outline: none; !important
+  }
 `;
 
 export default PrefilledDeliveryAddress;

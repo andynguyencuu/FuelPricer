@@ -38,7 +38,7 @@ class Splash extends Component {
           // for if a user quits after registering or something
           window.location.replace('http://localhost:8000/Dashboard/');
         } catch (err) {
-          alert(err);
+          alert("Invalid user ID/password.");
           return;
         }
     }

@@ -42,6 +42,10 @@ const InputStyle = styled.input`
   background: transparent;
   display: flex;
   flex-direction: column;
+  caret-color: transparent;
+  &:focus {
+    outline: none; !important
+  }
 `;
 
 export default PrefilledTotalAmountDue;
