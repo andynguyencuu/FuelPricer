@@ -30,7 +30,7 @@ class FuelQuoteForm extends Component {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/user/update/', {method: 'get'});
       let prefill = response.data;
-      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, state: prefill.state, zipcode: prefill.zipcode });
+      this.setState({ address: prefill.address + ' ' + prefill.city +', ' + prefill.state + ' ' + prefill.zipcode });
     } catch (err) {
       alert(err);
     }
@@ -103,7 +103,7 @@ class FuelQuoteForm extends Component {
               />
           
           <PrefilledPricePerGallon
-          name="priceperquote" type="text"  onChange={this.handleChange}
+          name="priceperquote" type="text" value ={"1.50"}  onChange={this.handleChange}
           style={{
               width: 300,
               height: 65,
