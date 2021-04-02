@@ -20,7 +20,7 @@ class FuelQuoteHistory extends Component {
       const response = await axiosInstance.get('/quote/', { method: 'get' });
       this.quotes= response.data;
       this.setState(this.makeCards());
-      console.log(this.state)
+      console.log(Object.entries(this.state))
     } catch (err) {
       alert(err);
     }
@@ -77,7 +77,8 @@ class FuelQuoteHistory extends Component {
           </Link>
         </HeaderGroup>
         <QuoteList>
-          {Object.entries(this.state)}
+          {Object.values(this.state)}
+
         </QuoteList>
       </Container>
     );
