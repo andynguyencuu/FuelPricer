@@ -12,7 +12,6 @@ class FuelQuoteHistory extends Component {
       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
     // todo: copy this.state into ↓ when "Generate", use for "Accept"
-    this.quote_buffer = {}
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -25,12 +24,9 @@ class FuelQuoteHistory extends Component {
     try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/quote/', { method: 'get' });
-      let prefill = response.data;
-      alert("cat")
-      alert(prefill);
-      // this.setState({ address: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
+      this.setState(response.data);
     } catch (err) {
-      alert("dog");
+      alert(err);
     }
   }
   
@@ -38,19 +34,19 @@ class FuelQuoteHistory extends Component {
     let cards = []
     for (var i = 0; i < this.state.length; i++) {
       let target = this.state[i];
-      console.log(target.quotePrice + '\n' + target.quoteCreated + '\n' + target.gallonsRequested + '\n' + target.pricePerGallon + '\n' + target.deliveryDate + '\n' + target.deliveryAddress)
       cards.push(<QuoteCard
+        key={i}
         style={{
           width: 400,
           height: 214,
           marginBottom: 15
         }}
-        quotePrice={"$" + this.state[0].quotePrice}
-        quoteCreated={"Created" + this.state[0].quoteCreated}
-        gallonsRequested={this.state[0].gallonsRequested + " gallons"}
-        pricePerGallon={this.state[0].pricePerGallon + " per gallon"}
-        deliveryDate={this.state[0].deliveryDate}
-        deliveryAddress={this.state[0].deliveryAddress}
+        quotePrice={"$" + target.quotePrice}
+        quoteCreated={"Created" + target.quoteCreated}
+        gallonsRequested={target.gallonsRequested + " gallons"}
+        pricePerGallon={target.pricePerGallon + " per gallon"}
+        deliveryDate={target.deliveryDate}
+        deliveryAddress={target.deliveryAddress}
       ></QuoteCard>)
     }
     return cards

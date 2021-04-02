@@ -75,6 +75,10 @@ class FuelQuoteView(APIView):
         print(userid)
         if userid is not None:
             queryset = queryset.filter(REQUESTOR=userid)
-            print(queryset) 
+            print(queryset)
+            serializer = FuelQuoteSerializer(queryset, many=True)
+            # for quote in queryset:
+                
+            return Response(serializer.data, status=status.HTTP_200_OK)
         print("monky")
-        return queryset
+        return Response(status=status.HTTP_400_BAD_REQUEST)
