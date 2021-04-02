@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ButtonBig from "./ButtonBig";
 import ButtonFancy from "./ButtonFancy";
 import { rgbToHex } from "@material-ui/core";
-import axios from 'axios';
+import axiosInstance from '../axiosApi';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -12,12 +12,24 @@ class Dashboard extends Component {
     this.state = {
       message: "",
     };
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleSignout(event) {
-    localStorage.removeItem('refresh_token')
-    localStorage.removeItem('access_token')
-  }
+  async handleLogout() {
+    try {
+      console.log("here");
+        const response = await axiosInstance.post('/blacklist/', {
+            "refresh_token": localStorage.getItem("refresh_token")
+        });
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        axiosInstance.defaults.headers['Authorization'] = null;
+        return response;
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
 
   render() {
     return (
@@ -78,7 +90,7 @@ class Dashboard extends Component {
           </Link>
         </Navigator>
         <Link to="/Splash">
-          <Button6 onClick={this.handleSignout}>
+          <Button6 onClick={this.handleLogout}>
             <ButtonOverlay>
               <ButtonFancy
                 button="Button"
