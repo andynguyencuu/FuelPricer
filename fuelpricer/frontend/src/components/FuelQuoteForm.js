@@ -9,11 +9,13 @@ import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import PrefilledTotalAmountDue from "./PrefilledTotalAmountDue";
 import { axiosInstance } from "../axiosApi";
+import { DatePicker, DatePickerInput } from 'rc-datepicker';
+import "../cal-style.css";
 
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { gallonsRequested: "", dateRequested: "", address: "", address_2: "", quotePrice: ""};
+    this.state = { gallonsRequested: "", dateRequested: null, address: "", address_2: "", quotePrice: ""};
 
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,24 +26,24 @@ class FuelQuoteForm extends Component {
   }
 
   componentDidMount(event) {
-    axios({
-      method: "get",
-      url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
-      data: {},
-      headers: {
-        'Authorization': "JWT " + localStorage.getItem('access_token'),
-        'Content-Type': 'application/json',
-        'accept': 'application/json'
-      },
-    })
-      .then(function (response) {
-        console.log(response);
-        this.setState({address: response.data.address+ ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode});
-      }.bind(this))      
-      .catch(function (response) {
-        //handle error
-        //alert(response);
-      });
+    // axios({
+    //   method: "get",
+    //   url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
+    //   data: {},
+    //   headers: {
+    //     'Authorization': "JWT " + localStorage.getItem('access_token'),
+    //     'Content-Type': 'application/json',
+    //     'accept': 'application/json'
+    //   },
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //     this.setState({address: response.data.address+ ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode});
+    //   }.bind(this))      
+    //   .catch(function (response) {
+    //     //handle error
+    //     //alert(response);
+    //   });
     }
 
   async handleSubmit(event) {
@@ -90,19 +92,29 @@ class FuelQuoteForm extends Component {
               marginLeft: 20
             }}
           ></TextGallonsRequested>
-          <CalendarDeliveryDate
-          name="dateRequested" type="text" value={this.state.dateRequested} onChange={this.handleChange}
-            style={{
-              width: 300,
-              height: 35,
-              marginBottom: 10,
-              marginRight: 20,
-              marginLeft: 20
-            }}
-          ></CalendarDeliveryDate>
+            <DatePickerInput
+              displayFormat='MM/DD/YYYY'
+              returnFormat='MM/DD/YYYY'
+              className='deliveryDate'
+              valueLink={{
+                value: this.state.dateRequested,
+                requestChange: dateRequested => this.setState({ dateRequested })
+              }}
+              showOnInputClick
+              placeholder='Delivery Date'
+              locale='en'
+              style={{
+                width: 300,
+                height: 35,
+                marginBottom: 10,
+                marginRight: 20,
+                marginLeft: 20,
+              }}
+              />
+          
           <PrefilledPricePerGallon
           name="priceperquote" type="text"  onChange={this.handleChange}
-            style={{
+          style={{
               width: 300,
               height: 65,
               marginBottom: 0,
@@ -221,6 +233,7 @@ const Text = styled.span`
   font-weight: 900;
   margin-top: 20px;
 `;
+
 
 const Group1 = styled.div`
   flex-direction: column;
