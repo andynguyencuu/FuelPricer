@@ -15,7 +15,7 @@ import "../cal-style.css";
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { gallonsRequested: "", dateRequested: null, address: "", address_2: "", quotePrice: "", pricePerGallon: 1.50};
+    this.state = { gallonsRequested: "", dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: ""};
 
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,21 +38,21 @@ class FuelQuoteForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    console.log([this.state.gallonsRequested, this.state.dateRequested])
     try {
-      const data = await axiosInstance.post('/token/obtain/', {
-        username: this.state.username,
-        password: this.state.password
+      if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
+        alert("Please answer required fields!");
+        return;
+      }
+      const data = await axiosInstance.post('/quote/', {
+        gallonsRequested: this.state.gallonsRequested,
+        pricePerGallon: this.state.pricePerGallon,
+        dateOfQuote: this.state.dateRequested,
+        dateRequested: this.state.dateRequested,
+        address: this.state.address,
+        address_2: this.state.address_2
       }, { method: 'post' });
-      localStorage.setItem('access_token', data.data.access);
-      localStorage.setItem('refresh_token', data.data.refresh);
-      axiosInstance.defaults.headers['Authorization'] = "JWT " + data.data.access;
-
-      // TODO 
-      //  CHECK REQ'D FIELDS FOR EMPTY. IF EMPTY REDIR → PROF MANAGEMENT
-      // Object = ????? 
-      // if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3,6)).includes(""))
-      // for if a user quits after registering or something
-      window.location.replace('http://localhost:8000/Dashboard/');
+      this.setState({ quotePrice: data.data.generated})
     } catch (err) {
       alert(err);
       return;
