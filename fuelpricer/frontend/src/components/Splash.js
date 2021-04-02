@@ -30,9 +30,16 @@ class Splash extends Component {
           localStorage.setItem('access_token', data.data.access);
           localStorage.setItem('refresh_token', data.data.refresh);
           axiosInstance.defaults.headers['Authorization'] = "JWT " + data.data.access;
+
+          // TODO 
+          //  CHECK REQ'D FIELDS FOR EMPTY. IF EMPTY REDIR → PROF MANAGEMENT
+          // Object = ????? 
+          // if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3,6)).includes(""))
+          // for if a user quits after registering or something
           window.location.replace('http://localhost:8000/Dashboard/');
         } catch (err) {
           alert(err);
+          return;
         }
     }
 
