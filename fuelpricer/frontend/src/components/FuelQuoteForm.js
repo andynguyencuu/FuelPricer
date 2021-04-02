@@ -103,7 +103,7 @@ class FuelQuoteForm extends Component {
               />
           
           <PrefilledPricePerGallon
-          name="priceperquote" type="text" value ={"1.50"}  onChange={this.handleChange}
+          name="priceperquote" type="text" value ={"1.50"}  onChange={this.handleChange.bind(this)}
           style={{
               width: 300,
               height: 65,
@@ -112,8 +112,8 @@ class FuelQuoteForm extends Component {
               marginLeft: 20
             }}
           ></PrefilledPricePerGallon>
-          <PrefilledDeliveryAddress
-          name="address" type="text" value={this.state.address} onChange={this.handleChange}
+          <PrefilledDeliveryAddress 
+          name="address" type="text" value={this.state.address} onChange={this.handleChange.bind(this)}
             style={{
               width: 300,
               height: 65,
