@@ -187,14 +187,14 @@ class FuelQuoteForm extends Component {
         <QuoteOutput>
           <form onSubmit={this.handleSubmit}>
             <BoxHeader1>
-              <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
+              <YourFuelQuote>YOUR MAMA FUEL QUOTE</YourFuelQuote>
             </BoxHeader1>
             <PrefilledTotalAmountDue
               name="totalamountdue" type="text" value={this.state.quotePrice}
               style={{
                 width: 300,
                 height: 65,
-                marginLeft: 20,
+                marginLeft: 0,
                 marginBottom: 20
               }}
             ></PrefilledTotalAmountDue>

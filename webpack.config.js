@@ -14,6 +14,13 @@ module.exports = {
         publicPath: "/fuelpricer/frontend/static/frontend/public/",
         filename: 'main.js',  // the same one we import in index.html
     },
+
+    devServer: {
+        contentBase: 'public',
+        publicPath: "/public/",
+        hot: true,
+        watchContentBase: true
+    },
     externals: [
         {"react-native": true,}
 ],
