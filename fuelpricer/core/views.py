@@ -55,7 +55,8 @@ class FuelQuoteView(APIView):
 
     def get(self, request):
         serializer = self.serializer_class(request.user)
-        return Response(data={serializer.data}, status=status.HTTP_200_OK)
+        quote = 5
+        return Response(data={"generated":quote}, status=status.HTTP_200_OK)
     
     def post(self, request, format='json'):
         serializer = FuelQuoteSerializer(data=request.data)

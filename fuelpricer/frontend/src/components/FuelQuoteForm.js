@@ -1,42 +1,42 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import TextGallonsRequested from "./TextGallonsRequested";
-import CalendarDeliveryDate from "./CalendarDeliveryDate";
 import PrefilledPricePerGallon from "./PrefilledPricePerGallon";
 import PrefilledDeliveryAddress from "./PrefilledDeliveryAddress";
 import ButtonSmallBlue from "./ButtonSmallBlue";
+import ButtonSmallGreen from "./ButtonSmallGreen";
 import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import PrefilledTotalAmountDue from "./PrefilledTotalAmountDue";
 import { axiosInstance } from "../axiosApi";
-import { DatePicker, DatePickerInput } from 'rc-datepicker';
+import {DatePickerInput } from 'rc-datepicker';
 import "../cal-style.css";
 
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
     var today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: ""};
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
 
-  this.handleChange = this.handleChange.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   async componentDidMount(event) {
     try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
-      const response = await axiosInstance.get('/user/update/', {method: 'get'});
+      const response = await axiosInstance.get('/user/update/', { method: 'get' });
       let prefill = response.data;
-      this.setState({ address: prefill.address + ' ' + prefill.city +', ' + prefill.state + ' ' + prefill.zipcode });
+      this.setState({ address: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
     } catch (err) {
       alert(err);
     }
-    }
+  }
 
   async generate(event) {
     event.preventDefault();
@@ -45,20 +45,16 @@ class FuelQuoteForm extends Component {
         alert("Please answer required fields!");
         return;
       }
-      const data = await axiosInstance.post('/quote/', {
+      const data = await axiosInstance.get('/quote/', {
         gallonsRequested: this.state.gallonsRequested,
-        pricePerGallon: this.state.pricePerGallon,
-        dateOfQuote: this.state.dateOfQuote,
-        dateRequested: this.state.dateRequested,
-        address: this.state.address,
-        address_2: this.state.address_2
-      }, { method: 'post' });
+        pricePerGallon: this.state.pricePerGallon
+      }, { method: 'get' });
       this.setState({ quotePrice: data.data.generated })
     } catch (err) {
       alert(err);
       return;
     }
-}
+  }
 
   async handleSubmit(event) {
     event.preventDefault();
@@ -94,17 +90,17 @@ class FuelQuoteForm extends Component {
           <BoxHeader>
             <Text>FUEL QUOTE FORM</Text>
           </BoxHeader>
-          <form onSubmit={this.handleSubmit}>
-          <TextGallonsRequested
-          name="gallonsRequested" type="text" value={this.state.gallonsRequested} onChange={this.handleChange}
-            style={{
-              width: 300,
-              height: 35,
-              marginBottom: 10,
-              marginRight: 20,
-              marginLeft: 20
-            }}
-          ></TextGallonsRequested>
+          <form onSubmit={this.generate}>
+            <TextGallonsRequested
+              name="gallonsRequested" type="text" value={this.state.gallonsRequested} onChange={this.handleChange}
+              style={{
+                width: 300,
+                height: 35,
+                marginBottom: 10,
+                marginRight: 20,
+                marginLeft: 20
+              }}
+            ></TextGallonsRequested>
             <DatePickerInput
               displayFormat='MM/DD/YYYY'
               returnFormat='MM/DD/YYYY'
@@ -123,42 +119,42 @@ class FuelQuoteForm extends Component {
                 marginRight: 20,
                 marginLeft: 20,
               }}
-              />
-          
-          <PrefilledPricePerGallon
+            />
+
+            <PrefilledPricePerGallon
               name="pricepergallon" type="text" value={this.state.pricePerGallon.toFixed(2)}
-          style={{
-              width: 300,
-              height: 65,
-              marginBottom: 0,
-              marginRight: 20,
-              marginLeft: 20
-            }}
-          ></PrefilledPricePerGallon>
-          <PrefilledDeliveryAddress 
-          name="address" type="text" value={this.state.address}
-            style={{
-              width: 300,
-              height: 65,
-              marginBottom: 20,
-              marginRight: 20,
-              marginLeft: 20
-            }}
-          ></PrefilledDeliveryAddress>
-          {/* TODO: Add in city, state, and zipcode for address to complete pricing module */}
-          <ButtonOverlay
-          type = "submit" value="Generate">
-          <ButtonSmallBlue
-            style={{
-              width: 100,
-              height: 44,
-              marginBottom: 20,
-              marginRight: 20,
-              marginLeft: 95
-            }}
-            button="Generate"
-          ></ButtonSmallBlue>
-          </ButtonOverlay>
+              style={{
+                width: 300,
+                height: 65,
+                marginBottom: 0,
+                marginRight: 20,
+                marginLeft: 20
+              }}
+            ></PrefilledPricePerGallon>
+            <PrefilledDeliveryAddress
+              name="address" type="text" value={this.state.address}
+              style={{
+                width: 300,
+                height: 65,
+                marginBottom: 20,
+                marginRight: 20,
+                marginLeft: 20
+              }}
+            ></PrefilledDeliveryAddress>
+            {/* TODO: Add in city, state, and zipcode for address to complete pricing module */}
+            <ButtonOverlay
+              type="submit" value="Generate">
+              <ButtonSmallBlue
+                style={{
+                  width: 100,
+                  height: 44,
+                  marginBottom: 20,
+                  marginRight: 20,
+                  marginLeft: 95
+                }}
+                button="Generate"
+              ></ButtonSmallBlue>
+            </ButtonOverlay>
           </form>
         </QuoteForm>
         <Group1>
@@ -181,17 +177,34 @@ class FuelQuoteForm extends Component {
           </Link>
         </Group1>
         <QuoteOutput>
-          <BoxHeader1>
-            <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
-          </BoxHeader1>
-          <PrefilledTotalAmountDue 
-            name="totalamountdue" type="text" value={this.state.quotePrice}
-            style={{
-              width: 300,
-              height: 65,
-              marginBottom: 20
-            }}
-          ></PrefilledTotalAmountDue>
+          <form onSubmit={this.handleSubmit}>
+            <BoxHeader1>
+              <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
+            </BoxHeader1>
+            <PrefilledTotalAmountDue
+              name="totalamountdue" type="text" value={this.state.quotePrice}
+              style={{
+                width: 300,
+                height: 65,
+                marginLeft: 20,
+                marginBottom: 20
+              }}
+            ></PrefilledTotalAmountDue>
+            <ButtonOverlay
+              type="submit" value="Accept"> 
+              <ButtonSmallGreen
+                style={{
+                  width: 100,
+                  height: 44,
+                  marginTop: -50,
+                  marginBottom: 20,
+                  marginRight: 20,
+                  marginLeft: 95
+                }}
+                button="Accept"
+              ></ButtonSmallGreen>
+            </ButtonOverlay>
+          </form>
         </QuoteOutput>
       </Container>
     );
