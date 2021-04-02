@@ -48,7 +48,7 @@ function QuoteCard(props) {
           <GallonsRequested>
             {props.gallonsRequested || "Gallons Requested"}
           </GallonsRequested>
-          <PriceGallon>{props.priceGallon || "Price/Gallon"}</PriceGallon>
+          <PriceGallon>{props.pricePerGallon || "Price/Gallon"}</PriceGallon>
           <DeliveryDate>{props.deliveryDate || "Delivery Date"}</DeliveryDate>
           <DeliveryAddress>
             {props.deliveryAddress || "Delivery Address"}

@@ -8,23 +8,19 @@ import axiosInstance from "../axiosApi";
 class FuelQuoteHistory extends Component {
   constructor(props) {
     super(props);
-    var today = new Date(),
-      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
-    // todo: copy this.state into ↓ when "Generate", use for "Accept"
-
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {};
+    this.quotes = {};
+    this.cards = [];
   }
+ 
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-  
   async componentDidMount(event) {
     try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/quote/', { method: 'get' });
-      this.setState(response.data);
+      this.quotes= response.data;
+      this.setState(this.makeCards());
+      console.log(this.state)
     } catch (err) {
       alert(err);
     }
@@ -32,8 +28,9 @@ class FuelQuoteHistory extends Component {
   
   makeCards() {
     let cards = []
-    for (var i = 0; i < this.state.length; i++) {
-      let target = this.state[i];
+    let morph = Object.keys(this.quotes)
+    for (var i = 0; i < morph.length; i++) {
+      let target = this.quotes[morph[i]];
       cards.push(<QuoteCard
         key={i}
         style={{
@@ -42,16 +39,15 @@ class FuelQuoteHistory extends Component {
           marginBottom: 15
         }}
         quotePrice={"$" + target.quotePrice}
-        quoteCreated={"Created" + target.quoteCreated}
+        quoteCreated={"Created " + target.dateOfQuote}
         gallonsRequested={target.gallonsRequested + " gallons"}
         pricePerGallon={target.pricePerGallon + " per gallon"}
-        deliveryDate={target.deliveryDate}
-        deliveryAddress={target.deliveryAddress}
+        deliveryDate={target.dateRequested}
+        deliveryAddress={target.address}
       ></QuoteCard>)
     }
     return cards
     }
-
 
   render() {
     return (
@@ -81,7 +77,7 @@ class FuelQuoteHistory extends Component {
           </Link>
         </HeaderGroup>
         <QuoteList>
-          {this.makeCards()}
+          {Object.entries(this.state)}
         </QuoteList>
       </Container>
     );
