@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import MyTokenObtainPairSerializer, CustomUserSerializer, FuelQuoteSerializer
 from .models import FuelQuote, CustomUser
+from .pricing import Pricer
 
 # Create your views here.
 class ObtainTokenPairWithFullnameView(TokenObtainPairView):
@@ -53,10 +54,11 @@ class FuelQuoteView(APIView):
     serializer_class = FuelQuoteSerializer
     queryset = FuelQuote.objects.all()
 
-    def get(self, request):
+    def patch(self, request):
         serializer = self.serializer_class(request.user)
-        quote = 5
-        return Response(data={"generated":quote}, status=status.HTTP_200_OK)
+        print(request.data)
+        new_quote = Pricer(request.data['gallonsRequested'], 1.5)
+        return Response(data={"generated":new_quote.generate()}, status=status.HTTP_200_OK)
     
     def post(self, request, format='json'):
         serializer = FuelQuoteSerializer(data=request.data)

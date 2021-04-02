@@ -18,9 +18,12 @@ class FuelQuoteForm extends Component {
     var today = new Date(),
       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
+    // todo: copy this.state into ↓ when "Generate", use for "Accept"
+    this.quote_buffer = {}
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.generate = this.generate.bind(this);
   }
 
   handleChange(event) {
@@ -45,10 +48,11 @@ class FuelQuoteForm extends Component {
         alert("Please answer required fields!");
         return;
       }
-      const data = await axiosInstance.get('/quote/', {
+      const data = await axiosInstance.patch('/quote/', {
         gallonsRequested: this.state.gallonsRequested,
-        pricePerGallon: this.state.pricePerGallon
-      }, { method: 'get' });
+        dateRequested: this.state.dateRequested
+      }, { method: 'patch' });
+      console.log(data.data)
       this.setState({ quotePrice: data.data.generated })
     } catch (err) {
       alert(err);
@@ -59,8 +63,8 @@ class FuelQuoteForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     try {
-      if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
-        alert("Please answer required fields!");
+      if (this.state.quotePrice == "") {
+        alert("A quote hasn't been generated yet!\nPlease use 'Generate'.");
         return;
       }
       const data = await axiosInstance.post('/quote/', {
