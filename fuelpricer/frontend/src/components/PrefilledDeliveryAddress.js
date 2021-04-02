@@ -5,7 +5,7 @@ function PrefilledDeliveryAddress(props) {
   return (
     <Container {...props}>
       <Label>Delivery Address (Your address)</Label>
-      <InputStyle value={props.value} name="address" placeholder="Your Address" editable={false}></InputStyle>
+      <InputStyle value={props.value} name="address" placeholder="Your Address"></InputStyle>
     </Container>
   );
 }

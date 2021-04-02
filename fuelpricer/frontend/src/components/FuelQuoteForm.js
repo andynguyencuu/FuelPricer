@@ -15,7 +15,7 @@ import "../cal-style.css";
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { gallonsRequested: "", dateRequested: null, address: "", address_2: "", quotePrice: ""};
+    this.state = { gallonsRequested: "", dateRequested: null, address: "", address_2: "", quotePrice: "", pricePerGallon: 1.50};
 
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -103,7 +103,7 @@ class FuelQuoteForm extends Component {
               />
           
           <PrefilledPricePerGallon
-          name="priceperquote" type="text" value ={"1.50"}  onChange={this.handleChange.bind(this)}
+              name="pricepergallon" type="text" value={this.state.pricePerGallon.toFixed(2)}
           style={{
               width: 300,
               height: 65,
@@ -113,7 +113,7 @@ class FuelQuoteForm extends Component {
             }}
           ></PrefilledPricePerGallon>
           <PrefilledDeliveryAddress 
-          name="address" type="text" value={this.state.address} onChange={this.handleChange.bind(this)}
+          name="address" type="text" value={this.state.address}
             style={{
               width: 300,
               height: 65,
@@ -161,7 +161,8 @@ class FuelQuoteForm extends Component {
           <BoxHeader1>
             <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
           </BoxHeader1>
-          <PrefilledTotalAmountDue
+          <PrefilledTotalAmountDue 
+            name="totalamountdue" type="text" value={this.state.quotePrice}
             style={{
               width: 300,
               height: 65,
