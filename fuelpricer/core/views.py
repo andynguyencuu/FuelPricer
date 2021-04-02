@@ -53,7 +53,7 @@ class FuelQuoteView(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = FuelQuoteSerializer
     user_serializer_class = CustomUserSerializer
-    queryset = FuelQuote.objects.all()
+    
 
     def patch(self, request):
         serializer = self.serializer_class(request.user) # will be used to acuire state, history presence, etc
@@ -69,5 +69,12 @@ class FuelQuoteView(APIView):
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def get(self):
-        pass
+    def get(self, request):
+        queryset = FuelQuote.objects.all()
+        userid = self.request.user.id
+        print(userid)
+        if userid is not None:
+            queryset = queryset.filter(REQUESTOR=userid)
+            print(queryset) 
+        print("monky")
+        return queryset

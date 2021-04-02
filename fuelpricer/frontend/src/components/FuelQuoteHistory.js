@@ -3,28 +3,34 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import QuoteCard from "./QuoteCard";
-import { axiosInstance } from "../axiosApi";
+import axiosInstance from "../axiosApi";
 
 class FuelQuoteHistory extends Component {
   constructor(props) {
     super(props);
-    this.state = [
-      { quotePrice: 1.5, 
-        quoteCreated: "", 
-        gallonsRequested: 1, 
-        pricePerGallon: 1.50, 
-        deliveryDate: "", 
-        deliveryAddress: "" },
-    ]
+    var today = new Date(),
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
+    // todo: copy this.state into ↓ when "Generate", use for "Accept"
+    this.quote_buffer = {}
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
   
   async componentDidMount(event) {
     try {
+      axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/quote/', { method: 'get' });
-      
-      // this.setState({ quotePrice: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
+      let prefill = response.data;
+      alert("cat")
+      alert(prefill);
+      // this.setState({ address: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
     } catch (err) {
-      alert(err);
+      alert("dog");
     }
   }
   
@@ -49,6 +55,7 @@ class FuelQuoteHistory extends Component {
     }
     return cards
     }
+
 
   render() {
     return (
