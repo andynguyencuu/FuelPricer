@@ -38,9 +38,8 @@ class FuelQuoteForm extends Component {
     }
     }
 
-  async handleSubmit(event) {
+  async generate(event) {
     event.preventDefault();
-    console.log([this.state.gallonsRequested, this.state.dateOfQuote, this.state.dateRequested])
     try {
       if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
         alert("Please answer required fields!");
@@ -54,7 +53,29 @@ class FuelQuoteForm extends Component {
         address: this.state.address,
         address_2: this.state.address_2
       }, { method: 'post' });
-      this.setState({ quotePrice: data.data.generated})
+      this.setState({ quotePrice: data.data.generated })
+    } catch (err) {
+      alert(err);
+      return;
+    }
+}
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    try {
+      if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
+        alert("Please answer required fields!");
+        return;
+      }
+      const data = await axiosInstance.post('/quote/', {
+        gallonsRequested: this.state.gallonsRequested,
+        pricePerGallon: this.state.pricePerGallon,
+        dateOfQuote: this.state.dateOfQuote,
+        dateRequested: this.state.dateRequested,
+        address: this.state.address,
+        address_2: this.state.address_2
+      }, { method: 'post' });
+      // this.setState({ quotePrice: data.data.generated})
     } catch (err) {
       alert(err);
       return;

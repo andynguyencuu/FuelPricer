@@ -53,11 +53,13 @@ class FuelQuoteView(APIView):
     serializer_class = FuelQuoteSerializer
     queryset = FuelQuote.objects.all()
 
+    def get(self, request):
+        serializer = self.serializer_class(request.user)
+        return Response(data={serializer.data}, status=status.HTTP_200_OK)
+    
     def post(self, request, format='json'):
         serializer = FuelQuoteSerializer(data=request.data)
-        print('cat')
         if serializer.is_valid():
-            print('dog')
             fuel = serializer.save()
             if fuel:
                 json = serializer.data
