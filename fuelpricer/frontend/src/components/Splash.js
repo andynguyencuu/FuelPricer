@@ -23,13 +23,17 @@ class Splash extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         try {
-          console.log(await axiosInstance.post('/token/obtain/', {
+          const data = await axiosInstance.post('/token/obtain/', {
             username: this.state.username,
             password: this.state.password
-          }, {method: 'post'}));
+          }, {method: 'post'});
           localStorage.setItem('access_token', data.data.access);
           localStorage.setItem('refresh_token', data.data.refresh);
           axiosInstance.defaults.headers['Authorization'] = "JWT " + data.data.access;
+
+          // TODO 
+          //  CHECK REQ'D FIELDS FOR EMPTY. IF EMPTY REDIR → PROF MANAGEMENT
+          // for if a user quits after registering or something
           window.location.replace('http://localhost:8000/Dashboard/');
         } catch (err) {
           alert(err);
