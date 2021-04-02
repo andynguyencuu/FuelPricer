@@ -15,7 +15,9 @@ import "../cal-style.css";
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { gallonsRequested: "", dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: ""};
+    var today = new Date(),
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    this.state = { gallonsRequested: "", dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: ""};
 
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,8 +40,9 @@ class FuelQuoteForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log([this.state.gallonsRequested, this.state.dateRequested])
+    console.log([this.state.gallonsRequested, this.state.dateOfQuote, this.state.dateRequested])
     try {
+      this.state.dateOfQuote = datetime.datetime.strptime(date, "%Y-%m-%d").date()
       if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
         alert("Please answer required fields!");
         return;
