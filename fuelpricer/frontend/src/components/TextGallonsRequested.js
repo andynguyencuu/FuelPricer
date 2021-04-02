@@ -4,8 +4,7 @@ import styled, { css } from "styled-components";
 function TextGallonsRequested(props) {
   return (
     <Container {...props}>
-  
-      <InputStyle value={props.value} name="gallonsrequested" type = "number" placeholder="Gallons Requested" maxLength={50}></InputStyle>
+      <InputStyle name="gallonsrequested" type="number" inputMode="numeric" placeholder="Gallons Requested" maxLength={50}></InputStyle>
     </Container>
   );
 }
@@ -23,6 +22,7 @@ const InputStyle = styled.input`
   color: #000;
   margin-left: 16px;
   font-size: 18px;
+  font-weight: bold;
   align-self: stretch;
   line-height: 16px;
   width: 263px;

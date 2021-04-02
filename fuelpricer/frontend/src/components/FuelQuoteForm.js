@@ -81,7 +81,7 @@ class FuelQuoteForm extends Component {
           </BoxHeader>
           <form onSubmit={this.handleSubmit}>
           <TextGallonsRequested
-          name="gallonsRequested" type="text" value={this.state.gallonsRequested} onChange={this.handleChange} defaultValue="1"
+          name="gallonsRequested" type="text" value={this.state.gallonsRequested} onChange={this.handleChange}
             style={{
               width: 300,
               height: 35,
@@ -91,7 +91,7 @@ class FuelQuoteForm extends Component {
             }}
           ></TextGallonsRequested>
           <CalendarDeliveryDate
-          name="dateRequested" type="text" value={this.state.dateRequested} onChange={this.handleChange} defaultValue="T"
+          name="dateRequested" type="text" value={this.state.dateRequested} onChange={this.handleChange}
             style={{
               width: 300,
               height: 35,
@@ -101,7 +101,7 @@ class FuelQuoteForm extends Component {
             }}
           ></CalendarDeliveryDate>
           <PrefilledPricePerGallon
-          name="priceperquote" type="text"  onChange={this.handleChange} defaultValue="1.05"
+          name="priceperquote" type="text"  onChange={this.handleChange}
             style={{
               width: 300,
               height: 65,
@@ -111,7 +111,7 @@ class FuelQuoteForm extends Component {
             }}
           ></PrefilledPricePerGallon>
           <PrefilledDeliveryAddress
-          name="address" type="text" value={this.state.address} onChange={this.handleChange} defaultValue="T"
+          name="address" type="text" value={this.state.address} onChange={this.handleChange}
             style={{
               width: 300,
               height: 65,
