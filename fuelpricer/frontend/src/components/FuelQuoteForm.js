@@ -17,7 +17,7 @@ class FuelQuoteForm extends Component {
     super(props);
     var today = new Date(),
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    this.state = { gallonsRequested: "", dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: ""};
+    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: ""};
 
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +42,6 @@ class FuelQuoteForm extends Component {
     event.preventDefault();
     console.log([this.state.gallonsRequested, this.state.dateOfQuote, this.state.dateRequested])
     try {
-      this.state.dateOfQuote = datetime.datetime.strptime(date, "%Y-%m-%d").date()
       if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
         alert("Please answer required fields!");
         return;
@@ -50,7 +49,7 @@ class FuelQuoteForm extends Component {
       const data = await axiosInstance.post('/quote/', {
         gallonsRequested: this.state.gallonsRequested,
         pricePerGallon: this.state.pricePerGallon,
-        dateOfQuote: this.state.dateRequested,
+        dateOfQuote: this.state.dateOfQuote,
         dateRequested: this.state.dateRequested,
         address: this.state.address,
         address_2: this.state.address_2
