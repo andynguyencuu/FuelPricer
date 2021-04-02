@@ -62,5 +62,5 @@ class FuelQuoteSerializer(serializers.ModelSerializer):
         'dateRequested',
         'address',
         'address_2',
-        # 'quotePrice'
+        'quotePrice'
     )

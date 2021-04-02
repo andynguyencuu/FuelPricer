@@ -73,12 +73,16 @@ class FuelQuoteForm extends Component {
         dateOfQuote: this.state.dateOfQuote,
         dateRequested: this.state.dateRequested,
         address: this.state.address,
-        address_2: this.state.address_2
+        address_2: this.state.address_2,
+        quotePrice: this.state.quotePrice
       }, { method: 'post' });
-      // this.setState({ quotePrice: data.data.generated})
+      alert("Quote accepted!")
+      setTimeout(() => {
+        window.location.replace('http://localhost:8000/Dashboard/');
+      }, 1000);
+      return;
     } catch (err) {
       alert(err);
-      return;
     }
   }
 
