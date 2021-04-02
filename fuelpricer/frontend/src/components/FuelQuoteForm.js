@@ -25,25 +25,15 @@ class FuelQuoteForm extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  componentDidMount(event) {
-    // axios({
-    //   method: "get",
-    //   url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
-    //   data: {},
-    //   headers: {
-    //     'Authorization': "JWT " + localStorage.getItem('access_token'),
-    //     'Content-Type': 'application/json',
-    //     'accept': 'application/json'
-    //   },
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //     this.setState({address: response.data.address+ ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode});
-    //   }.bind(this))      
-    //   .catch(function (response) {
-    //     //handle error
-    //     //alert(response);
-    //   });
+  async componentDidMount(event) {
+    try {
+      axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
+      const response = await axiosInstance.get('/user/update/', {method: 'get'});
+      let prefill = response.data;
+      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, state: prefill.state, zipcode: prefill.zipcode });
+    } catch (err) {
+      alert(err);
+    }
     }
 
   async handleSubmit(event) {
