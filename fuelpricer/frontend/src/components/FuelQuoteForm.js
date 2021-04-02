@@ -8,11 +8,65 @@ import ButtonSmallBlue from "./ButtonSmallBlue";
 import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import PrefilledTotalAmountDue from "./PrefilledTotalAmountDue";
+import axios from 'axios';
 
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { gallonsRequested: "", dateRequested: "", address: "", address_2: "", quotePrice: ""};
+
+  this.handleChange = this.handleChange.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  componentDidMount(event) {
+    axios({
+      method: "get",
+      url: "http://localhost:8000/api/user/update/", //also functions as retrieve function due to 
+      data: {},
+      headers: {
+        'Authorization': "JWT " + localStorage.getItem('access_token'),
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      },
+    })
+      .then(function (response) {
+        console.log(response);
+        this.setState({address: response.data.address});
+      }.bind(this))      
+      .catch(function (response) {
+        //handle error
+        //alert(response);
+      });
+    }
+
+    handleSubmit(event) {
+      // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
+      event.preventDefault();
+      alert('cat');
+      // axios({
+      //   method: "put",
+      //   url: "http://localhost:8000/api/user/update/",
+      //   data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zipcode:this.state.zipcode},
+      //   headers: {
+      //     'Authorization': "JWT " + localStorage.getItem('access_token'),
+      //     'Content-Type': 'application/json',
+      //     'accept': 'application/json'
+      //   },
+      // })
+      //   .then(function (response) {
+      //     window.location.replace('http://localhost:8000/Dashboard/')
+      //     console.log(response);
+      //   })
+      //   .catch(function (response) {
+      //     //handle error
+      //     alert(response);
+      //   });
+    }
 
   render() {
     return (
@@ -25,7 +79,9 @@ class FuelQuoteForm extends Component {
           <BoxHeader>
             <Text>FUEL QUOTE FORM</Text>
           </BoxHeader>
+          <form onSubmit={this.handleSubmit}>
           <TextGallonsRequested
+          name="gallonsRequested" type="text" value={this.state.gallonsRequested} onChange={this.handleChange} defaultValue="1"
             style={{
               width: 300,
               height: 35,
@@ -35,6 +91,7 @@ class FuelQuoteForm extends Component {
             }}
           ></TextGallonsRequested>
           <CalendarDeliveryDate
+          name="dateRequested" type="text" value={this.state.dateRequested} onChange={this.handleChange} defaultValue="T"
             style={{
               width: 300,
               height: 35,
@@ -44,6 +101,7 @@ class FuelQuoteForm extends Component {
             }}
           ></CalendarDeliveryDate>
           <PrefilledPricePerGallon
+          name="priceperquote" type="text"  onChange={this.handleChange} defaultValue="1.05"
             style={{
               width: 300,
               height: 65,
@@ -53,6 +111,7 @@ class FuelQuoteForm extends Component {
             }}
           ></PrefilledPricePerGallon>
           <PrefilledDeliveryAddress
+          name="address" type="text" value={this.state.address} onChange={this.handleChange} defaultValue="T"
             style={{
               width: 300,
               height: 65,
@@ -61,7 +120,9 @@ class FuelQuoteForm extends Component {
               marginLeft: 20
             }}
           ></PrefilledDeliveryAddress>
+          {/* TODO: Add in city, state, and zipcode for address to complete pricing module */}
           <ButtonSmallBlue
+          type = "submit" value="Calculate Quote"
             style={{
               width: 100,
               height: 44,
@@ -71,6 +132,7 @@ class FuelQuoteForm extends Component {
             }}
             button="Generate"
           ></ButtonSmallBlue>
+          </form>
         </QuoteForm>
         <Group1>
           <Logo1 src={require("../assets/images/fuel23.png")}></Logo1>
