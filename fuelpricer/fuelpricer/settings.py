@@ -80,7 +80,10 @@ WSGI_APPLICATION = 'fuelpricer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'fuelpricer',
+        'NAME': 'FuelPricer',
+        'CLIENT': {
+            'host': "mongodb+srv://django:JYVzFLdedNoncd2q@fp-cluster1.9ebkj.mongodb.net/test?retryWrites=true&w=majority"
+        }
     }
 }
 
