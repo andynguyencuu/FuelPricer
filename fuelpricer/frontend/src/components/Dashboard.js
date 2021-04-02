@@ -4,15 +4,57 @@ import { Link } from "react-router-dom";
 import ButtonBig from "./ButtonBig";
 import ButtonFancy from "./ButtonFancy";
 import { rgbToHex } from "@material-ui/core";
-import axiosInstance from '../axiosApi';
+import { axiosInstance } from "../axiosApi";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    var today = new Date();
+    this.timeofday = "";
     this.state = {
-      message: "",
+      name: ""
     };
     this.handleLogout = this.handleLogout.bind(this);
+    switch (today.getHours()) {
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+        this.timeofday = "morning";
+        break;
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:
+      case 16:
+        this.timeofday = "afternoon";
+        break;
+      case 17:
+      case 18:
+      case 19:
+      case 20:
+      case 21:
+        this.timeofday = "evening";
+        break;
+      default:
+        this.timeofday = "night";
+        break;
+    }
+  }
+
+  // just for the name
+  async componentDidMount(event) {
+    try {
+      axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
+      const response = await axiosInstance.get('/user/update/', { method: 'get' });
+      let prefill = response.data;
+      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, state: prefill.state, zipcode: prefill.zipcode });
+    } catch (err) {
+      alert(err);
+    }
   }
 
   async handleLogout() {
@@ -39,7 +81,7 @@ class Dashboard extends Component {
         }}
       >
         <Logo src={require("../assets/images/fuel23.png")}></Logo>
-        <Greeting>Good afternoon, *Client*.</Greeting>
+        <Greeting>{"Good " + this.timeofday + ", " + "NAMEGOESHERE" + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>
         <Navigator>
           <Link to="/QuoteHistory">
