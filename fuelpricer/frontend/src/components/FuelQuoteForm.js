@@ -8,7 +8,7 @@ import ButtonSmallBlue from "./ButtonSmallBlue";
 import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import PrefilledTotalAmountDue from "./PrefilledTotalAmountDue";
-import axios from 'axios';
+import { axiosInstance } from "../axiosApi";
 
 class FuelQuoteForm extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class FuelQuoteForm extends Component {
     })
       .then(function (response) {
         console.log(response);
-        this.setState({address: response.data.address});
+        this.setState({address: response.data.address+ ' ' + response.data.city + ', ' + response.data.state + ' ' + response.data.zipcode});
       }.bind(this))      
       .catch(function (response) {
         //handle error
@@ -44,29 +44,29 @@ class FuelQuoteForm extends Component {
       });
     }
 
-    handleSubmit(event) {
-      // alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
-      event.preventDefault();
-      alert('cat');
-      // axios({
-      //   method: "put",
-      //   url: "http://localhost:8000/api/user/update/",
-      //   data: { fullname:this.state.fullname, address:this.state.address, address_2:this.state.address_2, city:this.state.city, state:this.state.st, zipcode:this.state.zipcode},
-      //   headers: {
-      //     'Authorization': "JWT " + localStorage.getItem('access_token'),
-      //     'Content-Type': 'application/json',
-      //     'accept': 'application/json'
-      //   },
-      // })
-      //   .then(function (response) {
-      //     window.location.replace('http://localhost:8000/Dashboard/')
-      //     console.log(response);
-      //   })
-      //   .catch(function (response) {
-      //     //handle error
-      //     alert(response);
-      //   });
+  async handleSubmit(event) {
+    event.preventDefault();
+    try {
+      const data = await axiosInstance.post('/token/obtain/', {
+        username: this.state.username,
+        password: this.state.password
+      }, { method: 'post' });
+      localStorage.setItem('access_token', data.data.access);
+      localStorage.setItem('refresh_token', data.data.refresh);
+      axiosInstance.defaults.headers['Authorization'] = "JWT " + data.data.access;
+
+      // TODO 
+      //  CHECK REQ'D FIELDS FOR EMPTY. IF EMPTY REDIR → PROF MANAGEMENT
+      // Object = ????? 
+      // if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3,6)).includes(""))
+      // for if a user quits after registering or something
+      window.location.replace('http://localhost:8000/Dashboard/');
+    } catch (err) {
+      alert(err);
+      return;
     }
+  }
+
 
   render() {
     return (
@@ -121,17 +121,19 @@ class FuelQuoteForm extends Component {
             }}
           ></PrefilledDeliveryAddress>
           {/* TODO: Add in city, state, and zipcode for address to complete pricing module */}
+          <ButtonOverlay
+          type = "submit" value="Generate">
           <ButtonSmallBlue
-          type = "submit" value="Calculate Quote"
             style={{
               width: 100,
               height: 44,
               marginBottom: 20,
               marginRight: 20,
-              marginLeft: 20
+              marginLeft: 95
             }}
             button="Generate"
           ></ButtonSmallBlue>
+          </ButtonOverlay>
           </form>
         </QuoteForm>
         <Group1>
