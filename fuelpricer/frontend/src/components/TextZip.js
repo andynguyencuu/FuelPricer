@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaLocationArrow} from "react-icons/fa";
 
 function TextZip(props) {
   return (
     <Container {...props}>
+
+      <FaLocationArrow
+        style={{
+          color: "#616161",
+          fontSize: 18,
+          paddingLeft: 10,
+          marginRight: 10
+        }}
+      />
+
       <InputStyle value={props.value} name="zipcode" placeholder="Zip Code*" inputMode="numeric" type="number" maxLength={9}></InputStyle>
     </Container>
   );
@@ -20,7 +31,6 @@ const Container = styled.div`
 const InputStyle = styled.input`
   font-family: Lato;
   color: #000;
-  margin-left: 16px;
   font-size: 18px;
   align-self: stretch;
   flex: 1 1 0%;

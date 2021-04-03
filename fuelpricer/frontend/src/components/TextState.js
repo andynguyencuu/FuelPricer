@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaMapSigns} from "react-icons/fa";
 
 function TextState(props) {
   return (
     <Container {...props}>
+
+      <FaMapSigns
+        style={{
+          color: "#616161",
+          fontSize: 20,
+          paddingLeft: 10,
+          marginRight: 8
+        }}
+      />
+
       <InputStyle value={props.value} name="state" placeholder="State*" maxLength={2}></InputStyle>
     </Container>
   );
@@ -20,7 +31,6 @@ const Container = styled.div`
 const InputStyle = styled.input`
   font-family: Lato;
   color: #000;
-  margin-left: 16px;
   font-size: 18px;
   align-self: stretch;
   flex: 1 1 0%;

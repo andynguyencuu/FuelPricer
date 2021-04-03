@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaCity} from "react-icons/fa";
 
 function TextCity(props) {
   return (
     <Container {...props}>
+
+      <FaCity
+        style={{
+          color: "#616161",
+          fontSize: 20,
+          paddingLeft: 10,
+          marginRight: 8
+        }}
+      />
+
       <InputStyle value={props.value} name="city" placeholder="City*" maxLength={100}></InputStyle>
     </Container>
   );
@@ -20,7 +31,6 @@ const Container = styled.div`
 const InputStyle = styled.input`
   font-family: Lato;
   color: #000;
-  margin-left: 16px;
   font-size: 18px;
   align-self: stretch;
   flex: 1 1 0%;

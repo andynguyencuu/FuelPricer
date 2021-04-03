@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaMapMarkerAlt} from "react-icons/fa";
 
 function TextAddress2(props) {
   return (
     <Container {...props}>
+
+      <FaMapMarkerAlt
+        style={{
+          color: "#616161",
+          fontSize: 20,
+          paddingLeft: 10,
+          marginRight: 8
+        }}
+      />
+
       <InputStyle value={props.value} name="address_2" placeholder="Address Line 2" maxLength={100}></InputStyle>
     </Container>
   );
@@ -20,7 +31,6 @@ const Container = styled.div`
 const InputStyle = styled.input`
   font-family: Lato;
   color: #000;
-  margin-left: 16px;
   font-size: 18px;
   align-self: stretch;
   flex: 1 1 0%;

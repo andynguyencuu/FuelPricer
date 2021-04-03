@@ -56,16 +56,17 @@ class ProfileManagement extends Component {
   render() {
     return (
       <Container
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
+      style={{
+        backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
         }}
-      >
+        >
         <LogoSmall src={require("../assets/images/fuel23.png")}></LogoSmall>
         <ProfileDialog>
           <BoxHeader1>
             <Text>PROFILE MANAGEMENT</Text>
           </BoxHeader1>
           <form onSubmit={this.handleSubmit}>
+            
           <TextFullName
             name="fullname" type="text" value={this.state.fullname} onChange={this.handleChange}
             style={{
