@@ -60,7 +60,7 @@ class ProfileManagement extends Component {
         backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
         }}
         >
-        <LogoSmall src={require("../assets/images/fuel23.png")}></LogoSmall>
+        <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
         <ProfileDialog>
           <BoxHeader1>
             <Text>PROFILE MANAGEMENT</Text>
@@ -170,7 +170,7 @@ const ButtonOverlay = styled.button`
   width: 100%;
   border: none;
 `;
-const LogoSmall = styled.img`
+const Logo = styled.img`
   width: 130px;
   height: 100%;
   object-fit: contain;

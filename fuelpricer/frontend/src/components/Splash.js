@@ -50,7 +50,7 @@ class Splash extends Component {
                 backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
             }}
         >
-            <Logo src={require("../assets/images/fuel23.png")}></Logo>
+            <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
             <SignInDialog>
                 <BoxHeader>
                     <Header1>ACCOUNT SIGN IN</Header1>

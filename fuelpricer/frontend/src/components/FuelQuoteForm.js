@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import PrefilledTotalAmountDue from "./PrefilledTotalAmountDue";
 import { axiosInstance } from "../axiosApi";
-import {DatePickerInput } from 'rc-datepicker';
-import {FaUser} from "react-icons/fa";
+import { DatePickerInput } from 'rc-datepicker';
+import { FaUser } from "react-icons/fa";
 import "../cal-style.css";
 
 class FuelQuoteForm extends Component {
   constructor(props) {
     super(props);
     var today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0" };
     // todo: copy this.state into ↓ when "Generate", use for "Accept"
     this.quote_buffer = {}
@@ -110,49 +110,47 @@ class FuelQuoteForm extends Component {
                 marginLeft: 20
               }}
             ></TextGallonsRequested>
-          <CalInput
-          style={{
-            width: 300,
-            height: 35,
-            marginLeft:20,
-            marginRight:20,
-            
-          }}
-          >
-            
-          <FaUser
-              style={{
-                color: "#616161",
-                fontSize: 20,
-                paddingLeft: 10,
-                marginRight: 8
-              }}
-              />
-
-            <DatePickerInput
-              displayFormat='MM/DD/YYYY'
-              returnFormat='MM/DD/YYYY'
-              className='deliveryDate'
-              valueLink={{
-                value: this.state.dateRequested,
-                requestChange: dateRequested => this.setState({ dateRequested })
-              }}
-              showOnInputClick
-              placeholder='Delivery Date'
-              locale='en'
+            <CalInput
               style={{
                 width: 300,
                 height: 35,
-                marginTop: 10,
-                marginBottom: 10,
+                marginLeft: 20,
                 marginRight: 20,
-                marginLeft: -11,
+
               }}
+            >
+              <FaUser
+                style={{
+                  color: "#616161",
+                  fontSize: 20,
+                  paddingLeft: 10,
+                  marginRight: 8
+                }}
               />
-        </CalInput>
+              <DatePickerInput
+                displayFormat='MM/DD/YYYY'
+                returnFormat='MM/DD/YYYY'
+                className='deliveryDate'
+                valueLink={{
+                  value: this.state.dateRequested,
+                  requestChange: dateRequested => this.setState({ dateRequested })
+                }}
+                showOnInputClick
+                placeholder='Delivery Date'
+                locale='en'
+                style={{
+                  width: 300,
+                  height: 35,
+                  marginTop: 10,
+                  marginBottom: 10,
+                  marginRight: 20,
+                  marginLeft: -11,
+                }}
+              />
+            </CalInput>
 
             <PrefilledPricePerGallon
-              name="pricepergallon" type="text" value={parseFloat(this.state.pricePerGallon.toFixed(2)).toLocaleString('en-US', { style:'currency', currency: 'USD'})}
+              name="pricepergallon" type="text" value={parseFloat(this.state.pricePerGallon.toFixed(2)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
               style={{
                 width: 300,
                 height: 65,
@@ -187,7 +185,7 @@ class FuelQuoteForm extends Component {
           </form>
         </QuoteForm>
         <Group1>
-          <Logo1 src={require("../assets/images/fuel23.png")}></Logo1>
+          <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
           <Link to="/Dashboard">
             <Button1>
               <ButtonOverlay>
@@ -211,7 +209,7 @@ class FuelQuoteForm extends Component {
               <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
             </BoxHeader1>
             <PrefilledTotalAmountDue
-              name="totalamountdue" type="text" value={parseFloat(this.state.quotePrice).toLocaleString('en-US', { style:'currency', currency: 'USD'})}
+              name="totalamountdue" type="text" value={parseFloat(this.state.quotePrice).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
               style={{
                 width: 300,
                 height: 65,
@@ -220,7 +218,7 @@ class FuelQuoteForm extends Component {
               }}
             ></PrefilledTotalAmountDue>
             <ButtonOverlay
-              type="submit" value="Accept"> 
+              type="submit" value="Accept">
               <ButtonSmallGreen
                 style={{
                   width: 100,
@@ -310,7 +308,7 @@ const Group1 = styled.div`
   display: flex;
 `;
 
-const Logo1 = styled.img`
+const Logo = styled.img`
   width: 174px;
   height: 100%;
   margin-bottom: 500px;

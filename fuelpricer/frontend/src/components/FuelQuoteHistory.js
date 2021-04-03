@@ -56,7 +56,7 @@ class FuelQuoteHistory extends Component {
         }}
       >
         <HeaderGroup>
-          <Logo1 src={require("../assets/images/fuel23.png")}></Logo1>
+          <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
           <Header>Fuel Quote History</Header>
           <Link to="/Dashboard">
             <Return>
@@ -109,7 +109,7 @@ const HeaderGroup = styled.div`
   display: flex;
 `;
 
-const Logo1 = styled.img`
+const Logo = styled.img`
   width: 174px;
   height: 100%;
   margin-bottom: 20px;

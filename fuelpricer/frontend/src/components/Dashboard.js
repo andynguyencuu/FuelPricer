@@ -78,7 +78,7 @@ class Dashboard extends Component {
           backgroundImage: `linear-gradient(180deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
         }}
       >
-        <Logo src={require("../assets/images/fuel23.png")}></Logo>
+        <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
         <Greeting>{"Good " + this.timeofday + ", " + this.state.name.split(" ")[0] + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>
         <Navigator>
