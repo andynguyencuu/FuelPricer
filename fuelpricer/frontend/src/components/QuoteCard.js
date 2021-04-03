@@ -40,27 +40,6 @@ function QuoteCard(props) {
               fontSize: 23
             }}
           />
-          {/* <FontAwesomeIcon
-            name="dollar"
-            style={{
-              color: "rgba(128,128,128,1)",
-              fontSize: 22
-            }}
-          ></FontAwesomeIcon>
-          <FontAwesomeIcon
-            name="clock-o"
-            style={{
-              color: "rgba(128,128,128,1)",
-              fontSize: 22
-            }}
-          ></FontAwesomeIcon>
-          <FontAwesomeIcon
-            name="map-marker"
-            style={{
-              color: "rgba(128,128,128,1)",
-              fontSize: 22
-            }}
-          ></FontAwesomeIcon> */}
         </Icons>
         <Datae>
           <GallonsRequested>

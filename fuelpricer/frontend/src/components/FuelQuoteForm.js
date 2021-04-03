@@ -10,6 +10,7 @@ import ButtonFancy from "./ButtonFancy";
 import PrefilledTotalAmountDue from "./PrefilledTotalAmountDue";
 import { axiosInstance } from "../axiosApi";
 import {DatePickerInput } from 'rc-datepicker';
+import {FaUser} from "react-icons/fa";
 import "../cal-style.css";
 
 class FuelQuoteForm extends Component {
@@ -109,6 +110,25 @@ class FuelQuoteForm extends Component {
                 marginLeft: 20
               }}
             ></TextGallonsRequested>
+          <CalInput
+          style={{
+            width: 300,
+            height: 35,
+            marginLeft:20,
+            marginRight:20,
+            
+          }}
+          >
+            
+          <FaUser
+              style={{
+                color: "#616161",
+                fontSize: 20,
+                paddingLeft: 10,
+                marginRight: 8
+              }}
+              />
+
             <DatePickerInput
               displayFormat='MM/DD/YYYY'
               returnFormat='MM/DD/YYYY'
@@ -123,11 +143,13 @@ class FuelQuoteForm extends Component {
               style={{
                 width: 300,
                 height: 35,
+                marginTop: 10,
                 marginBottom: 10,
                 marginRight: 20,
-                marginLeft: 20,
+                marginLeft: -11,
               }}
-            />
+              />
+        </CalInput>
 
             <PrefilledPricePerGallon
               name="pricepergallon" type="text" value={parseFloat(this.state.pricePerGallon.toFixed(2)).toLocaleString('en-US', { style:'currency', currency: 'USD'})}
@@ -243,6 +265,16 @@ const QuoteForm = styled.div`
   width: 340px;
   display: flex;
   box-shadow: 3px 3px 10px 0.5px rgba(0, 0, 0, 1);
+`;
+
+const CalInput = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(230,230,230,1);
+
+  border-radius: 10px;
+
 `;
 
 const BoxHeader = styled.div`

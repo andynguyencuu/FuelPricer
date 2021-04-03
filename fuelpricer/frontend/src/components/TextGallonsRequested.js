@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaTint} from "react-icons/fa";
 
 function TextGallonsRequested(props) {
   return (
     <Container {...props}>
+
+      <FaTint
+        style={{
+          color: "#616161",
+          fontSize: 20,
+          paddingLeft: 10,
+          marginRight: 8
+        }}
+      />
+
       <InputStyle name="gallonsRequested" type="number" inputMode="numeric" placeholder="Gallons Requested" maxLength={50}></InputStyle>
     </Container>
   );
@@ -20,7 +31,6 @@ const Container = styled.div`
 const InputStyle = styled.input`
   font-family: Lato;
   color: #000;
-  margin-left: 16px;
   font-size: 18px;
   font-weight: bold;
   align-self: stretch;

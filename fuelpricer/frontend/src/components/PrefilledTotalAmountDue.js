@@ -28,8 +28,9 @@ const TotalAmountDue = styled.span`
 
 const InputStyle = styled.input`
   font-family: Lato;
-  color: #000;
+  color: #1B4323;
   font-size: 18px;
+  font-weight: 900;
   align-self: stretch;
   flex: 1 1 0%;
   line-height: 16px;
