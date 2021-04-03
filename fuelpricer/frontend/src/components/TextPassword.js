@@ -1,9 +1,20 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaLock} from "react-icons/fa";
 
 function TextPassword(props) {
   return (
     <Container {...props}>
+
+      <FaLock
+        style={{
+          color: "#616161",
+          fontSize: 20,
+          paddingLeft: 10,
+          marginRight: 8
+        }}
+      />
+
       <InputStyle
         name = "password"
         type="password"
@@ -26,7 +37,6 @@ const Container = styled.div`
 const InputStyle = styled.input`
   font-family: Lato;
   color: #000;
-  margin-left: 16px;
   font-size: 18px;
   align-self: stretch;
   flex: 1 1 0%;
