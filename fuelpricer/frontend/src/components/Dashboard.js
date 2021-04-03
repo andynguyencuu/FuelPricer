@@ -94,7 +94,7 @@ class Dashboard extends Component {
                     borderBottomLeftRadius: 100,
                     backgroundColor: "rgba(255,99,99,1)"
                   }}
-                  button="Review Quote History"
+                  button="Review Quote History."
                 ></ButtonBig>
               </ButtonOverlay>
             </QuoteHistory>
@@ -107,7 +107,7 @@ class Dashboard extends Component {
                     width: 420,
                     height: 120
                   }}
-                  button="Create Fuel Quote"
+                  button="Create Fuel Quote."
                 ></ButtonBig>
               </ButtonOverlay>
             </FuelQuote>
@@ -123,7 +123,7 @@ class Dashboard extends Component {
                     borderBottomRightRadius: 100,
                     backgroundColor: "rgba(52,217,82,1)"
                   }}
-                  button="Manage User Profile"
+                  button="Manage User Profile."
                 ></ButtonBig>
               </ButtonOverlay>
             </ProfileManagement>
@@ -158,6 +158,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: -8px -8px -8px -8px;
   height: 100vh;
   width: 100vw;
 `;

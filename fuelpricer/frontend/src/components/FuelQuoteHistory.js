@@ -91,6 +91,7 @@ const Container = styled.div`
   overflow-x: hidden;
   height: 100vh;
   width: 100vw;
+  margin: -8px -8px -8px -8px;
 `;
 
 const ButtonOverlay = styled.button`

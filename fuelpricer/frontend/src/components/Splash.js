@@ -84,7 +84,7 @@ class Splash extends Component {
                                     width: 85,
                                     height: 44,
                                     margin: 0,
-                                    marginLeft: 107,
+                                    marginLeft: 106,
                                     marginBottom: 0
                                 }}
                                 button="Sign In"
@@ -122,6 +122,7 @@ const Container = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  margin: -8px -8px -8px -8px;
 `;
 
 const ButtonOverlay = styled.button`
