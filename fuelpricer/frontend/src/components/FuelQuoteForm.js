@@ -17,7 +17,7 @@ class FuelQuoteForm extends Component {
     super(props);
     var today = new Date(),
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "" };
+    this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0" };
     // todo: copy this.state into ↓ when "Generate", use for "Accept"
     this.quote_buffer = {}
 
@@ -130,7 +130,7 @@ class FuelQuoteForm extends Component {
             />
 
             <PrefilledPricePerGallon
-              name="pricepergallon" type="text" value={this.state.pricePerGallon.toFixed(2)}
+              name="pricepergallon" type="text" value={parseFloat(this.state.pricePerGallon.toFixed(2)).toLocaleString('en-US', { style:'currency', currency: 'USD'})}
               style={{
                 width: 300,
                 height: 65,
@@ -149,7 +149,6 @@ class FuelQuoteForm extends Component {
                 marginLeft: 20
               }}
             ></PrefilledDeliveryAddress>
-            {/* TODO: Add in city, state, and zipcode for address to complete pricing module */}
             <ButtonOverlay
               type="submit" value="Generate">
               <ButtonSmallBlue
@@ -190,7 +189,7 @@ class FuelQuoteForm extends Component {
               <YourFuelQuote>YOUR FUEL QUOTE</YourFuelQuote>
             </BoxHeader1>
             <PrefilledTotalAmountDue
-              name="totalamountdue" type="text" value={this.state.quotePrice}
+              name="totalamountdue" type="text" value={parseFloat(this.state.quotePrice).toLocaleString('en-US', { style:'currency', currency: 'USD'})}
               style={{
                 width: 300,
                 height: 65,
