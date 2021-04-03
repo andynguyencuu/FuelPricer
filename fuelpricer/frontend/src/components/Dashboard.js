@@ -58,9 +58,9 @@ class Dashboard extends Component {
   async handleLogout() {
     try {
       console.log("here");
-        const response = await axiosInstance.post('/blacklist/', {
-            "refresh_token": localStorage.getItem("refresh_token")
-        });
+        // const response = await axiosInstance.post('/blacklist/', {
+        //     "refresh_token": localStorage.getItem("refresh_token")
+        // });
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         axiosInstance.defaults.headers['Authorization'] = null;

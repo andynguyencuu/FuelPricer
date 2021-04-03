@@ -10,5 +10,5 @@ urlpatterns = [
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('hello/', HelloWorldView.as_view(), name='hello_world'),
     path('quote/', FuelQuoteView.as_view(), name='quote'),
-    path('blacklist/', LogoutAndBlacklistRefreshTokenForUserView.as_view(), name='blacklist')
+    # path('blacklist/', LogoutAndBlacklistRefreshTokenForUserView.as_view(), name='blacklist')
 ]
