@@ -28,7 +28,7 @@ class TestUrls(SimpleTestCase):
         #print(resolve(url))
         self.assertEquals(resolve(url).func.view_class, FuelQuoteView)
 
-    def test_blacklist_url_is_resolved(self):
-        url = reverse('blacklist')
+    #def test_blacklist_url_is_resolved(self):
+        #url = reverse('blacklist')
         #print(resolve(url))
-        self.assertEquals(resolve(url).func.view_class, LogoutAndBlacklistRefreshTokenForUserView)
+        #self.assertEquals(resolve(url).func.view_class, LogoutAndBlacklistRefreshTokenForUserView)
