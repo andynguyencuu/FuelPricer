@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { FaTint, FaDollarSign, FaCalendarDay, FaMapPin } from "react-icons/fa";
 
 
 function QuoteCard(props) {
@@ -14,15 +15,32 @@ function QuoteCard(props) {
         </QuotePriceStack>
       </QuoteHeader>
       <QuoteDetails>
-        {/* <Icons> */}
-          {/* <FontAwesomeIcon
-            name="tint"
+        <Icons>
+          <FaTint
             style={{
               color: "rgba(128,128,128,1)",
-              fontSize: 25
+              fontSize: 22
             }}
-          ></FontAwesomeIcon>
-          <FontAwesomeIcon
+          />
+          <FaDollarSign
+            style={{
+              color: "rgba(128,128,128,1)",
+              fontSize: 23
+            }}
+          />
+          <FaCalendarDay
+            style={{
+              color: "rgba(128,128,128,1)",
+              fontSize: 20
+            }}
+          />
+          <FaMapPin
+            style={{
+              color: "rgba(128,128,128,1)",
+              fontSize: 23
+            }}
+          />
+          {/* <FontAwesomeIcon
             name="dollar"
             style={{
               color: "rgba(128,128,128,1)",
@@ -43,7 +61,7 @@ function QuoteCard(props) {
               fontSize: 22
             }}
           ></FontAwesomeIcon> */}
-        {/* </Icons> */}
+        </Icons>
         <Datae>
           <GallonsRequested>
             {props.gallonsRequested || "Gallons Requested"}

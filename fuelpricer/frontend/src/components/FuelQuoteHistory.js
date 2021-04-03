@@ -20,7 +20,6 @@ class FuelQuoteHistory extends Component {
       const response = await axiosInstance.get('/quote/', { method: 'get' });
       this.quotes= response.data;
       this.setState(this.makeCards());
-      console.log(Object.entries(this.state))
     } catch (err) {
       alert(err);
     }
@@ -36,13 +35,13 @@ class FuelQuoteHistory extends Component {
         style={{
           width: 400,
           height: 214,
-          marginBottom: 15
+          marginBottom: 15,
         }}
-        quotePrice={"$" + target.quotePrice}
+        quotePrice={parseFloat(target.quotePrice).toLocaleString('en-US', { style:'currency', currency: 'USD'})}
         quoteCreated={"Created " + target.dateOfQuote}
-        gallonsRequested={target.gallonsRequested + " gallons"}
-        pricePerGallon={target.pricePerGallon + " per gallon"}
-        deliveryDate={target.dateRequested}
+        gallonsRequested={parseFloat(target.gallonsRequested).toLocaleString() + " gallons"}
+        pricePerGallon={parseFloat(target.pricePerGallon).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + " per gallon"}
+        deliveryDate={target.dateRequested.slice(5,7) + '/' + target.dateRequested.slice(8,10) + '/' + target.dateRequested.slice(0,4)}
         deliveryAddress={target.address}
       ></QuoteCard>)
     }
