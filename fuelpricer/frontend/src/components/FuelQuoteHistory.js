@@ -77,6 +77,7 @@ class FuelQuoteHistory extends Component {
         </HeaderGroup>
         <QuoteList>
           {Object.values(this.state).reverse()}
+
         </QuoteList>
       </Container>
     );
