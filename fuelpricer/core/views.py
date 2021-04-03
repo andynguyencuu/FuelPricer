@@ -57,10 +57,10 @@ class LogoutAndBlacklistRefreshTokenForUserView(APIView):
         try:
             refresh_token = request.data["refresh_token"]
             token = RefreshToken(refresh_token)
-            token.blacklist()
-            print(refresh_token)
+            # token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
+            print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -93,7 +93,5 @@ class FuelQuoteView(APIView):
             print(queryset)
             serializer = FuelQuoteSerializer(queryset, many=True)
             # for quote in queryset:
-                
             return Response(serializer.data, status=status.HTTP_200_OK)
-        print("monky")
         return Response(status=status.HTTP_400_BAD_REQUEST)
