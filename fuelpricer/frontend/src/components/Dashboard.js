@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import ButtonBig from "./ButtonBig";
 import ButtonFancy from "./ButtonFancy";
-import { rgbToHex } from "@material-ui/core";
 import { axiosInstance } from "../axiosApi";
 
 class Dashboard extends Component {
@@ -50,8 +49,7 @@ class Dashboard extends Component {
     try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/user/update/', { method: 'get' });
-      let prefill = response.data;
-      this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, state: prefill.state, zipcode: prefill.zipcode });
+      this.setState({ name: response.data.fullname});
     } catch (err) {
       alert(err);
     }
@@ -81,7 +79,7 @@ class Dashboard extends Component {
         }}
       >
         <Logo src={require("../assets/images/fuel23.png")}></Logo>
-        <Greeting>{"Good " + this.timeofday + ", " + "NAMEGOESHERE" + "."}</Greeting>
+        <Greeting>{"Good " + this.timeofday + ", " + this.state.name.split(" ")[0] + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>
         <Navigator>
           <Link to="/QuoteHistory">
@@ -109,7 +107,7 @@ class Dashboard extends Component {
                     width: 420,
                     height: 120
                   }}
-                  button="New Fuel Quote"
+                  button="Create Fuel Quote"
                 ></ButtonBig>
               </ButtonOverlay>
             </FuelQuote>
@@ -125,7 +123,7 @@ class Dashboard extends Component {
                     borderBottomRightRadius: 100,
                     backgroundColor: "rgba(52,217,82,1)"
                   }}
-                  button="Profile Management"
+                  button="Manage User Profile"
                 ></ButtonBig>
               </ButtonOverlay>
             </ProfileManagement>
