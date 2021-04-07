@@ -34,7 +34,6 @@ const InputStyle = styled.input`
   align-self: stretch;
   flex: 1 1 0%;
   line-height: 16px;
-  padding-top: 8px;
   padding-bottom: 8px;
   background-color: rgba(230, 230, 230,1);
   border-radius: 10px;

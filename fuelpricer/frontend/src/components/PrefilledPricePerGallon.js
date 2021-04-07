@@ -22,12 +22,13 @@ const PricePerGallon = styled.span`
   color: rgba(74,74,74,1);
   opacity: 0.6;
   padding-top: 16px;
-`;
-
-const TextInput = styled.input`
+  `;
+  
+  const TextInput = styled.input`
   font-family: Lato;
   color: rgba(74,74,74,1);
   font-size: 18px;
+  font-weight: 600;
   align-self: stretch;
   flex: 1 1 0%;
   line-height: 16px;

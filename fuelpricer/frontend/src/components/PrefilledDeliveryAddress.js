@@ -27,8 +27,9 @@ const Label = styled.span`
 
 const InputStyle = styled.input`
   font-family: Lato;
-  color: #000;
+  color: rgba(74,74,74,1);
   font-size: 18px;
+  font-weight: 600;
   align-self: stretch;
   line-height: 16px;
   padding-top: 8px;
