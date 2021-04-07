@@ -45,10 +45,10 @@ class Splash extends Component {
 			window.location.replace('http://localhost:8000/Dashboard/');
 		} catch (err) {
 			if (err.response) {
-				if (err.response.status >= 500) this.handleError("Server error.");
+				if (err.response.status >= 500) return this.handleError("Server error.");
+				else return this.handleError("Please enter your user ID & password.")
 			}
-			else this.handleError("Invalid user ID/password.")
-			return;
+			else return this.handleError("Invalid user ID/password.");
 		}
 	}
 
