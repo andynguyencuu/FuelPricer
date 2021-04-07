@@ -46,7 +46,7 @@ class Registration extends Component {
 		}
 		catch {
 			return this.handleError("Server error creating user.");
-		} // may still need 1000 timeout?
+		}
 		try {		// USE TO SIGN IN
 			const response = await axiosInstance.post('/token/obtain/', {
 				username: this.state.username,
