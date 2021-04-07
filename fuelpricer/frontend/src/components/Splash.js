@@ -5,12 +5,13 @@ import TextPassword from "./TextPassword";
 import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
+import InlineError from "./InlineError"
 import { axiosInstance } from "../axiosApi";
 
 class Splash extends Component {
     constructor(props) {
         super(props);
-        this.state = { username: "", password: "" };
+        this.state = { username: "", password: "", error: false, error_msg: ""};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,6 +19,11 @@ class Splash extends Component {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value });
+    }
+
+    handleError(err) {
+      this.setState({ ['error']: true, ['error_msg']: err});
+      setTimeout(function () { this.setState({ ['error']: false}) }.bind(this), 4000);
     }
 
     async handleSubmit(event) {
@@ -38,7 +44,10 @@ class Splash extends Component {
           // for if a user quits after registering or something
           window.location.replace('http://localhost:8000/Dashboard/');
         } catch (err) {
-          alert("Invalid user ID/password.");
+          if (err.response){
+            if (err.response.status >= 500) this.handleError("Server error.");
+          }
+          else this.handleError("Invalid user ID/password.")
           return;
         }
     }
@@ -53,7 +62,7 @@ class Splash extends Component {
             <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
             <SignInDialog>
                 <BoxHeader>
-                    <Header1>ACCOUNT SIGN IN</Header1>
+                    <Header1>ACCOUNT SIGN IN!</Header1>
                 </BoxHeader>
                 <form onSubmit={this.handleSubmit}>
                 <TextUser
@@ -73,9 +82,12 @@ class Splash extends Component {
                         height: 35,
                         marginRight: 20,
                         marginLeft: 20,
-                        marginBottom: 20
+                        marginBottom: 15
                     }}
                     ></TextPassword>
+                    <InlineError error={this.state.error}>
+                      {this.state.error_msg}
+                      </InlineError>
                     <SignIn
                     type="submit" value="Sign In">
                         <ButtonOverlay>
