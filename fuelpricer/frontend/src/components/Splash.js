@@ -62,7 +62,7 @@ class Splash extends Component {
 				<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 				<SignInDialog>
 					<BoxHeader>
-						<Header1>ACCOUNT SIGN IN!</Header1>
+						<Header1>ACCOUNT SIGN IN</Header1>
 					</BoxHeader>
 					<form onSubmit={this.handleSubmit}>
 						<TextUser
