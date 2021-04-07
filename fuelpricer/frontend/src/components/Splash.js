@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled, { css } from "styled-components";
 import TextUser from "./TextUser";
 import TextPassword from "./TextPassword";
@@ -11,21 +11,30 @@ import { axiosInstance } from "../axiosApi";
 class Splash extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { username: "", password: "", error: false, error_msg: "" };
-
+		this.state = { username: "", password: "", error: false, error_msg: "", hover_signin: false, hover_register: false };
+		
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.togglehover_signin = this.togglehover_signin.bind(this);
+		this.togglehover_register  = this.togglehover_register.bind(this);
 	}
 
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
 	}
-
+	
 	handleError(err) {
 		this.setState({ ['error']: true, ['error_msg']: err });
 		return setTimeout(function () { this.setState({ ['error']: false }) }.bind(this), 4000);
 	}
 
+	togglehover_signin() {
+		this.setState({['hover_signin']: !this.state.hover_signin})
+	}
+	togglehover_register() {
+		this.setState({['hover_register']: !this.state.hover_register})
+	}
+	
 	async handleSubmit(event) {
 		event.preventDefault();
 		try {
@@ -36,7 +45,7 @@ class Splash extends Component {
 			localStorage.setItem('access_token', data.data.access);
 			localStorage.setItem('refresh_token', data.data.refresh);
 			axiosInstance.defaults.headers['Authorization'] = "JWT " + data.data.access;
-
+			
 			// TODO 
 			//  CHECK REQ'D FIELDS FOR EMPTY. IF EMPTY REDIR → PROF MANAGEMENT
 			// Object = ????? 
@@ -51,13 +60,13 @@ class Splash extends Component {
 			else return this.handleError("Invalid user ID/password.");
 		}
 	}
-
+	
 	render() {
 		return (
 			<Container
-				style={{
-					backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
-				}}
+			style={{
+				backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
+			}}
 			>
 				<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 				<SignInDialog>
@@ -91,31 +100,29 @@ class Splash extends Component {
 						<SignIn
 							type="submit" value="Sign In">
 							<ButtonOverlay>
-								<ButtonSmallBlue
+								<ButtonSmallBlue hover={this.state.hover_signin} onMouseEnter={this.togglehover_signin} onMouseLeave={this.togglehover_signin}
 									style={{
-										width: 85,
-										height: 44,
+										width: 80,
+										height: 34,
 										margin: 0,
-										marginLeft: 106,
+										marginLeft: 103,
 										marginBottom: 0
 									}}
-									button="Sign In"
+									caption="Sign In"
 								></ButtonSmallBlue>
 							</ButtonOverlay>
 						</SignIn>
 						<Link to="/Registration">
 							<Register>
-								<ButtonOverlay>
-									<ButtonSmallGrey
+									<ButtonSmallGrey hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
 										style={{
-											width: 100,
-											height: 44,
+											width: 92,
+											height: 34,
 											margin: 0,
-											marginLeft: 100,
+											marginLeft: 104,
 										}}
 										caption="Register"
 									></ButtonSmallGrey>
-								</ButtonOverlay>
 							</Register>
 						</Link>
 					</form>
@@ -193,7 +200,6 @@ const SignIn = styled.div`
   margin-bottom: 5px;
   align-self: stretch;
   align-items: center;
-  border: none;
 `;
 
 const Register = styled.div`

@@ -11,18 +11,20 @@ function ButtonSmallGrey(props) {
 
 const Container = styled.div`
   display: flex;
-  background-color: #8E8E93;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   border-radius: 100px;
   padding-left: 16px;
   padding-right: 16px;
+  border: 4px solid #8E8E93;
+  background-color: ${props => props.hover ? 'rgba(255,255,255,1)' : '#8E8E93'};
+  color: ${props => props.hover ? '#8E8E93' : 'rgba(255,255,255,1)'};
+  transition: background-color 0.15s ease-out, color 0.15s ease-out;
 `;
 
 const Caption = styled.span`
   font-family: Lato;
-  color: #fff;
   font-size: 18px;
   font-weight: 700;
   margin: ;
