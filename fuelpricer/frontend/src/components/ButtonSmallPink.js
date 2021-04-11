@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 
-function ButtonSmallGreen(props) {
+function ButtonSmallPink(props) {
   return (
     <Container {...props}>
       <Caption>{props.caption || "Button"}</Caption>
@@ -11,16 +11,15 @@ function ButtonSmallGreen(props) {
 
 const Container = styled.div`
   display: flex;
-  background-color: rgba(98, 185, 87, 1);
   justify-content: center;
   align-items: center;
   flex-direction: row;
   border-radius: 100px;
   padding-left: 16px;
   padding-right: 16px;
-  border: 4px solid rgba(98,185,87,1);
-  background-color: ${props => props.hover ? 'rgba(255,255,255,1)' : 'rgba(98,185,87,1)'};
-  color: ${props => props.hover ? 'rgba(98,185,87,1)' : 'rgba(255,255,255,1)'};
+  border: 4px solid rgba(219,87,147,1);
+  background-color: ${props => props.hover ? 'rgba(255,255,255,1)' : 'rgba(219,87,147,1)'};
+  color: ${props => props.hover ? 'rgba(219,87,147,1)' : 'rgba(255,255,255,1)'};
   transition: background-color 0.1s ease-out, color 0.1s ease-out;
 `;
 
@@ -41,4 +40,4 @@ const Caption = styled.span`
   flex-direction: column;
 `;
 
-export default ButtonSmallGreen;
+export default ButtonSmallPink;

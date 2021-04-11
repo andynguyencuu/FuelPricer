@@ -7,8 +7,7 @@ import TextCity from "./TextCity";
 import TextState from "./TextState";
 import TextZip from "./TextZip";
 import { Link } from "react-router-dom";
-import ButtonSmallBlue from "./ButtonSmallBlue";
-import ButtonSmallGrey from "./ButtonSmallGrey";
+import ButtonSmallGreen from "./ButtonSmallGreen";
 import InlineError from "./InlineError"
 
 import { axiosInstance } from "../axiosApi";
@@ -20,12 +19,21 @@ class ProfileManagement extends Component {
 		
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.togglehover_register = this.togglehover_register.bind(this);
+
 	}
 	
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });	
 	}
 
+	togglehover_register() {
+
+		this.setState({ ['hover_register']: !this.state.hover_register })
+
+	}
+
+	
 	handleError(err) {
 		this.setState({ ['error']: true, ['error_msg']: err });
 		return setTimeout(function () { this.setState({ ['error']: false }) }.bind(this), 4000);
@@ -58,13 +66,13 @@ class ProfileManagement extends Component {
 			return this.handleError("Server error updating user file.");
 		}
 	}
-
+	
 	render() {
 		return (
 			<Container
 			style={{
 				backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
-				}}
+			}}
 				>
 				<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 				<ProfileDialog>
@@ -80,7 +88,7 @@ class ProfileManagement extends Component {
 							height: 35,
 							marginBottom: 10
 						}}
-					></TextFullName>
+						></TextFullName>
 					<TextAddress1
 						name="address" type="text" value={this.state.address} onChange={this.handleChange}
 						style={{
@@ -96,7 +104,7 @@ class ProfileManagement extends Component {
 							height: 35,
 							marginBottom: 10
 						}}
-					></TextAddress2>
+						></TextAddress2>
 					<TextCity
 						name="city" type="text" value={this.state.city} onChange={this.handleChange}
 						style={{
@@ -120,24 +128,24 @@ class ProfileManagement extends Component {
 							width: 300,
 							marginBottom: 20
 						}}
-					></TextZip>
+						></TextZip>
 					<InlineError error={this.state.error}>
 						{this.state.error_msg}
 					</InlineError>
 						<UpdateProfile
-						 type="submit" value="Sign In">
+						 type="submit" value="Update Profile">
 							<ButtonOverlay>
-								<ButtonSmallBlue
-									style={{
-										width: 132,
-										height: 44,
-										marginBottom: 5,
-										marginLeft: 63,
-										alignSelf: "center",
-										backgroundColor: "rgba(70,202,81,1)"
-									}}
-									button="Update Profile"
-								></ButtonSmallBlue>
+								<ButtonSmallGreen hover = { this.state.hover_register } onMouseEnter = { this.togglehover_register } onMouseLeave = { this.togglehover_register }
+										style = {{
+											width: 130,
+												height: 34,
+													margin: 0,
+													marginLeft: 63,
+													alignSelf: "center",
+												}
+											}
+											caption = "Update Profile"
+									></ButtonSmallGreen>
 							</ButtonOverlay>
 						</UpdateProfile>
 					{/* <DiscardChanges>
@@ -228,12 +236,5 @@ const UpdateProfile = styled.div`
 	border: none;
 `;
 
-// const DiscardChanges = styled.div`
-//   height: 44px;
-//   margin-bottom: 20px;
-//   flex-direction: column;
-//   display: flex;
-//   border: none;
-// `;
 
 export default ProfileManagement;

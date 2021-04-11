@@ -3,10 +3,8 @@ import styled, { css } from "styled-components";
 import TextUser from "./TextUser";
 import TextPassword from "./TextPassword";
 import TextPasswordConf from "./TextPasswordConf";
-import { Link } from "react-router-dom";
-import ButtonSmallBlue from "./ButtonSmallBlue";
+import ButtonSmallPink from "./ButtonSmallPink";
 import InlineError from "./InlineError"
-import axios from "axios";
 import axiosInstance from "../axiosApi";
 
 class Registration extends Component {
@@ -17,16 +15,24 @@ class Registration extends Component {
 			password: "",
 			passwordconf: "",
 			error: false,
-			error_msg: ""
+			error_msg: "",
+			hover_register: false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.togglehover_register = this.togglehover_register.bind(this);
+
 	}
 
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
 	}
+
+	togglehover_register() {
+		this.setState({ ['hover_register']: !this.state.hover_register })
+	}
+
 
 	handleError(err) {
 		this.setState({ ['error']: true, ['error_msg']: err });
@@ -40,9 +46,9 @@ class Registration extends Component {
 		if (this.state.password != this.state.passwordconf) return this.handleError("Passwords must match!");
 		try {		// CREATE USER
 			await axiosInstance.post('/user/create/', {
-			username: this.state.username, 
-			password: this.state.password
-			}, {method: 'post'});
+				username: this.state.username,
+				password: this.state.password
+			}, { method: 'post' });
 		}
 		catch {
 			return this.handleError("Server error creating user.");
@@ -117,16 +123,16 @@ class Registration extends Component {
 						</InlineError>
 						<Button type="submit" value="Register">
 							<ButtonOverlay>
-								<ButtonSmallBlue
+								<ButtonSmallPink hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
 									style={{
-										width: 100,
-										height: 44,
-										marginBottom: 100,
-										marginLeft: 95,
-										backgroundColor: "rgba(219,87,147,1)"
-									}}
-									button="Register"
-								></ButtonSmallBlue>
+										width: 92,
+										height: 34,
+										margin: 0,
+										marginLeft: 104,
+									}
+									}
+									caption="Register"
+								></ButtonSmallPink>
 							</ButtonOverlay>
 						</Button>
 					</form>

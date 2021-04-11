@@ -20,7 +20,7 @@ const Container = styled.div`
   border: 4px solid rgba(48,116,209,1);
   background-color: ${props => props.hover ? 'rgba(255,255,255,1)' : 'rgba(48,116,209,1)'};
   color: ${props => props.hover ? 'rgba(48,116,209,1)' : 'rgba(255,255,255,1)'};
-  transition: background-color 0.15s ease-out, color 0.15s ease-out;
+  transition: background-color 0.1s ease-out, color 0.1s ease-out;
 `;
 
 const Caption = styled.span`
