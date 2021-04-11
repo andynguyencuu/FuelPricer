@@ -19,7 +19,7 @@ class FuelQuoteForm extends Component {
 		super(props);
 		var today = new Date(),
 			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false  };
+		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false  };
 		// todo: copy this.state into ↓ when "Generate", use for "Accept"
 		this.quote_buffer = {}
 
@@ -28,6 +28,7 @@ class FuelQuoteForm extends Component {
 		this.generate = this.generate.bind(this);
 		this.togglehover_generate = this.togglehover_generate.bind(this);
 		this.togglehover_accept = this.togglehover_accept.bind(this);
+		this.togglehover_return = this.togglehover_return.bind(this);
 
 	}
 
@@ -48,8 +49,13 @@ class FuelQuoteForm extends Component {
 	togglehover_generate() {
 		this.setState({ ['hover_generate']: !this.state.hover_generate })
 	}
+
 	togglehover_accept() {
 		this.setState({ ['hover_accept']: !this.state.hover_accept })
+	}
+	
+	togglehover_return() {
+		this.setState({ ['hover_return']: !this.state.hover_return })
 	}
 
 	async componentDidMount(event) {
@@ -209,11 +215,11 @@ class FuelQuoteForm extends Component {
 					<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 					<Link to="/Dashboard">
 							<ButtonOverlay>
-								<ButtonFancy
+								<ButtonFancy hover={this.state.hover_return} onMouseEnter={this.togglehover_return} onMouseLeave={this.togglehover_return}
 									button="Button"
 									style={{
-										height: 44,
-										width: 100,
+										height: 34,
+										width: 80,
 										borderRadius: 100,
 										marginBottom: 0
 									}}
@@ -243,12 +249,11 @@ class FuelQuoteForm extends Component {
 								type="submit" value="Accept">
 								<ButtonSmallGreen hover={this.state.hover_accept} onMouseEnter={this.togglehover_accept} onMouseLeave={this.togglehover_accept}
 									style={{
-										width: 100,
+										width: 80,
 										height: 34,
 										marginTop: 20,
 										marginBottom: 20,
-										marginRight: 20,
-										marginLeft: 95
+										marginRight: 20
 									}}
 									caption="Accept"
 									></ButtonSmallGreen>
@@ -352,11 +357,14 @@ const Generate = styled.div`
 `;
 
 const Accept = styled.div`
-	flex-direction: column;
-	width: 100px;
-	height: 44px;
-	margin-bottom: 50px;
-	border: none;
+  display: flex;
+  justify-content: 'center';
+  flex-direction: column;
+  height: 44px;
+  padding: 0px;
+  margin-bottom: 15px;
+  align-self: stretch;
+  align-items: center;
 `;
 
 const QuoteOutput = styled.div`

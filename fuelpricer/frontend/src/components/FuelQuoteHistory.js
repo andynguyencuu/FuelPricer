@@ -8,12 +8,18 @@ import axiosInstance from "../axiosApi";
 class FuelQuoteHistory extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { hover_return: false }
+    
     this.quotes = {};
     this.cards = [];
+    this.togglehover_return = this.togglehover_return.bind(this);
   }
- 
-
+  
+  togglehover_return() {
+    this.setState({ ['hover_return']: !this.state.hover_return })
+  }
+  
+  
   async componentDidMount(event) {
     try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
@@ -47,30 +53,30 @@ class FuelQuoteHistory extends Component {
     }
     return cards
     }
-
+    
   render() {
     return (
       <Container
-        style={{
+      style={{
           backgroundImage: `linear-gradient(180deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
         }}
-      >
+        >
         <HeaderGroup>
           <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
           <Header>Fuel Quote History</Header>
           <Link to="/Dashboard">
             <Return>
               <ButtonOverlay>
-                <ButtonFancy
+                <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.togglehover_return } onMouseLeave={ this.togglehover_return }
                   button="Button"
                   style={{
-                    height: 44,
-                    width: 100,
+                    height: 34,
+                    width: 80,
                     borderRadius: 100,
                     alignSelf: "center"
                   }}
                   button="Return"
-                ></ButtonFancy>
+                  ></ButtonFancy>
               </ButtonOverlay>
             </Return>
           </Link>
@@ -85,19 +91,19 @@ class FuelQuoteHistory extends Component {
 }
 
 const Container = styled.div`
-  display: flex;
-  background-color: rgba(242, 213, 153, 1);
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-  height: 100vh;
-  width: 100vw;
-  margin: -8px -8px -8px -8px;
+display: flex;
+background-color: rgba(242, 213, 153, 1);
+flex-direction: column;
+align-items: center;
+overflow-x: hidden;
+height: 100vh;
+width: 100vw;
+margin: -8px -8px -8px -8px;
 `;
 
 const ButtonOverlay = styled.button`
-  display: block;
-  background: none;
+display: block;
+background: none;
   height: 100%;
   width: 100%;
   border: none;

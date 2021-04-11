@@ -11,42 +11,47 @@ class Dashboard extends Component {
     var today = new Date();
     this.timeofday = "";
     this.state = {
-      name: ""
+      name: "", hover_return: false 
     };
     this.handleLogout = this.handleLogout.bind(this);
     switch (today.getHours()) {
       case 5:
-      case 6:
+        case 6:
       case 7:
       case 8:
-      case 9:
+        case 9:
       case 10:
         this.timeofday = "morning";
         break;
-      case 11:
+        case 11:
       case 12:
-      case 13:
+        case 13:
       case 14:
-      case 15:
+        case 15:
       case 16:
         this.timeofday = "afternoon";
         break;
       case 17:
-      case 18:
-      case 19:
+        case 18:
+          case 19:
       case 20:
-      case 21:
+        case 21:
         this.timeofday = "evening";
         break;
-      default:
-        this.timeofday = "night";
+        default:
+          this.timeofday = "night";
         break;
+      }
+      
+      this.togglehover_return = this.togglehover_return.bind(this);
     }
-  }
-
-  // just for the name
-  async componentDidMount(event) {
-    try {
+    
+    togglehover_return() {    
+      this.setState({ ['hover_return']: !this.state.hover_return })
+    }
+    // just for the name
+      async componentDidMount(event) {
+        try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/user/update/', { method: 'get' });
       this.setState({ name: response.data.fullname});
@@ -54,30 +59,31 @@ class Dashboard extends Component {
       alert(err);
     }
   }
-
+  
   async handleLogout() {
     try {
       console.log("here");
-        // const response = await axiosInstance.post('/blacklist/', {
+      // const response = await axiosInstance.post('/blacklist/', {
         //     "refresh_token": localStorage.getItem("refresh_token")
         // });
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         axiosInstance.defaults.headers['Authorization'] = null;
+        window.location.replace('http://localhost:8000/Splash/');
         return response;
-    }
-    catch (e) {
+      }
+      catch (e) {
         console.log(e);
-    }
-};
-
-  render() {
-    return (
+      }
+    };
+    
+    render() {
+      return (
       <Container
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
+      style={{
+        backgroundImage: `linear-gradient(180deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
         }}
-      >
+        >
         <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
         <Greeting>{"Good " + this.timeofday + ", " + this.state.name.split(" ")[0] + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>
@@ -108,7 +114,7 @@ class Dashboard extends Component {
                     height: 120
                   }}
                   button="Create Fuel Quote."
-                ></ButtonBig>
+                  ></ButtonBig>
               </ButtonOverlay>
             </FuelQuote>
           </Link>
@@ -124,26 +130,24 @@ class Dashboard extends Component {
                     backgroundColor: "rgba(52,217,82,1)"
                   }}
                   button="Manage User Profile."
-                ></ButtonBig>
+                  ></ButtonBig>
               </ButtonOverlay>
             </ProfileManagement>
           </Link>
         </Navigator>
-        <Link to="/Splash">
-          <Button6 onClick={this.handleLogout}>
+          <SignOut onClick={this.handleLogout}>
             <ButtonOverlay>
-              <ButtonFancy
+              <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.togglehover_return } onMouseLeave={ this.togglehover_return }
                 button="Button"
                 style={{
-                  height: 44,
-                  width: 100,
+                  height: 34,
+                  width: 90,
                   borderRadius: 100
                 }}
                 button="Sign Out"
-              ></ButtonFancy>
+                ></ButtonFancy>
             </ButtonOverlay>
-          </Button6>
-        </Link>
+          </SignOut>
         <br />
 
         <Container></Container>
@@ -164,10 +168,10 @@ const Container = styled.div`
 `;
 
 const ButtonOverlay = styled.button`
+  flex-direction: column;
+  align-items: center;
   display: block;
   background: none;
-  height: 100%;
-  width: 100%;
   border: none;
 `;
 const Logo = styled.img`
@@ -237,11 +241,15 @@ const ProfileManagement = styled.div`
   border: none;
 `;
 
-const Button6 = styled.div`
+const SignOut = styled.div`
+  display: flex;
+  justify-content: 'center';
   flex-direction: column;
-  width: 100px;
   height: 44px;
-  border: none;
+  padding: 0px;
+  margin-bottom: 15px;
+  align-self: stretch;
+  align-items: center;
 `;
 
 export default Dashboard;
