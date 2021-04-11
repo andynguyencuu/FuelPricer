@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import ButtonBig from "./ButtonBig";
 import ButtonFancy from "./ButtonFancy";
@@ -156,15 +156,27 @@ class Dashboard extends Component {
   }
 }
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   background-size: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: -8px -8px -8px -8px;
   height: 100vh;
   width: 100vw;
+  animation: ${fadeIn} 1s ease-out;
+  transition: background-color 1s ease-out;
+
 `;
 
 const ButtonOverlay = styled.button`
