@@ -136,7 +136,6 @@ const Container = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  margin: -8px -8px -8px -8px;
 `;
 
 const ButtonOverlay = styled.button`
