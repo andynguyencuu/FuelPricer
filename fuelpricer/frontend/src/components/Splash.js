@@ -103,28 +103,23 @@ class Splash extends Component {
 								<ButtonSmallBlue hover={this.state.hover_signin} onMouseEnter={this.togglehover_signin} onMouseLeave={this.togglehover_signin}
 									style={{
 										width: 80,
-										height: 34,
-										margin: 0,
-										marginLeft: 103,
-										marginBottom: 0
+										height: 34
 									}}
 									caption="Sign In"
 								></ButtonSmallBlue>
 							</ButtonOverlay>
 						</SignIn>
-						<Link to="/Registration">
-							<Register>
+							<Register to="/Registration">
+								<ButtonOverlay>
 									<ButtonSmallGrey hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
 										style={{
 											width: 92,
-											height: 34,
-											margin: 0,
-											marginLeft: 104,
+											height: 34
 										}}
 										caption="Register"
-									></ButtonSmallGrey>
+										></ButtonSmallGrey>
+										</ButtonOverlay>
 							</Register>
-						</Link>
 					</form>
 				</SignInDialog>
 				<br></br>
@@ -145,10 +140,10 @@ const Container = styled.div`
 `;
 
 const ButtonOverlay = styled.button`
+  flex-direction: column;
+  align-items: center;
   display: block;
   background: none;
-  height: 100%;
-  width: 100%;
   border: none;
 `;
 const Logo = styled.img`
@@ -202,13 +197,15 @@ const SignIn = styled.div`
   align-items: center;
 `;
 
-const Register = styled.div`
+const Register = styled(Link)`
+  display: flex;
+  justify-content: 'center';
   flex-direction: column;
   height: 44px;
+  padding: 0px;
   margin-bottom: 15px;
   align-self: stretch;
   align-items: center;
-  border: none;
 `;
 
 export default Splash;

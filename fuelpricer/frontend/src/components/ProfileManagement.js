@@ -6,7 +6,6 @@ import TextAddress2 from "./TextAddress2";
 import TextCity from "./TextCity";
 import TextState from "./TextState";
 import TextZip from "./TextZip";
-import { Link } from "react-router-dom";
 import ButtonSmallGreen from "./ButtonSmallGreen";
 import InlineError from "./InlineError"
 
@@ -139,9 +138,7 @@ class ProfileManagement extends Component {
 										style = {{
 											width: 130,
 												height: 34,
-													margin: 0,
-													marginLeft: 63,
-													alignSelf: "center",
+													margin: 0
 												}
 											}
 											caption = "Update Profile"
@@ -182,10 +179,10 @@ const Container = styled.div`
 `;
 
 const ButtonOverlay = styled.button`
+  flex-direction: column;
+  align-items: center;
 	display: block;
 	background: none;
-	height: 100%;
-	width: 100%;
 	border: none;
 `;
 const Logo = styled.img`
@@ -232,6 +229,8 @@ const UpdateProfile = styled.div`
 	margin: 0px;
 	margin-bottom: 15px;
 	flex-direction: column;
+	align-self: stretch;
+	align-items: center;
 	display: flex;
 	border: none;
 `;
