@@ -19,13 +19,16 @@ class FuelQuoteForm extends Component {
 		super(props);
 		var today = new Date(),
 			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "" };
+		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false  };
 		// todo: copy this.state into ↓ when "Generate", use for "Accept"
 		this.quote_buffer = {}
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.generate = this.generate.bind(this);
+		this.togglehover_generate = this.togglehover_generate.bind(this);
+		this.togglehover_accept = this.togglehover_accept.bind(this);
+
 	}
 
 	handleChange(event) {
@@ -42,6 +45,12 @@ class FuelQuoteForm extends Component {
 		return setTimeout(function () { this.setState({ ['errorRHS']: false }) }.bind(this), 4000);
 	}
 
+	togglehover_generate() {
+		this.setState({ ['hover_generate']: !this.state.hover_generate })
+	}
+	togglehover_accept() {
+		this.setState({ ['hover_accept']: !this.state.hover_accept })
+	}
 
 	async componentDidMount(event) {
 		try {
@@ -181,25 +190,24 @@ class FuelQuoteForm extends Component {
 						<InlineError error={this.state.error}>
 							{this.state.error_msg}
 						</InlineError>
-						<ButtonOverlay
-							type="submit" value="Generate">
-							<ButtonSmallBlue
-								style={{
-									width: 100,
-									height: 44,
-									marginBottom: 20,
-									marginRight: 20,
-									marginLeft: 95
-								}}
-								button="Generate"
-							></ButtonSmallBlue>
-						</ButtonOverlay>
+						<Generate>
+							<ButtonOverlay
+								type="submit" value="Generate">
+								<ButtonSmallBlue hover={this.state.hover_generate} onMouseEnter={this.togglehover_generate} onMouseLeave={this.togglehover_generate}
+									style={{
+										width: 100,
+										height: 34,
+										marginBottom: 20
+									}}
+									caption="Generate"
+								></ButtonSmallBlue>
+							</ButtonOverlay>
+						</Generate>
 					</form>
 				</QuoteForm>
 				<Group1>
 					<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 					<Link to="/Dashboard">
-						<Button1>
 							<ButtonOverlay>
 								<ButtonFancy
 									button="Button"
@@ -212,7 +220,6 @@ class FuelQuoteForm extends Component {
 									button="Return"
 								></ButtonFancy>
 							</ButtonOverlay>
-						</Button1>
 					</Link>
 				</Group1>
 				<QuoteOutput>
@@ -231,20 +238,22 @@ class FuelQuoteForm extends Component {
 						<InlineError error={this.state.errorRHS}>
 							{this.state.error_msgRHS}
 						</InlineError>
-						<ButtonOverlay
-							type="submit" value="Accept">
-							<ButtonSmallGreen
-								style={{
-									width: 100,
-									height: 44,
-									marginTop: -50,
-									marginBottom: 20,
-									marginRight: 20,
-									marginLeft: 95
-								}}
-								button="Accept"
-							></ButtonSmallGreen>
-						</ButtonOverlay>
+						<Accept>
+							<ButtonOverlay
+								type="submit" value="Accept">
+								<ButtonSmallGreen hover={this.state.hover_accept} onMouseEnter={this.togglehover_accept} onMouseLeave={this.togglehover_accept}
+									style={{
+										width: 100,
+										height: 34,
+										marginTop: 20,
+										marginBottom: 20,
+										marginRight: 20,
+										marginLeft: 95
+									}}
+									caption="Accept"
+									></ButtonSmallGreen>
+							</ButtonOverlay>
+						</Accept>
 					</form>
 				</QuoteOutput>
 			</Container>
@@ -264,12 +273,13 @@ const Container = styled.div`
 `;
 
 const ButtonOverlay = styled.button`
-	display: block;
-	background: none;
-	height: 100%;
-	width: 100%;
-	border: none;
+  flex-direction: column;
+  align-items: center;
+  display: block;
+  background: none;
+  border: none;
 `;
+
 const QuoteForm = styled.div`
 	background-color: rgba(255, 255, 255, 1);
 	border-radius: 30px;
@@ -330,7 +340,18 @@ const Logo = styled.img`
 	object-fit: contain;
 `;
 
-const Button1 = styled.div`
+const Generate = styled.div`
+  display: flex;
+  justify-content: 'center';
+  flex-direction: column;
+  height: 44px;
+  padding: 0px;
+  margin-bottom: 15px;
+  align-self: stretch;
+  align-items: center;
+`;
+
+const Accept = styled.div`
 	flex-direction: column;
 	width: 100px;
 	height: 44px;

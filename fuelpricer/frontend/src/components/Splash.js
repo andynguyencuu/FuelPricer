@@ -146,6 +146,7 @@ const ButtonOverlay = styled.button`
   background: none;
   border: none;
 `;
+
 const Logo = styled.img`
   width: 174px;
   height: 100%;
