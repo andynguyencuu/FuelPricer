@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import ButtonSmallBlue from "./ButtonSmallBlue";
 import ButtonSmallGrey from "./ButtonSmallGrey";
 import InlineError from "./InlineError"
+import Transitioner from "./Transitioner";
+
 import { axiosInstance } from "../axiosApi";
 
 class Splash extends Component {
@@ -17,6 +19,14 @@ class Splash extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.togglehover_signin = this.togglehover_signin.bind(this);
 		this.togglehover_register  = this.togglehover_register.bind(this);
+
+		this.current_gradient = `linear-gradient(180deg, #ffffff 0%, #ddaf77 89%)`;
+
+		this.gradient_buffer = localStorage.getItem("grad_buffer");
+		// "prevent" transition on direct url
+		this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+		localStorage.setItem("grad_buffer", this.current_gradient);
+
 	}
 
 	handleChange(event) {
@@ -63,11 +73,8 @@ class Splash extends Component {
 	
 	render() {
 		return (
-			<Container
-			style={{
-				backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
-			}}
-			>
+			<Container>
+				<Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
 				<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 				<SignInDialog>
 					<BoxHeader>

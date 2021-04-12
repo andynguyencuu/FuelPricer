@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ButtonFancy from "./ButtonFancy";
 import QuoteCard from "./QuoteCard";
 import axiosInstance from "../axiosApi";
+import Transitioner from "./Transitioner";
 
 class FuelQuoteHistory extends Component {
   constructor(props) {
@@ -13,6 +14,12 @@ class FuelQuoteHistory extends Component {
     this.quotes = {};
     this.cards = [];
     this.togglehover_return = this.togglehover_return.bind(this);
+
+    this.current_gradient = `linear-gradient(180deg, #ddaf77 20%, #ffffff 90%)`;
+    this.gradient_buffer = localStorage.getItem("grad_buffer");
+    // "prevent" transition on direct url
+    this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+    localStorage.setItem("grad_buffer", this.current_gradient);
   }
   
   togglehover_return() {
@@ -52,15 +59,12 @@ class FuelQuoteHistory extends Component {
       ></QuoteCard>)
     }
     return cards
-    }
-    
+  }
+  
   render() {
     return (
-      <Container
-      style={{
-          backgroundImage: `linear-gradient(180deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
-        }}
-        >
+      <Container>
+      <Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
         <HeaderGroup>
           <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
           <Header>Fuel Quote History</Header>
@@ -92,7 +96,6 @@ class FuelQuoteHistory extends Component {
 
 const Container = styled.div`
 display: flex;
-background-color: rgba(242, 213, 153, 1);
 flex-direction: column;
 align-items: center;
 overflow-x: hidden;

@@ -5,6 +5,7 @@ import TextPassword from "./TextPassword";
 import TextPasswordConf from "./TextPasswordConf";
 import ButtonSmallPink from "./ButtonSmallPink";
 import InlineError from "./InlineError"
+import Transitioner from "./Transitioner";
 import axiosInstance from "../axiosApi";
 
 class Registration extends Component {
@@ -18,13 +19,19 @@ class Registration extends Component {
 			error_msg: "",
 			hover_register: false
 		};
-
+		
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.togglehover_register = this.togglehover_register.bind(this);
-
+		
+		this.current_gradient = `linear-gradient(180deg, #ffffff 0%, #ddaf77 89%)`;
+		
+		this.gradient_buffer = localStorage.getItem("grad_buffer");
+		// "prevent" transition on direct url
+		this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+		localStorage.setItem("grad_buffer", this.current_gradient);
 	}
-
+	
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
 	}
@@ -32,13 +39,13 @@ class Registration extends Component {
 	togglehover_register() {
 		this.setState({ ['hover_register']: !this.state.hover_register })
 	}
-
-
+	
+	
 	handleError(err) {
 		this.setState({ ['error']: true, ['error_msg']: err });
 		return setTimeout(function () { this.setState({ ['error']: false }) }.bind(this), 4000);
 	}
-
+	
 	async handleSubmit(event) {
 		event.preventDefault();
 		if (this.state.username == "") return this.handleError("Please provide a user ID!");
@@ -61,7 +68,7 @@ class Registration extends Component {
 			localStorage.setItem('access_token', response.data.access);
 			localStorage.setItem('refresh_token', response.data.refresh);
 			axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access;
-
+			
 			window.location.replace('http://localhost:8000/Profile/');
 		} catch (err) {
 			if (err.response) {
@@ -70,14 +77,11 @@ class Registration extends Component {
 			else return this.handleError("Unexpected server error.")
 		}
 	}
-
+	
 	render() {
 		return (
-			<Container
-				style={{
-					backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
-				}}
-			>
+			<Container>
+				<Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
 				<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 				<RegisterDialog>
 					<BoxHeader>

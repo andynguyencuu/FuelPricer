@@ -12,6 +12,7 @@ import { axiosInstance } from "../axiosApi";
 import { DatePickerInput } from 'rc-datepicker';
 import { FaCalendarDay } from "react-icons/fa";
 import InlineError from "./InlineError"
+import Transitioner from "./Transitioner";
 import "../cal-style.css";
 
 class FuelQuoteForm extends Component {
@@ -19,7 +20,7 @@ class FuelQuoteForm extends Component {
 		super(props);
 		var today = new Date(),
 			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false  };
+		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false };
 		// todo: copy this.state into ↓ when "Generate", use for "Accept"
 		this.quote_buffer = {}
 
@@ -29,6 +30,13 @@ class FuelQuoteForm extends Component {
 		this.togglehover_generate = this.togglehover_generate.bind(this);
 		this.togglehover_accept = this.togglehover_accept.bind(this);
 		this.togglehover_return = this.togglehover_return.bind(this);
+
+		this.current_gradient = `linear-gradient(90deg, #ddaf77 10%, #ffffff 100%)`;
+		this.gradient_buffer = localStorage.getItem("grad_buffer");
+		// "prevent" transition on direct url
+		this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+		localStorage.setItem("grad_buffer", this.current_gradient);
+
 
 	}
 
@@ -53,7 +61,7 @@ class FuelQuoteForm extends Component {
 	togglehover_accept() {
 		this.setState({ ['hover_accept']: !this.state.hover_accept })
 	}
-	
+
 	togglehover_return() {
 		this.setState({ ['hover_return']: !this.state.hover_return })
 	}
@@ -79,7 +87,6 @@ class FuelQuoteForm extends Component {
 				gallonsRequested: this.state.gallonsRequested,
 				dateRequested: this.state.dateRequested
 			}, { method: 'patch' });
-			console.log(data.data)
 			this.setState({ quotePrice: data.data.generated })
 		} catch (err) {
 			return this.handleError("Server error fetching quote.")
@@ -101,7 +108,7 @@ class FuelQuoteForm extends Component {
 				address_2: this.state.address_2,
 				quotePrice: this.state.quotePrice
 			}, { method: 'post' });
-			this.setState({['errorRHS']: true, ['error_msgRHS']: '✅'})
+			this.setState({ ['errorRHS']: true, ['error_msgRHS']: '✅' })
 			setTimeout(() => {
 				window.location.replace('http://localhost:8000/Dashboard/');
 			}, 1000);
@@ -114,11 +121,8 @@ class FuelQuoteForm extends Component {
 
 	render() {
 		return (
-			<Container
-				style={{
-					backgroundImage: `linear-gradient(135deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
-				}}
-			>
+			<Container>
+				<Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
 				<QuoteForm>
 					<BoxHeader>
 						<Text>FUEL QUOTE FORM</Text>
@@ -214,18 +218,18 @@ class FuelQuoteForm extends Component {
 				<Group1>
 					<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 					<Link to="/Dashboard">
-							<ButtonOverlay>
-								<ButtonFancy hover={this.state.hover_return} onMouseEnter={this.togglehover_return} onMouseLeave={this.togglehover_return}
-									button="Button"
-									style={{
-										height: 34,
-										width: 80,
-										borderRadius: 100,
-										marginBottom: 0
-									}}
-									button="Return"
-								></ButtonFancy>
-							</ButtonOverlay>
+						<ButtonOverlay>
+							<ButtonFancy hover={this.state.hover_return} onMouseEnter={this.togglehover_return} onMouseLeave={this.togglehover_return}
+								button="Button"
+								style={{
+									height: 34,
+									width: 80,
+									borderRadius: 100,
+									marginBottom: 0
+								}}
+								button="Return"
+							></ButtonFancy>
+						</ButtonOverlay>
 					</Link>
 				</Group1>
 				<QuoteOutput>
@@ -256,7 +260,7 @@ class FuelQuoteForm extends Component {
 										marginRight: 20
 									}}
 									caption="Accept"
-									></ButtonSmallGreen>
+								></ButtonSmallGreen>
 							</ButtonOverlay>
 						</Accept>
 					</form>
@@ -268,7 +272,6 @@ class FuelQuoteForm extends Component {
 
 const Container = styled.div`
 	display: flex;
-	background-color: rgba(230, 230, 230, 1);
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;

@@ -46,13 +46,13 @@ class Dashboard extends Component {
       this.togglehover_return = this.togglehover_return.bind(this);
       
     this.current_gradient = `linear-gradient(180deg, #DDAF77 20%, #ffffff 85%)`;
-    this.default_from_gradient = `linear-gradient(180deg, #ffffff 0%, #DDAF77 89%)`;
-
     this.gradient_buffer = localStorage.getItem("grad_buffer");
-    this.gradient_buffer = this.gradient_buffer ?? this.default_from_gradient;
-    localStorage.setItem("grad_buffer", this.gradient_buffer);
-    console.log("current: " + this.current_gradient);
-    console.log("buffer: " + this.gradient_buffer);
+    console.log("buffer fetched: " + this.gradient_buffer);
+    // "prevent" transition on direct url
+    this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+    console.log("gradient out:   " + this.gradient_buffer);
+    localStorage.setItem("grad_buffer", this.current_gradient);
+    console.log("buffer set to:  " + this.current_gradient);
 
     }
     
@@ -90,8 +90,7 @@ class Dashboard extends Component {
     render() {
       return (
       <Container>
-        <Transitioner in={this.gradient_buffer} out={this.current_gradient}>
-        </Transitioner>
+        <Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
         <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
         <Greeting>{"Good " + this.timeofday + ", " + this.state.name.split(" ")[0] + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>

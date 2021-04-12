@@ -8,27 +8,34 @@ import TextState from "./TextState";
 import TextZip from "./TextZip";
 import ButtonSmallGreen from "./ButtonSmallGreen";
 import InlineError from "./InlineError"
-
+import Transitioner from "./Transitioner";
 import { axiosInstance } from "../axiosApi";
 
 class ProfileManagement extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { fullname: "", address: "", address_2: "", city:"", state:"", zipcode:"", error: false, error_msg: ""};
-		
+		this.state = { fullname: "", address: "", address_2: "", city: "", state: "", zipcode: "", error: false, error_msg: "" };
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.togglehover_register = this.togglehover_register.bind(this);
+
+		this.current_gradient = `linear-gradient(180deg, #ffffff 0%, #ddaf77 89%)`;
+
+		this.gradient_buffer = localStorage.getItem("grad_buffer");
+		// "prevent" transition on direct url
+		this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+		localStorage.setItem("grad_buffer", this.current_gradient);
 	}
 	
 	handleChange(event) {
-		this.setState({ [event.target.name]: event.target.value });	
+		this.setState({ [event.target.name]: event.target.value });
 	}
-
+	
 	togglehover_register() {
 		this.setState({ ['hover_register']: !this.state.hover_register })
 	}
-
+	
 	handleError(err) {
 		this.setState({ ['error']: true, ['error_msg']: err });
 		return setTimeout(function () { this.setState({ ['error']: false }) }.bind(this), 4000);
@@ -37,7 +44,7 @@ class ProfileManagement extends Component {
 	async componentDidMount(event) {
 		try {
 			axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
-			const response = await axiosInstance.get('/user/update/', {method: 'get'});
+			const response = await axiosInstance.get('/user/update/', { method: 'get' });
 			let prefill = response.data;
 			this.setState({ fullname: prefill.fullname, address: prefill.address, address_2: prefill.address_2, city: prefill.city, state: prefill.state, zipcode: prefill.zipcode });
 		} catch (err) {
@@ -49,7 +56,7 @@ class ProfileManagement extends Component {
 		// alert('User profile update:\n' + this.state.fullname + "\n" + this.state.address + "\n" + this.state.address_2 + "\n" + this.state.city + "\n" + this.state.st + "\n" + this.state.zipcode);
 		event.preventDefault();
 		// check everything but Address 2 for empty strings
-		if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3,6)).includes("")) {
+		if (Object.values(this.state).slice(0, 2).concat(Object.values(this.state).slice(3, 6)).includes("")) {
 			return this.handleError("Please answer all required (*) fields.");
 		}
 		try {
@@ -64,84 +71,81 @@ class ProfileManagement extends Component {
 	
 	render() {
 		return (
-			<Container
-			style={{
-				backgroundImage: `linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,213,153,1) 89%)`
-			}}
-				>
+			<Container>
+			<Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
 				<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 				<ProfileDialog>
 					<BoxHeader1>
 						<Text>PROFILE MANAGEMENT</Text>
 					</BoxHeader1>
 					<form onSubmit={this.handleSubmit}>
-						
-					<TextFullName
-						name="fullname" type="text" value={this.state.fullname} onChange={this.handleChange}
-						style={{
-							width: 300,
-							height: 35,
-							marginBottom: 10
-						}}
+
+						<TextFullName
+							name="fullname" type="text" value={this.state.fullname} onChange={this.handleChange}
+							style={{
+								width: 300,
+								height: 35,
+								marginBottom: 10
+							}}
 						></TextFullName>
-					<TextAddress1
-						name="address" type="text" value={this.state.address} onChange={this.handleChange}
-						style={{
-							width: 300,
-							height: 35,
-							marginBottom: 10
-						}}
-					></TextAddress1>
-					<TextAddress2
-						name="address_2" type="text" value={this.state.address_2} onChange={this.handleChange}
-						style={{
-							width: 300,
-							height: 35,
-							marginBottom: 10
-						}}
+						<TextAddress1
+							name="address" type="text" value={this.state.address} onChange={this.handleChange}
+							style={{
+								width: 300,
+								height: 35,
+								marginBottom: 10
+							}}
+						></TextAddress1>
+						<TextAddress2
+							name="address_2" type="text" value={this.state.address_2} onChange={this.handleChange}
+							style={{
+								width: 300,
+								height: 35,
+								marginBottom: 10
+							}}
 						></TextAddress2>
-					<TextCity
-						name="city" type="text" value={this.state.city} onChange={this.handleChange}
-						style={{
-							width: 300,
-							height: 35,
-							marginBottom: 10
-						}}
-					></TextCity>
-					<TextState
-						name="state" type="text" value={this.state.state} onChange={this.handleChange}
-						style={{
-							height: 35,
-							width: 300,
-							marginBottom: 10
-						}}
-					></TextState>
-					<TextZip
-						name="zipcode" type="text" pattern="[0-9]*" value={this.state.zipcode} onChange={this.handleChange}
-						style={{
-							height: 35,
-							width: 300,
-							marginBottom: 20
-						}}
+						<TextCity
+							name="city" type="text" value={this.state.city} onChange={this.handleChange}
+							style={{
+								width: 300,
+								height: 35,
+								marginBottom: 10
+							}}
+						></TextCity>
+						<TextState
+							name="state" type="text" value={this.state.state} onChange={this.handleChange}
+							style={{
+								height: 35,
+								width: 300,
+								marginBottom: 10
+							}}
+						></TextState>
+						<TextZip
+							name="zipcode" type="text" pattern="[0-9]*" value={this.state.zipcode} onChange={this.handleChange}
+							style={{
+								height: 35,
+								width: 300,
+								marginBottom: 20
+							}}
 						></TextZip>
-					<InlineError error={this.state.error}>
-						{this.state.error_msg}
-					</InlineError>
+						<InlineError error={this.state.error}>
+							{this.state.error_msg}
+						</InlineError>
 						<UpdateProfile
-						 type="submit" value="Update Profile">
+							type="submit" value="Update Profile">
 							<ButtonOverlay>
-								<ButtonSmallGreen hover = { this.state.hover_register } onMouseEnter = { this.togglehover_register } onMouseLeave = { this.togglehover_register }
-										style = {{
-											width: 130,
-												height: 34,
-													margin: 0
-												}
-											}
-											caption = "Update Profile"
-									></ButtonSmallGreen>
+								<ButtonSmallGreen hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
+									style={{
+										width: 130,
+										height: 34,
+										margin: 0
+									}
+									}
+									caption="Update Profile"
+								></ButtonSmallGreen>
 							</ButtonOverlay>
 						</UpdateProfile>
-					{/* <DiscardChanges>
+						{/* <DiscardChanges>
 						<ButtonOverlay onClick={() => this.handleDiscard()}>
 							<ButtonSmallGrey
 								style={{
@@ -155,7 +159,7 @@ class ProfileManagement extends Component {
 							></ButtonSmallGrey>
 						</ButtonOverlay>
 					</DiscardChanges> */}
-				</form>
+					</form>
 				</ProfileDialog>
 				<br></br>
 				<Container></Container>
