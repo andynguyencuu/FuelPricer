@@ -21,10 +21,14 @@
 
 <body>
   <noscript>Please enable JavaScript to run this app.</noscript>
-  <div id="root" class="content">
-      If you're reading this, something is wrong.
+  <div class="loading">
+    Fuel Pricer
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
   </div>
-  <script type="text/javascript" src="{% static 'frontend/public/main.js' %}"></script>
+  <div id="root" class="content">
+  </div>
+    <script type="text/javascript" src="{% static 'frontend/public/main.js' %}"></script>
+  </div>
 </body>
 
 </html>

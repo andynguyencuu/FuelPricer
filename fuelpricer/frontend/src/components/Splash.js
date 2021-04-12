@@ -24,7 +24,7 @@ class Splash extends Component {
 
 		this.gradient_buffer = localStorage.getItem("grad_buffer");
 		// "prevent" transition on direct url
-		this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
+		this.gradient_buffer = this.gradient_buffer ?? `none`;
 		localStorage.setItem("grad_buffer", this.current_gradient);
 
 	}
