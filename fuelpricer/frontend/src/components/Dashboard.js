@@ -3,6 +3,7 @@ import styled, { css, keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import ButtonBig from "./ButtonBig";
 import ButtonFancy from "./ButtonFancy";
+import Transitioner from "./Transitioner";
 import { axiosInstance } from "../axiosApi";
 
 class Dashboard extends Component {
@@ -42,12 +43,21 @@ class Dashboard extends Component {
           this.timeofday = "night";
         break;
       }
-      
       this.togglehover_return = this.togglehover_return.bind(this);
+      
+    this.current_gradient = `linear-gradient(180deg, #DDAF77 20%, #ffffff 85%)`;
+    this.default_from_gradient = `linear-gradient(180deg, #ffffff 0%, #DDAF77 89%)`;
+
+    this.gradient_buffer = localStorage.getItem("grad_buffer");
+    this.gradient_buffer = this.gradient_buffer ?? this.default_from_gradient;
+    localStorage.setItem("grad_buffer", this.gradient_buffer);
+    console.log("current: " + this.current_gradient);
+    console.log("buffer: " + this.gradient_buffer);
+
     }
     
     togglehover_return() {    
-      this.setState({ ['hover_return']: !this.state.hover_return })
+      this.setState({ ['hover_return']: !this.state.hover_return });
     }
     // just for the name
       async componentDidMount(event) {
@@ -79,11 +89,9 @@ class Dashboard extends Component {
     
     render() {
       return (
-      <Container
-      style={{
-        backgroundImage: `linear-gradient(180deg, rgba(242,213,153,1) 20%, #FFFFFF 90%)`
-        }}
-        >
+      <Container>
+        <Transitioner in={this.gradient_buffer} out={this.current_gradient}>
+        </Transitioner>
         <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
         <Greeting>{"Good " + this.timeofday + ", " + this.state.name.split(" ")[0] + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>
@@ -156,28 +164,15 @@ class Dashboard extends Component {
   }
 }
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
 const Container = styled.div`
   display: flex;
-  background-size: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  animation: ${fadeIn} 1s ease-out;
-  transition: background-color 1s ease-out;
+  `;
 
-`;
 
 const ButtonOverlay = styled.button`
   flex-direction: column;
@@ -198,7 +193,6 @@ const Greeting = styled.span`
   font-style: normal;
   font-weight: 400;
   color: #121212;
-  /* color: #ffffff; */
   height: 72px;
   font-size: 50px;
   text-align: center;

@@ -19,7 +19,6 @@ class ProfileManagement extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.togglehover_register = this.togglehover_register.bind(this);
-
 	}
 	
 	handleChange(event) {
@@ -27,12 +26,9 @@ class ProfileManagement extends Component {
 	}
 
 	togglehover_register() {
-
 		this.setState({ ['hover_register']: !this.state.hover_register })
-
 	}
 
-	
 	handleError(err) {
 		this.setState({ ['error']: true, ['error_msg']: err });
 		return setTimeout(function () { this.setState({ ['error']: false }) }.bind(this), 4000);
