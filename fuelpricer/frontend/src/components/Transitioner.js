@@ -35,7 +35,7 @@ const InGrad = styled.div`
   z-index: -1;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  animation: ${fadeIn} 2s ease-in;
+  animation: ${fadeIn} 3s cubic-bezier(.39,.45,.2,.97);
   background-size: 100%;
   height: 100vh;
   width: 100vw;

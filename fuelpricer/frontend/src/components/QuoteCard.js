@@ -72,6 +72,8 @@ const QuoteHeader = styled.div`
   width: 400px;
   flex-direction: column;
   display: flex;
+  box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 0, 1);
+  clip-path: inset(0px 0px -10px 0px round 30px 30px 0px 0px)
 `;
 
 const QuotePrice = styled.span`

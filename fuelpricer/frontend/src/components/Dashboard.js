@@ -47,12 +47,9 @@ class Dashboard extends Component {
       
     this.current_gradient = `linear-gradient(180deg, #DDAF77 20%, #ffffff 85%)`;
     this.gradient_buffer = localStorage.getItem("grad_buffer");
-    console.log("buffer fetched: " + this.gradient_buffer);
     // "prevent" transition on direct url
     this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
-    console.log("gradient out:   " + this.gradient_buffer);
     localStorage.setItem("grad_buffer", this.current_gradient);
-    console.log("buffer set to:  " + this.current_gradient);
 
     }
     
