@@ -85,7 +85,8 @@ class FuelQuoteForm extends Component {
 			}
 			const data = await axiosInstance.patch('/quote/', {
 				gallonsRequested: this.state.gallonsRequested,
-				dateRequested: this.state.dateRequested
+				dateRequested: this.state.dateRequested,
+				address: this.state.address
 			}, { method: 'patch' });
 			this.setState({ quotePrice: data.data.generated })
 		} catch (err) {
