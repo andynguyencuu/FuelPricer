@@ -1,5 +1,6 @@
+from .models import FuelQuote, CustomUser
 class Pricer:
-  def __init__(self, gal_req, ppgal, address, instate = False, past_cust = False): 
+  def __init__(self, gal_req, ppgal, address, uid, instate = False, past_cust = False): 
     self.quote_price = 1.5 # dummy value
     self.gallons_requested = gal_req #need to check if over 1000, 2% if more, 3% off if less
     self.ppgal = ppgal
@@ -15,25 +16,31 @@ class Pricer:
     # is not client, not instate, over 1000
     # is not client, instate, not over 1000
     # is not client, not instate, not over 1000
-    if(instate == True and int(gal_req) > 1000):#if past client
+    # entry = FuelQuote.objects.get(REQUESTOR = uid)
+    # print(entry)
+    queryset = FuelQuote.objects.all()
+    queryset = queryset.filter(REQUESTOR=uid)
+    if queryset.exists():
+      self.past_cust = True
+    else:
+      self.past_cust = False
+    print(self.past_cust)
+    if(instate == True and int(gal_req) > 1000 and self.past_cust == True):#if past client
       self.margin = (.02 - 0.01 + .02 +.1) * 1.5
-      print(self.margin)
-    elif(instate == False and int(gal_req) > 1000):#if past client
+    elif(instate == False and int(gal_req) > 1000 and self.past_cust == True):#if past client
       self.margin = (.04 - 0.01 + .02 +.1) * 1.5
-    elif(instate == True and int(gal_req) < 1000):#if past client
+    elif(instate == True and int(gal_req) < 1000 and self.past_cust == True):#if past client
       self.margin = (.02 - 0.01 + .03 + .1) * 1.5
-    elif(instate == False and int(gal_req) < 1000):#if past client
+    elif(instate == False and int(gal_req) < 1000 and self.past_cust == True):#if past client
       self.margin = (.04 - 0.01 + .03 +.1) * 1.5
-    elif(instate == True and int(gal_req) > 1000):#if not client
+    elif(instate == True and int(gal_req) > 1000 and self.past_cust == False):#if not client
       self.margin = (.02 + .02 +.1) * 1.5
-    elif(instate == False and int(gal_req) > 1000):#if not client
+    elif(instate == False and int(gal_req) > 1000 and self.past_cust == False):#if not client
       self.margin = (.04 + .02 +.1) * 1.5
-    elif(instate == True and int(gal_req) < 1000):#if not client
+    elif(instate == True and int(gal_req) < 1000 and self.past_cust == False):#if not client
       self.margin = (.02 + .03 +.1) * 1.5
-    elif(instate == False and int(gal_req) < 1000):#if not client
+    else:#if not client, < 1000, not instate
       self.margin = (.04 + .03 +.1) * 1.5
-    else:#Might change later
-      self.margin = (0.00)
     
   def generate(self):
     # do math here

@@ -75,7 +75,7 @@ class FuelQuoteView(APIView):
 
     def patch(self, request):
         serializer = self.serializer_class(request.user) # will be used to acuire state, history presence, etc
-        new_quote = Pricer(request.data['gallonsRequested'], 1.5, request.data['address'])
+        new_quote = Pricer(request.data['gallonsRequested'], 1.5, request.data['address'], self.request.user.id)
         return Response(data={"generated":new_quote.generate()}, status=status.HTTP_200_OK)
     
     def post(self, request, format='json'):
