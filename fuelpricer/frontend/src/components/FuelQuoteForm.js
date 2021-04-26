@@ -266,6 +266,7 @@ class FuelQuoteForm extends Component {
 						</Accept>
 					</form>
 				</QuoteOutput>
+				<Container></Container>
 			</Container>
 		);
 	}
