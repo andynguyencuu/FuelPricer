@@ -20,7 +20,7 @@ class FuelQuoteForm extends Component {
 		super(props);
 		var today = new Date(),
 			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", margin: 0.00, error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false };
+		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", baseMargin: 0.00, error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false };
 		// todo: copy this.state into ↓ when "Generate", use for "Accept"
 		this.quote_buffer = {}
 
@@ -45,6 +45,10 @@ class FuelQuoteForm extends Component {
 
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
+		if (event.target.name == 'gallonsRequested') { 
+			this.setState({ pricePerGallon: parseFloat((1.50 * this.state.baseMargin - ((event.target.value > 1000) ? 0.01 : 0.00)).toFixed(2)) });
+
+		 }
 	}
 
 	handleError(err) {
@@ -76,8 +80,8 @@ class FuelQuoteForm extends Component {
 			
 			let quote_exists = (quer.data.length > 0);
 			// > 1000 default false 0.03
-			this.setState({ margin: (prefill.state == 'TX' ? 1.02 : 1.04) - (quote_exists ? 0.01 : 0.00) + 0.03 + 0.1});
-			this.setState({ pricePerGallon: parseFloat((this.state.pricePerGallon * this.state.margin).toFixed(2))});
+			this.setState({ baseMargin: parseFloat((prefill.state == 'TX' ? 1.02 : 1.04) - (quote_exists ? 0.01 : 0.00) + 0.03 + 0.1).toFixed(2)});
+			this.setState({ pricePerGallon: parseFloat((this.state.pricePerGallon * this.state.baseMargin).toFixed(2))});
 		} catch (err) {
 			return this.handleError("Server error fetching user details.");
 		}
