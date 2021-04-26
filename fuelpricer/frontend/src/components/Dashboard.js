@@ -43,7 +43,8 @@ class Dashboard extends Component {
           this.timeofday = "night";
         break;
       }
-      this.togglehover_return = this.togglehover_return.bind(this);
+      this.enterhover_return = this.enterhover_return.bind(this);
+      this.exithover_return = this.exithover_return.bind(this);
       
     this.current_gradient = `linear-gradient(180deg, #DDAF77 20%, #ffffff 85%)`;
     this.gradient_buffer = localStorage.getItem("grad_buffer");
@@ -53,8 +54,11 @@ class Dashboard extends Component {
 
     }
     
-    togglehover_return() {    
-      this.setState({ ['hover_return']: !this.state.hover_return });
+    enterhover_return() {    
+      this.setState({ ['hover_return']: true });
+    }
+    exithover_return() {    
+      this.setState({ ['hover_return']: false });
     }
     // just for the name
       async componentDidMount(event) {
@@ -141,7 +145,7 @@ class Dashboard extends Component {
         </Navigator>
           <SignOut onClick={this.handleLogout}>
             <ButtonOverlay>
-              <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.togglehover_return } onMouseLeave={ this.togglehover_return }
+              <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.enterhover_return } onMouseLeave={ this.exithover_return }
                 button="Button"
                 style={{
                   height: 34,

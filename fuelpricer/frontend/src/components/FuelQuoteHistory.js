@@ -13,7 +13,8 @@ class FuelQuoteHistory extends Component {
     
     this.quotes = {};
     this.cards = [];
-    this.togglehover_return = this.togglehover_return.bind(this);
+    this.enterhover_return = this.enterhover_return.bind(this);
+    this.exithover_return = this.exithover_return.bind(this);
 
     this.current_gradient = `linear-gradient(180deg, #ddaf77 20%, #ffffff 90%)`;
     this.gradient_buffer = localStorage.getItem("grad_buffer");
@@ -22,8 +23,11 @@ class FuelQuoteHistory extends Component {
     localStorage.setItem("grad_buffer", this.current_gradient);
   }
   
-  togglehover_return() {
-    this.setState({ ['hover_return']: !this.state.hover_return })
+  enterhover_return() {
+    this.setState({ ['hover_return']: true })
+  }
+  exithover_return() {
+    this.setState({ ['hover_return']: false })
   }
   
   
@@ -71,7 +75,7 @@ class FuelQuoteHistory extends Component {
           <Link to="/Dashboard">
             <Return>
               <ButtonOverlay>
-                <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.togglehover_return } onMouseLeave={ this.togglehover_return }
+                <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.enterhover_return } onMouseLeave={ this.exithover_return }
                   button="Button"
                   style={{
                     height: 34,

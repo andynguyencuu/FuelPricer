@@ -18,7 +18,8 @@ class ProfileManagement extends Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.togglehover_register = this.togglehover_register.bind(this);
+		this.enterhover_register = this.enterhover_register.bind(this);
+		this.exithover_register = this.exithover_register.bind(this);
 
 		this.current_gradient = `linear-gradient(180deg, #ffffff 0%, #ddaf77 89%)`;
 
@@ -32,8 +33,11 @@ class ProfileManagement extends Component {
 		this.setState({ [event.target.name]: event.target.value });
 	}
 	
-	togglehover_register() {
-		this.setState({ ['hover_register']: !this.state.hover_register })
+	enterhover_register() {
+		this.setState({ ['hover_register']: true })
+	}
+	exithover_register() {
+		this.setState({ ['hover_register']: false })
 	}
 	
 	handleError(err) {
@@ -134,7 +138,7 @@ class ProfileManagement extends Component {
 						<UpdateProfile
 							type="submit" value="Update Profile">
 							<ButtonOverlay>
-								<ButtonSmallGreen hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
+								<ButtonSmallGreen hover={this.state.hover_register} onMouseEnter={this.enterhover_register} onMouseLeave={this.exithover_register}
 									style={{
 										width: 130,
 										height: 34,

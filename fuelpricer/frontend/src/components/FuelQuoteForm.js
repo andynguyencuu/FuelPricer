@@ -27,9 +27,12 @@ class FuelQuoteForm extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.generate = this.generate.bind(this);
-		this.togglehover_generate = this.togglehover_generate.bind(this);
-		this.togglehover_accept = this.togglehover_accept.bind(this);
-		this.togglehover_return = this.togglehover_return.bind(this);
+		this.enterhover_generate = this.enterhover_generate.bind(this);
+		this.enterhover_accept = this.enterhover_accept.bind(this);
+		this.enterhover_return = this.enterhover_return.bind(this);
+		this.exithover_generate = this.exithover_generate.bind(this);
+		this.exithover_accept = this.exithover_accept.bind(this);
+		this.exithover_return = this.exithover_return.bind(this);
 
 		this.current_gradient = `linear-gradient(90deg, #ddaf77 10%, #ffffff 100%)`;
 		this.gradient_buffer = localStorage.getItem("grad_buffer");
@@ -54,16 +57,28 @@ class FuelQuoteForm extends Component {
 		return setTimeout(function () { this.setState({ ['errorRHS']: false }) }.bind(this), 4000);
 	}
 
-	togglehover_generate() {
-		this.setState({ ['hover_generate']: !this.state.hover_generate })
+	enterhover_generate() {
+		this.setState({ ['hover_generate']: true })
 	}
 
-	togglehover_accept() {
-		this.setState({ ['hover_accept']: !this.state.hover_accept })
+	enterhover_accept() {
+		this.setState({ ['hover_accept']: true })
 	}
 
-	togglehover_return() {
-		this.setState({ ['hover_return']: !this.state.hover_return })
+	enterhover_return() {
+		this.setState({ ['hover_return']: true })
+	}
+
+	exithover_generate() {
+		this.setState({ ['hover_generate']: false })
+	}
+
+	exithover_accept() {
+		this.setState({ ['hover_accept']: false })
+	}
+
+	exithover_return() {
+		this.setState({ ['hover_return']: false })
 	}
 
 	async componentDidMount(event) {
@@ -204,7 +219,7 @@ class FuelQuoteForm extends Component {
 						<Generate>
 							<ButtonOverlay
 								type="submit" value="Generate">
-								<ButtonSmallBlue hover={this.state.hover_generate} onMouseEnter={this.togglehover_generate} onMouseLeave={this.togglehover_generate}
+								<ButtonSmallBlue hover={this.state.hover_generate} onMouseEnter={this.enterhover_generate} onMouseLeave={this.exithover_generate}
 									style={{
 										width: 100,
 										height: 34,
@@ -220,7 +235,7 @@ class FuelQuoteForm extends Component {
 					<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
 					<Link to="/Dashboard">
 						<ButtonOverlay>
-							<ButtonFancy hover={this.state.hover_return} onMouseEnter={this.togglehover_return} onMouseLeave={this.togglehover_return}
+							<ButtonFancy hover={this.state.hover_return} onMouseEnter={this.enterhover_return} onMouseLeave={this.exithover_return}
 								button="Button"
 								style={{
 									height: 34,
@@ -252,7 +267,7 @@ class FuelQuoteForm extends Component {
 						<Accept>
 							<ButtonOverlay
 								type="submit" value="Accept">
-								<ButtonSmallGreen hover={this.state.hover_accept} onMouseEnter={this.togglehover_accept} onMouseLeave={this.togglehover_accept}
+								<ButtonSmallGreen hover={this.state.hover_accept} onMouseEnter={this.enterhover_accept} onMouseLeave={this.exithover_accept}
 									style={{
 										width: 80,
 										height: 34,

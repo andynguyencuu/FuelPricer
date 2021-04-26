@@ -17,8 +17,10 @@ class Splash extends Component {
 		
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.togglehover_signin = this.togglehover_signin.bind(this);
-		this.togglehover_register  = this.togglehover_register.bind(this);
+		this.enterhover_signin = this.enterhover_signin.bind(this);
+		this.exithover_signin = this.exithover_signin.bind(this);
+		this.enterhover_register  = this.enterhover_register.bind(this);
+		this.exithover_register  = this.exithover_register.bind(this);
 
 		this.current_gradient = `linear-gradient(180deg, #ffffff 0%, #ddaf77 89%)`;
 
@@ -38,11 +40,17 @@ class Splash extends Component {
 		return setTimeout(function () { this.setState({ ['error']: false }) }.bind(this), 4000);
 	}
 
-	togglehover_signin() {
-		this.setState({['hover_signin']: !this.state.hover_signin})
+	enterhover_signin() {
+		this.setState({['hover_signin']: true})
 	}
-	togglehover_register() {
-		this.setState({['hover_register']: !this.state.hover_register})
+	exithover_signin() {
+		this.setState({['hover_signin']: false})
+	}
+	enterhover_register() {
+		this.setState({['hover_register']: true})
+	}
+	exithover_register() {
+		this.setState({['hover_register']: false})
 	}
 	
 	async handleSubmit(event) {
@@ -107,7 +115,7 @@ class Splash extends Component {
 						<SignIn
 							type="submit" value="Sign In">
 							<ButtonOverlay>
-								<ButtonSmallBlue hover={this.state.hover_signin} onMouseEnter={this.togglehover_signin} onMouseLeave={this.togglehover_signin}
+								<ButtonSmallBlue hover={this.state.hover_signin} onMouseEnter={this.enterhover_signin} onMouseLeave={this.exithover_signin}
 									style={{
 										width: 80,
 										height: 34
@@ -118,7 +126,7 @@ class Splash extends Component {
 						</SignIn>
 							<Register to="/Registration">
 								<ButtonOverlay>
-									<ButtonSmallGrey hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
+									<ButtonSmallGrey hover={this.state.hover_register} onMouseEnter={this.enterhover_register} onMouseLeave={this.exithover_register}
 										style={{
 											width: 92,
 											height: 34

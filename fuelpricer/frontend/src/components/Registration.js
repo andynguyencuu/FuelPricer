@@ -22,7 +22,8 @@ class Registration extends Component {
 		
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.togglehover_register = this.togglehover_register.bind(this);
+		this.enterhover_register = this.enterhover_register.bind(this);
+		this.exithover_register = this.exithover_register.bind(this);
 		
 		this.current_gradient = `linear-gradient(180deg, #ffffff 0%, #ddaf77 89%)`;
 		
@@ -36,8 +37,11 @@ class Registration extends Component {
 		this.setState({ [event.target.name]: event.target.value });
 	}
 
-	togglehover_register() {
-		this.setState({ ['hover_register']: !this.state.hover_register })
+	enterhover_register() {
+		this.setState({ ['hover_register']: true })
+	}
+	exithover_register() {
+		this.setState({ ['hover_register']: false })
 	}
 	
 	
@@ -127,7 +131,7 @@ class Registration extends Component {
 						</InlineError>
 						<Register type="submit" value="Register">
 							<ButtonOverlay>
-								<ButtonSmallPink hover={this.state.hover_register} onMouseEnter={this.togglehover_register} onMouseLeave={this.togglehover_register}
+								<ButtonSmallPink hover={this.state.hover_register} onMouseEnter={this.enterhover_register} onMouseLeave={this.exithover_register}
 									style={{
 										width: 92,
 										height: 34,
