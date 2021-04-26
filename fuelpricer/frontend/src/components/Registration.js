@@ -230,7 +230,7 @@ const Return = styled(Link)`
 	align-items: center;
 	margin-bottom: 15px;
 	&:hover ${Return} {
-    color: #2A78BF;
+    color: #276FB1;
   }
 `;
 

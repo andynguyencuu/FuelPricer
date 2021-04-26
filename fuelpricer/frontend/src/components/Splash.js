@@ -221,6 +221,7 @@ const Register = styled(Link)`
   margin-bottom: 15px;
   align-self: stretch;
   align-items: center;
+	text-decoration: none;
 `;
 
 export default Splash;

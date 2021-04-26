@@ -12,150 +12,147 @@ class Dashboard extends Component {
     var today = new Date();
     this.timeofday = "";
     this.state = {
-      name: "", hover_return: false 
+      name: "", hover_return: false
     };
     this.handleLogout = this.handleLogout.bind(this);
     switch (today.getHours()) {
       case 5:
-        case 6:
+      case 6:
       case 7:
       case 8:
-        case 9:
+      case 9:
       case 10:
         this.timeofday = "morning";
         break;
-        case 11:
+      case 11:
       case 12:
-        case 13:
+      case 13:
       case 14:
-        case 15:
+      case 15:
       case 16:
         this.timeofday = "afternoon";
         break;
       case 17:
-        case 18:
-          case 19:
+      case 18:
+      case 19:
       case 20:
-        case 21:
+      case 21:
         this.timeofday = "evening";
         break;
-        default:
-          this.timeofday = "night";
+      default:
+        this.timeofday = "night";
         break;
-      }
-      this.enterhover_return = this.enterhover_return.bind(this);
-      this.exithover_return = this.exithover_return.bind(this);
-      
+    }
+    this.enterhover_return = this.enterhover_return.bind(this);
+    this.exithover_return = this.exithover_return.bind(this);
+
     this.current_gradient = `linear-gradient(180deg, #DDAF77 20%, #ffffff 85%)`;
     this.gradient_buffer = localStorage.getItem("grad_buffer");
     // "prevent" transition on direct url
     this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
     localStorage.setItem("grad_buffer", this.current_gradient);
 
-    }
-    
-    enterhover_return() {    
-      this.setState({ ['hover_return']: true });
-    }
-    exithover_return() {    
-      this.setState({ ['hover_return']: false });
-    }
-    // just for the name
-      async componentDidMount(event) {
-        try {
+  }
+
+  enterhover_return() {
+    this.setState({ ['hover_return']: true });
+  }
+  exithover_return() {
+    this.setState({ ['hover_return']: false });
+  }
+  // just for the name
+  async componentDidMount(event) {
+    try {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/user/update/', { method: 'get' });
-      this.setState({ name: response.data.fullname});
+      this.setState({ name: response.data.fullname });
     } catch (err) {
       alert(err);
     }
   }
-  
+
   async handleLogout() {
     try {
       console.log("here");
       // const response = await axiosInstance.post('/blacklist/', {
-        //     "refresh_token": localStorage.getItem("refresh_token")
-        // });
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        axiosInstance.defaults.headers['Authorization'] = null;
-        window.location.replace('http://localhost:8000/Splash/');
-        return response;
-      }
-      catch (e) {
-        console.log(e);
-      }
-    };
-    
-    render() {
-      return (
+      //     "refresh_token": localStorage.getItem("refresh_token")
+      // });
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      axiosInstance.defaults.headers['Authorization'] = null;
+      window.location.replace('http://localhost:8000/Splash/');
+      return response;
+    }
+    catch (e) {
+      console.log(e);
+    }
+  };
+
+  render() {
+    return (
       <Container>
         <Transitioner in={this.current_gradient} out={this.gradient_buffer}></Transitioner>
         <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
         <Greeting>{"Good " + this.timeofday + ", " + this.state.name.split(" ")[0] + "."}</Greeting>
         <Prompt>What would you like to do today?</Prompt>
         <Navigator>
-          <Link to="/QuoteHistory">
+          <Pill to="/QuoteHistory">
             <QuoteHistory>
               <ButtonOverlay>
-                <ButtonBig
-                  button="Button"
+                <ButtonHist
                   style={{
                     width: 420,
                     height: 120,
                     borderTopLeftRadius: 100,
-                    borderBottomLeftRadius: 100,
-                    backgroundColor: "rgba(255,99,99,1)"
+                    borderBottomLeftRadius: 100
                   }}
                   button="Review Quote History."
-                ></ButtonBig>
+                ></ButtonHist>
               </ButtonOverlay>
             </QuoteHistory>
-          </Link>
-          <Link to="/QuoteForm">
+          </Pill>
+          <Pill to="/QuoteForm">
             <FuelQuote>
               <ButtonOverlay>
-                <ButtonBig
+                <ButtonForm
                   style={{
                     width: 420,
                     height: 120
                   }}
                   button="Create Fuel Quote."
-                  ></ButtonBig>
+                ></ButtonForm>
               </ButtonOverlay>
             </FuelQuote>
-          </Link>
-          <Link to="/Profile">
+          </Pill>
+          <Pill to="/Profile">
             <ProfileManagement>
               <ButtonOverlay>
-                <ButtonBig
+                <ButtonProf
                   style={{
                     width: 420,
                     height: 120,
                     borderTopRightRadius: 100,
-                    borderBottomRightRadius: 100,
-                    backgroundColor: "rgba(52,217,82,1)"
+                    borderBottomRightRadius: 100
                   }}
                   button="Manage User Profile."
-                  ></ButtonBig>
+                ></ButtonProf>
               </ButtonOverlay>
             </ProfileManagement>
-          </Link>
+          </Pill>
         </Navigator>
-          <SignOut onClick={this.handleLogout}>
-            <ButtonOverlay>
-              <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.enterhover_return } onMouseLeave={ this.exithover_return }
-                button="Button"
-                style={{
-                  height: 34,
-                  width: 90,
-                  borderRadius: 100
-                }}
-                button="Sign Out"
-                ></ButtonFancy>
-            </ButtonOverlay>
-          </SignOut>
+        <SignOut onClick={this.handleLogout}>
+          <ButtonOverlay>
+            <ButtonFancy hover={this.state.hover_return} onMouseEnter={this.enterhover_return} onMouseLeave={this.exithover_return}
+              button="Button"
+              style={{
+                height: 34,
+                width: 90,
+                borderRadius: 100
+              }}
+              button="Sign Out"
+            ></ButtonFancy>
+          </ButtonOverlay>
+        </SignOut>
         <br />
 
         <Container></Container>
@@ -225,6 +222,28 @@ const Navigator = styled.div`
   flex-wrap: wrap;
   display: flex;
 `;
+
+const Pill = styled(Link)`
+  text-decoration: none;
+`
+
+const ButtonHist = styled(ButtonBig)`
+  background-color: #FF6363;
+	&:hover ${ButtonHist} {
+    background-color: #DB4D4D;
+  }
+`
+const ButtonForm = styled(ButtonBig)`
+  &:hover ${ButtonForm} {
+    background-color: #0667D0;
+  }
+`
+const ButtonProf = styled(ButtonBig)`
+  background-color: #34D952;
+	&:hover ${ButtonProf} {
+    background-color: #33B94B;
+  }
+`
 
 const QuoteHistory = styled.div`
   flex-direction: row;
