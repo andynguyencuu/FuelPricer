@@ -47,7 +47,7 @@ class FuelQuoteForm extends Component {
 		this.setState({ [event.target.name]: event.target.value });
 		if (event.target.name == 'gallonsRequested') { 
 			this.setState({ pricePerGallon: parseFloat((1.50 * this.state.baseMargin - ((event.target.value > 1000) ? 0.01 : 0.00)).toFixed(2)) });
-
+			if (event.target.value < 0) event.target.value = 0;
 		 }
 	}
 
