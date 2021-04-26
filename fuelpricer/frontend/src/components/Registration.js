@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 import TextUser from "./TextUser";
 import TextPassword from "./TextPassword";
 import TextPasswordConf from "./TextPasswordConf";
@@ -143,6 +144,9 @@ class Registration extends Component {
 							</ButtonOverlay>
 						</Register>
 					</form>
+					<Return to="/Splash">
+						Already have an account? Sign in.
+					</Return>
 				</RegisterDialog>
 				<br></br>
 				<Container></Container>
@@ -211,11 +215,23 @@ const RegisterAccount = styled.span`
 const Register = styled.div`
 	display: flex;
 	height: 44px;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	align-self: stretch;
 	align-items: center;
 	flex-direction: column;
 	border: none;
+`;
+
+const Return = styled(Link)`
+	font-size: 13px;
+	font-family: Lato;
+	font-style: normal;
+	color: #41A5FF;
+	align-items: center;
+	margin-bottom: 15px;
+	&:hover ${Return} {
+    color: #2A78BF;
+  }
 `;
 
 export default Registration;
