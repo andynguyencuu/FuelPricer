@@ -80,6 +80,7 @@ class FuelQuoteView(APIView):
     
     def post(self, request, format='json'):
         serializer = FuelQuoteSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             fuel = serializer.save(REQUESTOR=request.user)
             if fuel:

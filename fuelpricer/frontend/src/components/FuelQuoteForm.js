@@ -20,7 +20,7 @@ class FuelQuoteForm extends Component {
 		super(props);
 		var today = new Date(),
 			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false };
+		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", margin: 0.00, error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false };
 		// todo: copy this.state into ↓ when "Generate", use for "Accept"
 		this.quote_buffer = {}
 
@@ -57,29 +57,12 @@ class FuelQuoteForm extends Component {
 		return setTimeout(function () { this.setState({ ['errorRHS']: false }) }.bind(this), 4000);
 	}
 
-	enterhover_generate() {
-		this.setState({ ['hover_generate']: true })
-	}
-
-	enterhover_accept() {
-		this.setState({ ['hover_accept']: true })
-	}
-
-	enterhover_return() {
-		this.setState({ ['hover_return']: true })
-	}
-
-	exithover_generate() {
-		this.setState({ ['hover_generate']: false })
-	}
-
-	exithover_accept() {
-		this.setState({ ['hover_accept']: false })
-	}
-
-	exithover_return() {
-		this.setState({ ['hover_return']: false })
-	}
+	enterhover_generate() { this.setState({ ['hover_generate']: true })	}
+	enterhover_accept() { this.setState({ ['hover_accept']: true })	}
+	enterhover_return() { this.setState({ ['hover_return']: true })	}
+	exithover_generate() { this.setState({ ['hover_generate']: false })	}
+	exithover_accept() { this.setState({ ['hover_accept']: false })	}
+	exithover_return() { this.setState({ ['hover_return']: false })	}
 
 	async componentDidMount(event) {
 		try {
@@ -87,6 +70,14 @@ class FuelQuoteForm extends Component {
 			const response = await axiosInstance.get('/user/update/', { method: 'get' });
 			let prefill = response.data;
 			this.setState({ address: prefill.address + ' ' + prefill.city + ', ' + prefill.state + ' ' + prefill.zipcode });
+
+			// fetch past customer status
+			const quer = await axiosInstance.get('/quote/', { method: 'get' });
+			
+			let quote_exists = (quer.data.length > 0);
+			// > 1000 default false 0.03
+			this.setState({ margin: (prefill.state == 'TX' ? 1.02 : 1.04) - (quote_exists ? 0.01 : 0.00) + 0.03 + 0.1});
+			this.setState({ pricePerGallon: parseFloat((this.state.pricePerGallon * this.state.margin).toFixed(2))});
 		} catch (err) {
 			return this.handleError("Server error fetching user details.");
 		}
@@ -103,7 +94,7 @@ class FuelQuoteForm extends Component {
 				dateRequested: this.state.dateRequested,
 				address: this.state.address
 			}, { method: 'patch' });
-			this.setState({ quotePrice: data.data.generated })
+			this.setState({ quotePrice: parseFloat(data.data.generated.toFixed(2)) })
 		} catch (err) {
 			return this.handleError("Server error fetching quote.")
 		}
