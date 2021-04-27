@@ -1,6 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from core.views import CustomUserCreate, ObtainTokenPairWithFullnameView, CustomUserUpdate, HelloWorldView, FuelQuoteView, LogoutAndBlacklistRefreshTokenForUserView
+from rest_framework_simplejwt import views as jwt_views
 
 class TestUrls(SimpleTestCase):
     def test_create_user_url_is_resolved(self):
@@ -17,6 +18,11 @@ class TestUrls(SimpleTestCase):
         url = reverse('token_create')
         #print(resolve(url))
         self.assertEquals(resolve(url).func.view_class, ObtainTokenPairWithFullnameView)    
+
+    def test_token_refresh_url_is_resolved(self):
+        url = reverse('token_refresh')
+        #print(resolve(url))
+        self.assertEquals(resolve(url).func.view_class, jwt_views.TokenRefreshView)
         
     def test_hello_world_url_is_resolved(self):
         url = reverse('hello_world')
