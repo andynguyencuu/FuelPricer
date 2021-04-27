@@ -39,8 +39,6 @@ class FuelQuoteForm extends Component {
 		// "prevent" transition on direct url
 		this.gradient_buffer = this.gradient_buffer ?? this.current_gradient;
 		localStorage.setItem("grad_buffer", this.current_gradient);
-
-
 	}
 
 	handleChange(event) {
@@ -90,8 +88,14 @@ class FuelQuoteForm extends Component {
 	async generate(event) {
 		event.preventDefault();
 		try {
-			if ([this.state.gallonsRequested, this.state.dateRequested].includes("")) {
-				return this.handleError("Please provide required quote information!");
+			if (this.state.gallonsRequested== 0) { return this.handleError("Please provide a request amount."); }
+			if (this.state.dateRequested == "") { return this.handleError("Please provide a delivery date."); }
+			if (this.state.dateRequested == "Invalid date") {
+				return this.handleError("Invalid date. Please use the calendar!");
+			}
+			let today = new Date();
+			if (this.state.dateRequested.getTime() < new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).getTime()) {
+				return this.handleError("Tomorrow is the earliest possible delivery.")
 			}
 			const data = await axiosInstance.patch('/quote/', {
 				gallonsRequested: this.state.gallonsRequested,
@@ -169,10 +173,11 @@ class FuelQuoteForm extends Component {
 							<DatePickerInput
 								displayFormat='MM/DD/YYYY'
 								returnFormat='MM/DD/YYYY'
+								minDate={new Date().toISOString().slice(0, 10)}
 								className='deliveryDate'
 								valueLink={{
 									value: this.state.dateRequested,
-									requestChange: dateRequested => this.setState({ dateRequested })
+									requestChange: dateRequested => this.setState( {dateRequested} )
 								}}
 								showOnInputClick
 								placeholder='Delivery Date'
@@ -228,7 +233,7 @@ class FuelQuoteForm extends Component {
 				</QuoteForm>
 				<Group1>
 					<Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
-					<Link to="/Dashboard">
+					<Link to="/Dashboard" style={{ textDecoration: 'none' }}>
 						<ButtonOverlay>
 							<ButtonFancy hover={this.state.hover_return} onMouseEnter={this.enterhover_return} onMouseLeave={this.exithover_return}
 								button="Button"
