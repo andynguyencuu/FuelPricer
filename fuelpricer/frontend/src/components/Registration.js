@@ -55,6 +55,7 @@ class Registration extends Component {
 		event.preventDefault();
 		if (this.state.username == "") return this.handleError("Please provide a user ID!");
 		if (this.state.password == "") return this.handleError("Please provide a password!");
+		if (this.state.password.length < 8) return this.handleError("Password length must be at least 8.");
 		if (this.state.password != this.state.passwordconf) return this.handleError("Passwords must match!");
 		try {		// CREATE USER
 			await axiosInstance.post('/user/create/', {
