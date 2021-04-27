@@ -63,7 +63,10 @@ class Registration extends Component {
 				password: this.state.password
 			}, { method: 'post' });
 		}
-		catch {
+		catch (err) {
+			if (err.response) {
+				if (err.response.status >= 500) return this.handleError("A user with this ID already exists.");
+			}
 			return this.handleError("Server error creating user.");
 		}
 		try {		// USE TO SIGN IN
