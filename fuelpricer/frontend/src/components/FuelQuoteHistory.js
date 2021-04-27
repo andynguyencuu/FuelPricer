@@ -72,7 +72,7 @@ class FuelQuoteHistory extends Component {
         <HeaderGroup>
           <Logo src={"https://i.ibb.co/bFRMRGm/fuel23.png"}></Logo>
           <Header>Fuel Quote History</Header>
-          <Link to="/Dashboard">
+          <Link to="/Dashboard" style={{textDecoration: 'none'}}>
             <Return>
               <ButtonOverlay>
                 <ButtonFancy hover={ this.state.hover_return } onMouseEnter={ this.enterhover_return } onMouseLeave={ this.exithover_return }

@@ -20,7 +20,11 @@ class FuelQuoteForm extends Component {
 		super(props);
 		var today = new Date(),
 			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", pricePerGallon: 1.50, quotePrice: "0", baseMargin: 0.00, error: false, error_msg: "", errorRHS: false, error_msgRHS: "", hover_generate: false, hover_accept: false, hover_return: false };
+		this.state = { gallonsRequested: 0, dateOfQuote: date, dateRequested: "", address: "", address_2: "", 
+			pricePerGallon: 1.50, quotePrice: "0", baseMargin: 0.00, 
+			error: false, error_msg: "", errorRHS: false, error_msgRHS: "", 
+			hover_generate: false, hover_accept: false, hover_return: false 
+		};
 		// todo: copy this.state into ↓ when "Generate", use for "Accept"
 		this.quote_buffer = {}
 
@@ -102,7 +106,7 @@ class FuelQuoteForm extends Component {
 				dateRequested: this.state.dateRequested,
 				address: this.state.address
 			}, { method: 'patch' });
-			this.setState({ quotePrice: parseFloat(data.data.generated.toFixed(2)) })
+			this.setState({ quotePrice: parseFloat(data.data.generated.toFixed(2)), currGallonsRequested: this.state.gallonsRequested, currDateRequested: this.state.dateRequested, currPricePerGallon: this.state.pricePerGallon })
 		} catch (err) {
 			return this.handleError("Server error fetching quote.")
 		}
@@ -115,10 +119,10 @@ class FuelQuoteForm extends Component {
 				return this.handleErrorRHS("No quote generated yet!");
 			}
 			await axiosInstance.post('/quote/', {
-				gallonsRequested: this.state.gallonsRequested,
-				pricePerGallon: this.state.pricePerGallon,
+				gallonsRequested: this.state.currGallonsRequested,
+				pricePerGallon: this.state.currPricePerGallon,
 				dateOfQuote: this.state.dateOfQuote,
-				dateRequested: this.state.dateRequested,
+				dateRequested: this.state.currDateRequested,
 				address: this.state.address,
 				address_2: this.state.address_2,
 				quotePrice: this.state.quotePrice
