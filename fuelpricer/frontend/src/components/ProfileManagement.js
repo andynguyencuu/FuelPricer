@@ -30,6 +30,9 @@ class ProfileManagement extends Component {
 	}
 	
 	handleChange(event) {
+		if (event.target.name == 'zipcode') {
+			if (event.target.value.length > 9 || event.target.value < 0 ) return;
+		}
 		this.setState({ [event.target.name]: event.target.value });
 	}
 	
