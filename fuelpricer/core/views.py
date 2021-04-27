@@ -80,13 +80,13 @@ class FuelQuoteView(APIView):
         return Response(data={"generated":new_quote.generate()}, status=status.HTTP_200_OK)
     
     def post(self, request, format='json'):
-        serializer = FuelQuoteSerializer(data=request.data)
-        print(request.data)
+        serializer = FuelQuoteSerializer(data=request.data)   
         if serializer.is_valid():
             fuel = serializer.save(REQUESTOR=request.user)
             if fuel:
-                json = serializer.data
-                return Response(json, status=status.HTTP_201_CREATED)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(request.user)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request):
