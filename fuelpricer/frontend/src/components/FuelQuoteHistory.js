@@ -36,15 +36,23 @@ class FuelQuoteHistory extends Component {
       axiosInstance.defaults.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
       const response = await axiosInstance.get('/quote/', { method: 'get' });
       this.quotes= response.data;
-      this.setState(this.makeCards());
+      this.setState(this.buildCards());
     } catch (err) {
       alert(err);
     }
   }
   
-  makeCards() {
+  buildCards() {
     let cards = []
     let morph = Object.keys(this.quotes)
+    if (morph.length == 0) {
+      cards.push(<Create to="/QuoteForm"
+        key={0}
+        >
+          It's lonely in here. Create a quote.
+        </Create>
+        )
+    };
     for (var i = 0; i < morph.length; i++) {
       let target = this.quotes[morph[i]];
       cards.push(<QuoteCard
@@ -161,5 +169,17 @@ const QuoteList = styled.div`
   width: 400px;
   display: flex;
 `;
+
+const Create = styled(Link)`
+	font-size: 16px;
+	font-family: Lato;
+	font-style: normal;
+	color: #41A5FF;
+	align-items: center;
+	margin-bottom: 15px;
+	&:hover ${Create} {
+    color: #276FB1;
+  }
+  `
 
 export default FuelQuoteHistory;
